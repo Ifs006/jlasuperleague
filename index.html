@@ -1,0 +1,3353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JLA Super League</title>
+
+<!-- Favicon (inline SVG, gaya "pita terlipat" C&J) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 130'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2322D3EE'/%3E%3Cstop offset='55%25' stop-color='%238B5CF6'/%3E%3Cstop offset='100%25' stop-color='%2300FF87'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='74,8 118,8 118,86 96,116 46,116 46,90' fill='%231A0A2E'/%3E%3Cpath d='M6,8 H80 V72 L60,72 L48,102 L36,72 L6,72 Z' fill='url(%23g)'/%3E%3Ctext x='43' y='52' text-anchor='middle' font-family='Arial,sans-serif' font-weight='800' font-size='34' fill='%231A0A2E'%3EC%26J%3C/text%3E%3C/svg%3E">
+
+<!-- Open Graph / social share preview -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="JLA Super League">
+<meta property="og:title" content="JLA Super League &mdash; Fantasy Premier League 2026/27">
+<meta property="og:description" content="Klasemen, Head to Head, Prize Pool, dan Rule Book JLA Super League. Ngopi. Main. Menang.">
+<meta property="og:url" content="https://bytefoundryops.github.io/ligakopi/">
+<meta property="og:image" content="https://bytefoundryops.github.io/ligakopi/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JLA Super League">
+<meta name="twitter:description" content="Klasemen, Head to Head, dan Prize Pool musim 2026/27. Ngopi. Main. Menang.">
+<meta name="twitter:image" content="https://bytefoundryops.github.io/ligakopi/og-image.png">
+
+<meta name="theme-color" content="#37003C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{
+  --purple:#37003C;
+  --purple-2:#4F0057;
+  --purple-tint:#F4EEF6;
+  --purple-line:#E6DEEA;
+  --cyan:#04C7D6;
+  --cyan-ink:#00707A;
+  --green:#00A859;
+  --green-ink:#00713F;
+  --pink:#E90052;
+  --pink-ink:#A3003B;
+  --bg:#FFFFFF;
+  --surface:#FAF9FB;
+  --card:#FFFFFF;
+  --line:#E7E5EA;
+  --line-strong:#D9D2E8;
+  --text:#37003C;
+  --text-2:#63607A;
+  --text-mute:#756F82;
+  --font:'Inter', sans-serif;
+  --mono:'JetBrains Mono', monospace;
+  --glow-1:rgba(55,0,60,0.045);
+  --glow-2:rgba(0,113,63,0.035);
+}
+body.theme-dark{
+  --purple:#8B5CF6;
+  --purple-2:#A78BFA;
+  --purple-tint:rgba(139,92,246,0.14);
+  --purple-line:rgba(139,92,246,0.35);
+  --cyan:#22D3EE;
+  --cyan-ink:#22D3EE;
+  --green:#00FF87;
+  --green-ink:#2CE896;
+  --pink:#FF2D78;
+  --pink-ink:#FF5C87;
+  --bg:#0B0A18;
+  --surface:#14132A;
+  --card:#171632;
+  --line:rgba(255,255,255,0.09);
+  --line-strong:rgba(255,255,255,0.18);
+  --text:#F3F1FF;
+  --text-2:#C7C3DE;
+  --text-mute:#8B87A6;
+  --glow-1:rgba(139,92,246,0.14);
+  --glow-2:rgba(0,255,135,0.08);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;background-image:radial-gradient(ellipse 900px 500px at 10% -10%, var(--glow-1), transparent 60%),radial-gradient(ellipse 700px 500px at 100% 0%, var(--glow-2), transparent 60%);background-attachment:fixed;transition:background-color .25s ease;}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px 70px;}
+
+.topstripe{height:5px;background:linear-gradient(90deg, var(--cyan) 0%, var(--purple) 50%, var(--pink) 100%);}
+
+.header{border-bottom:1px solid var(--line);padding:28px 20px 0;position:relative;overflow:hidden;}
+.header::before{
+  content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle, rgba(4,245,255,0.10), transparent 70%);pointer-events:none;
+}
+.header::after{
+  content:'';position:absolute;bottom:-80px;left:20%;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle, rgba(233,0,82,0.06), transparent 70%);pointer-events:none;
+}
+.header-inner{max-width:1160px;margin:0 auto;position:relative;z-index:2;}
+.header-row{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:14px;}
+.brand-art{flex:0 0 auto;width:64px;height:64px;filter:drop-shadow(0 4px 10px rgba(139,92,246,0.35));}
+h1{font-size:24px;font-weight:800;margin:0;letter-spacing:-0.01em;color:var(--purple);}
+.subtitle{font-size:13px;color:var(--text-2);margin:2px 0 0;}
+.tagline{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(90deg, var(--cyan), var(--green));-webkit-background-clip:text;background-clip:text;color:transparent;margin:6px 0 0;}
+.header-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.meta-pill{
+  background:var(--purple-tint);
+  border:1px solid var(--purple-line);
+  border-radius:8px;
+  padding:8px 14px;
+  text-align:right;
+}
+.meta-pill .k{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mute);font-weight:600;}
+.meta-pill .v{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--purple);}
+.admin-toggle-btn{
+  font-family:var(--mono);font-size:11.5px;font-weight:700;
+  background:var(--surface);border:1px solid var(--line-strong);border-radius:8px;
+  padding:9px 14px;color:var(--text-mute);cursor:pointer;
+}
+.admin-toggle-btn:hover{border-color:var(--purple);color:var(--purple-2);}
+.admin-tabs{align-items:center;}
+.admin-toolbar{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  background:linear-gradient(120deg, rgba(139,92,246,0.14), rgba(255,45,120,0.08));
+  border:1px solid var(--purple-line);border-radius:12px;padding:12px 18px;margin-bottom:18px;
+}
+.admin-toolbar-left{font-size:12.5px;color:var(--text-2);}
+.admin-toolbar-right{display:flex;gap:8px;align-items:center;}
+
+.tabs{display:flex;gap:2px;margin-top:22px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{
+  font-family:var(--font);font-weight:600;font-size:13.5px;
+  color:var(--text-2);background:none;border:none;
+  padding:12px 16px;cursor:pointer;white-space:nowrap;position:relative;
+  transition:color .15s ease;
+}
+.tab-btn:hover{color:var(--purple);}
+.tab-btn:active{transform:scale(0.96);}
+.tab-btn.active{color:var(--purple);}
+.tab-btn.active::after{content:'';position:absolute;left:10px;right:10px;bottom:-1px;height:3px;background:linear-gradient(90deg, var(--purple), var(--cyan));border-radius:3px 3px 0 0;}
+
+.view{display:none;padding-top:26px;animation:fadein .35s cubic-bezier(.22,1,.36,1);}
+.view.active{display:block;}
+@keyframes fadein{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-mute);margin:0 0 12px;}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:28px;}
+.stat-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
+.stat-card.champ{background:var(--purple);border-color:var(--purple);}
+.stat-card.champ::before{
+  content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;
+  background:radial-gradient(circle, rgba(4,245,255,0.18), transparent 70%);
+}
+.stat-card.bottom{background:linear-gradient(135deg, #B2004F, #7A0038);border-color:#7A0038;}
+.stat-card.bottom::before{
+  content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,0.16), transparent 70%);
+}
+.stat-card{position:relative;overflow:hidden;transition:transform .2s cubic-bezier(.22,1,.36,1), box-shadow .2s ease;}
+.stat-card:active{transform:scale(0.97);}
+@media (hover:hover){.stat-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(55,0,60,0.10);}}
+.stat-card .lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text-mute);margin-bottom:8px;}
+.stat-card.champ .lbl, .stat-card.bottom .lbl{color:rgba(255,255,255,0.65);}
+.stat-card .big{font-family:var(--mono);font-weight:700;font-size:24px;color:var(--purple);font-variant-numeric:tabular-nums;}
+.stat-card.champ .big, .stat-card.bottom .big{color:#fff;font-family:var(--font);font-size:19px;font-weight:800;}
+.stat-card .sub{font-size:12px;color:var(--text-2);margin-top:3px;}
+.stat-card.champ .sub, .stat-card.bottom .sub{color:rgba(255,255,255,0.7);}
+
+.stat-card.win{background:linear-gradient(155deg, rgba(0,168,89,0.10), var(--surface) 65%);border-color:#BFEFD6;}
+.stat-card.low{background:linear-gradient(155deg, rgba(233,0,82,0.08), var(--surface) 65%);border-color:#F4C6D6;}
+.stat-card.win .lbl{color:var(--green-ink);letter-spacing:.07em;}
+.stat-card.low .lbl{color:var(--pink-ink);letter-spacing:.07em;}
+.stat-card .pts-big{font-family:var(--mono);font-weight:800;font-size:32px;line-height:1;font-variant-numeric:tabular-nums;}
+.stat-card .pts-big span{font-size:13px;font-weight:600;color:var(--text-mute);margin-left:5px;font-family:var(--font);}
+.stat-card.win .pts-big{color:var(--green-ink);}
+.stat-card.low .pts-big{color:var(--pink-ink);}
+.stat-card .team-line{font-size:17px;font-weight:800;color:var(--purple);margin:8px 0 1px;overflow-wrap:break-word;word-break:break-word;}
+.stat-card .manager-line{font-size:12.5px;color:var(--text-mute);font-weight:600;margin-bottom:12px;}
+.stat-card .tie-note{font-size:10.5px;color:var(--text-mute);font-style:italic;margin-top:10px;}
+.stat-card.champ .team-line, .stat-card.bottom .team-line{color:#fff;}
+.stat-card.champ .manager-line, .stat-card.bottom .manager-line{color:rgba(255,255,255,0.65);}
+.stat-card.champ .pts-big, .stat-card.bottom .pts-big{color:#fff;}
+.stat-card.champ .pts-big span, .stat-card.bottom .pts-big span{color:rgba(255,255,255,0.6);}
+
+.deadline-banner{
+  border-radius:20px;padding:28px 32px;margin-bottom:22px;position:relative;overflow:hidden;
+  background:linear-gradient(120deg, #1A0A2E 0%, var(--purple) 55%, #2D0B3F 100%);
+  border:1px solid rgba(139,92,246,0.4);
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  box-shadow:0 16px 40px rgba(55,0,60,0.25), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.deadline-banner::before{
+  content:'';position:absolute;top:-60px;right:-40px;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle, rgba(0,255,135,0.28), transparent 70%);pointer-events:none;
+  animation:deadlineGlow 6s ease-in-out infinite;
+}
+.deadline-banner::after{
+  content:'';position:absolute;bottom:-80px;left:10%;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle, var(--cyan), transparent 70%);opacity:0.16;pointer-events:none;
+}
+.deadline-banner.urgent{
+  background:linear-gradient(120deg, #2E0A0A 0%, #7A0038 55%, #3A0A1E 100%);
+  border-color:rgba(255,45,120,0.45);
+}
+.deadline-banner.urgent::before{background:radial-gradient(circle, rgba(255,45,120,0.32), transparent 70%);}
+@keyframes deadlineGlow{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(1.08);}}
+.deadline-left{position:relative;z-index:1;}
+.deadline-label{
+  font-family:var(--mono);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;
+  color:var(--green);margin-bottom:6px;display:flex;align-items:center;gap:8px;
+}
+.deadline-banner.urgent .deadline-label{color:#FF6B96;}
+.deadline-pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(0,255,135,0.2);animation:pulseDot 1.4s ease-in-out infinite;}
+.deadline-banner.urgent .deadline-pulse-dot{background:#FF2D78;box-shadow:0 0 0 4px rgba(255,45,120,0.25);}
+@keyframes pulseDot{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:0.5;}}
+.deadline-event{font-size:26px;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1.1;}
+.deadline-date{font-size:13.5px;color:rgba(255,255,255,0.65);margin-top:5px;font-weight:500;}
+.deadline-cta{
+  margin-top:14px;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;
+  color:#1A0A2E;background:var(--green);padding:9px 16px;border-radius:9px;text-decoration:none;
+  box-shadow:0 4px 14px rgba(0,255,135,0.3);transition:transform .15s ease;
+}
+.deadline-cta:hover{transform:translateY(-1px);}
+.deadline-banner.urgent .deadline-cta{background:#FF2D78;color:#fff;box-shadow:0 4px 14px rgba(255,45,120,0.35);}
+.deadline-countdown{display:flex;gap:12px;position:relative;z-index:1;}
+.deadline-unit{
+  background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.12);border-radius:14px;
+  padding:14px 10px;text-align:center;min-width:70px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.08), 0 6px 16px rgba(0,0,0,0.25);
+}
+.deadline-unit .num{
+  font-family:var(--mono);font-weight:800;font-size:34px;color:var(--green);line-height:1;
+  text-shadow:0 0 18px rgba(0,255,135,0.5);font-variant-numeric:tabular-nums;
+}
+.deadline-banner.urgent .deadline-unit .num{color:#FF6B96;text-shadow:0 0 18px rgba(255,45,120,0.5);}
+.deadline-unit .lbl{font-size:9.5px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.08em;margin-top:5px;font-weight:700;}
+.deadline-unit.seconds .num{animation:secondTick 1s steps(1) infinite;}
+@keyframes secondTick{0%{opacity:1;}50%{opacity:0.55;}100%{opacity:1;}}
+.deadline-link{display:none;}
+
+.klasemen-hero{
+  display:flex;align-items:center;gap:18px;padding:26px 30px;border-radius:18px;margin-bottom:20px;
+  background:linear-gradient(120deg, var(--purple), var(--purple-2));color:#fff;position:relative;overflow:hidden;
+  box-shadow:0 10px 28px rgba(55,0,60,0.18);
+}
+.klasemen-hero::before{content:'';position:absolute;top:-50px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,0.14), transparent 70%);pointer-events:none;}
+.klasemen-hero::after{content:'';position:absolute;bottom:-60px;left:20%;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle, var(--cyan), transparent 70%);opacity:0.18;pointer-events:none;}
+.klasemen-hero-icon{
+  font-size:34px;flex:0 0 auto;width:64px;height:64px;border-radius:16px;
+  background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:1;
+}
+.klasemen-hero-title{font-size:22px;font-weight:800;margin:0;color:#fff;position:relative;z-index:1;letter-spacing:-0.01em;}
+.klasemen-hero-sub{font-size:13px;color:rgba(255,255,255,0.75);margin:4px 0 0;position:relative;z-index:1;}
+
+.card{background:var(--bg);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(55,0,60,0.04), 0 8px 24px rgba(55,0,60,0.05);transition:box-shadow .25s ease, transform .25s ease;}
+.card:hover{box-shadow:0 4px 8px rgba(55,0,60,0.06), 0 16px 36px rgba(55,0,60,0.08);}
+.card-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+.card-head h2{font-size:16px;font-weight:700;margin:0;color:var(--purple);}
+.search-box{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--text);font-family:var(--font);width:180px;outline:none;}
+.search-box:focus{border-color:var(--purple);}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+thead th{text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-mute);padding:10px 18px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--surface);}
+tbody td{padding:11px 18px;border-bottom:1px solid var(--line);color:var(--text-2);vertical-align:middle;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr{transition:background .12s ease;}
+tbody tr:hover{background:var(--purple-tint);}
+tbody tr.top1{border-left:3px solid #D4A62A;}
+tbody tr.top2{border-left:3px solid #9C9CA8;}
+tbody tr.top3{border-left:3px solid #B0723F;}
+tbody tr.top1 td:first-child, tbody tr.top2 td:first-child, tbody tr.top3 td:first-child{padding-left:15px;}
+.rank-cell{display:flex;align-items:center;gap:6px;min-width:64px;white-space:nowrap;}
+.rank-num{font-family:var(--mono);font-weight:700;color:var(--purple);font-size:13px;}
+.rank-badge-medal{width:26px;height:26px;flex:0 0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:800;font-size:12px;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);}
+.medal-1{background:linear-gradient(160deg,#F0D27A,#B8901E);}
+.medal-2{background:linear-gradient(160deg,#E4E4EC,#9C9CA8);}
+.medal-3{background:linear-gradient(160deg,#E0AC7E,#A15E33);}
+.team-cell{display:flex;align-items:center;gap:10px;}
+.team-badge{
+  width:32px;height:32px;border-radius:8px;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font);font-weight:800;font-size:11px;color:#fff;
+  box-shadow:0 1px 3px rgba(0,0,0,0.15);
+}
+.team-name-wrap{display:flex;flex-direction:column;gap:1px;line-height:1.2;}
+.team-name{color:var(--purple);font-weight:700;overflow-wrap:break-word;word-break:break-word;}
+.team-manager{color:var(--text-mute);font-size:11px;font-weight:500;}
+.pts-cell{font-family:var(--mono);font-weight:800;text-align:right;font-variant-numeric:tabular-nums;color:var(--purple);}
+.num-cell{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;color:var(--text-2);}
+.deduct-cell{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;color:var(--pink-ink);}
+.trend-dash{display:inline-block;width:10px;height:2px;background:var(--text-mute);border-radius:2px;}
+.trend-up{color:var(--green-ink);font-size:10px;font-weight:700;font-family:var(--mono);}
+.trend-down{color:var(--pink-ink);font-size:10px;font-weight:700;font-family:var(--mono);}
+.trend-flat{color:var(--text-mute);font-size:10px;font-weight:700;font-family:var(--mono);}
+.table-scroll{overflow-x:auto;}
+.gw-scope-picker{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.gw-scope-picker select{margin:0;width:auto;min-width:140px;}
+.gw-scope-label{font-size:11px;color:var(--text-mute);font-weight:600;}
+
+.gw-picker{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:22px;}
+.gw-chip{flex:0 0 auto;font-family:var(--mono);font-size:12px;font-weight:600;padding:7px 13px;border-radius:16px;border:1px solid var(--line);background:var(--surface);color:var(--text-mute);cursor:pointer;}
+.gw-chip:hover{border-color:var(--purple);color:var(--purple);}
+.gw-chip.filled{color:var(--text-2);}
+.gw-chip.active{background:var(--purple);border-color:var(--purple);color:#fff;font-weight:700;}
+
+.duel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+@media (max-width:640px){.duel{grid-template-columns:1fr;}}
+.duel-card{border-radius:12px;padding:22px;border:1px solid var(--line);}
+.duel-card.win{background:linear-gradient(155deg, rgba(0,255,135,0.08), var(--surface) 60%);border-color:#BFEFD6;}
+.duel-card.low{background:linear-gradient(155deg, rgba(233,0,82,0.06), var(--surface) 60%);border-color:#F4C6D6;}
+.duel-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:6px;margin-bottom:14px;}
+.duel-card.win .duel-tag{color:var(--green-ink);}
+.duel-card.low .duel-tag{color:var(--pink-ink);}
+.duel-team{font-weight:800;font-size:21px;color:var(--purple);margin-bottom:2px;}
+.duel-manager{font-size:12.5px;color:var(--text-mute);font-weight:600;margin-bottom:12px;}
+.duel-pts{font-family:var(--mono);font-weight:800;font-size:32px;font-variant-numeric:tabular-nums;}
+.duel-card.win .duel-pts{color:var(--green-ink);}
+.duel-card.low .duel-pts{color:var(--pink-ink);}
+.duel-pts span{font-size:13px;font-weight:600;color:var(--text-mute);margin-left:4px;}
+.duel-tie-note{font-size:10.5px;color:var(--text-mute);margin-top:10px;font-style:italic;}
+
+.chart-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.chip-toggle{font-family:var(--mono);font-size:11.5px;padding:6px 11px;border-radius:7px;border:1px solid var(--line);background:var(--surface);color:var(--text-mute);cursor:pointer;}
+.chip-toggle.on{background:var(--purple);color:#fff;border-color:var(--purple);font-weight:700;}
+.chart-card{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:20px;}
+.chart-card h3{font-size:15px;font-weight:700;margin:0 0 16px;color:var(--purple);}
+.chart-wrap{position:relative;width:100%;height:320px;}
+
+.update-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media (max-width:760px){.update-grid{grid-template-columns:1fr;}}
+.panel{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:22px;}
+.panel h3{font-size:15.5px;font-weight:700;margin:0 0 6px;color:var(--purple);}
+.panel p{font-size:12.5px;color:var(--text-2);line-height:1.6;margin:0 0 14px;}
+.field-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-mute);display:block;margin-bottom:6px;}
+select, textarea, input[type=text], input[type=number]{
+  width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:9px 11px;color:var(--text);font-family:var(--mono);font-size:12.5px;outline:none;margin-bottom:12px;
+}
+textarea{min-height:120px;resize:vertical;line-height:1.5;}
+select:focus, textarea:focus, input:focus{border-color:var(--purple);}
+.btn{font-family:var(--font);font-weight:700;font-size:13px;padding:10px 18px;border-radius:9px;border:none;cursor:pointer;transition:transform .12s ease, box-shadow .2s ease, background .15s ease;}
+.btn:active{transform:scale(0.96);}
+.btn-primary{background:var(--purple);color:#fff;box-shadow:0 2px 8px rgba(55,0,60,0.18);}
+.btn-primary:hover{background:var(--purple-2);box-shadow:0 4px 14px rgba(55,0,60,0.28);transform:translateY(-1px);}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text-2);}
+.btn-ghost:hover{border-color:var(--purple);color:var(--purple);}
+.btn-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center;}
+.status-msg{margin-top:12px;font-size:12px;padding:9px 13px;border-radius:8px;display:none;font-family:var(--mono);}
+.status-msg.show{display:block;}
+.status-msg.ok{background:rgba(0,255,135,0.10);color:var(--green-ink);border:1px solid #BFEFD6;}
+.status-msg.err{background:rgba(233,0,82,0.07);color:var(--pink-ink);border:1px solid #F4C6D6;}
+.status-msg.info{background:var(--purple-tint);color:var(--purple);border:1px solid var(--purple-line);}
+.notice-strip{font-size:11.5px;color:var(--text-mute);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 13px;margin-top:12px;line-height:1.55;}
+.roster-row{display:grid;grid-template-columns:1fr 52px 52px 52px 52px;gap:5px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);}
+.roster-row:last-child{border-bottom:none;}
+.roster-row .rname{font-family:var(--mono);font-size:12px;color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.roster-list{max-height:280px;overflow-y:auto;}
+.roster-head{display:grid;grid-template-columns:1fr 52px 52px 52px 52px;gap:5px;padding:6px 0;font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-mute);font-weight:700;position:sticky;top:0;background:var(--bg);z-index:1;}
+
+.empty-state{padding:56px 20px;text-align:center;color:var(--text-mute);}
+.empty-state .glyph{font-size:28px;margin-bottom:10px;opacity:0.4;}
+.empty-state p{font-size:13px;max-width:320px;margin:0 auto;line-height:1.6;}
+
+/* ---- Prize & Rule Book components ---- */
+.page-hero{
+  display:flex;align-items:center;gap:18px;padding:26px 30px;border-radius:18px;margin-bottom:22px;
+  background:linear-gradient(120deg, var(--purple), var(--purple-2));color:#fff;position:relative;overflow:hidden;
+  box-shadow:0 10px 28px rgba(55,0,60,0.18);
+}
+.page-hero::before{content:'';position:absolute;top:-50px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,0.14), transparent 70%);pointer-events:none;}
+.page-hero::after{content:'';position:absolute;bottom:-60px;left:20%;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle, var(--cyan), transparent 70%);opacity:0.18;pointer-events:none;}
+.page-hero-icon{font-size:34px;flex:0 0 auto;width:64px;height:64px;border-radius:16px;background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;}
+.page-hero-title{font-size:22px;font-weight:800;margin:0;color:#fff;position:relative;z-index:1;letter-spacing:-0.01em;}
+.page-hero-sub{font-size:13px;color:rgba(255,255,255,0.75);margin:4px 0 0;position:relative;z-index:1;}
+
+.section-heading{display:flex;align-items:center;gap:10px;margin:28px 0 14px;}
+.section-heading:first-of-type{margin-top:0;}
+.section-heading .icon-badge{width:34px;height:34px;border-radius:10px;background:var(--purple-tint);color:var(--purple);display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 auto;}
+.section-heading h3{margin:0;font-size:16px;font-weight:800;color:var(--purple);}
+.section-heading p{margin:1px 0 0;font-size:12px;color:var(--text-mute);}
+
+.weekly-rule-card{
+  display:flex;align-items:center;gap:18px;padding:22px 26px;border-radius:16px;margin-bottom:24px;
+  background:linear-gradient(120deg, rgba(0,168,89,0.09), var(--surface) 60%);border:1px solid #BFEFD6;
+}
+.weekly-rule-icon{font-size:30px;flex:0 0 auto;width:56px;height:56px;border-radius:14px;background:rgba(0,168,89,0.14);display:flex;align-items:center;justify-content:center;}
+.weekly-rule-text{font-size:14.5px;color:var(--text);line-height:1.6;}
+.weekly-rule-text strong{color:var(--green-ink);}
+
+.prize-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:8px;}
+.prize-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 22px 20px;position:relative;overflow:hidden;box-shadow:0 1px 2px rgba(55,0,60,0.04), 0 8px 24px rgba(55,0,60,0.03);}
+.prize-card .tier-icon{font-size:26px;margin-bottom:10px;}
+.prize-card .tier-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mute);margin-bottom:6px;}
+.prize-card .tier-name{font-size:14.5px;font-weight:800;color:var(--purple);margin-bottom:12px;line-height:1.3;}
+.prize-card .tier-amount{font-family:var(--mono);font-weight:800;font-size:24px;color:var(--green-ink);}
+.prize-card.gold{border-color:#F0D27A;background:linear-gradient(160deg, rgba(240,210,122,0.14), var(--card) 60%);}
+.prize-card.gold .tier-amount{color:#B8901E;}
+.prize-card.silver{border-color:#D9D2E8;background:linear-gradient(160deg, rgba(139,92,246,0.08), var(--card) 60%);}
+.prize-card.h2h{border-color:var(--purple-line);background:linear-gradient(160deg, rgba(139,92,246,0.10), var(--card) 60%);}
+.prize-card.h2h .tier-amount{color:var(--purple);}
+
+.penalty-card{
+  display:flex;align-items:center;gap:18px;padding:22px 26px;border-radius:16px;margin-top:22px;
+  background:linear-gradient(120deg, rgba(233,0,82,0.08), var(--surface) 60%);border:1px solid #F4C6D6;
+}
+.penalty-icon{font-size:30px;flex:0 0 auto;width:56px;height:56px;border-radius:14px;background:rgba(233,0,82,0.14);display:flex;align-items:center;justify-content:center;}
+.penalty-text{font-size:14.5px;color:var(--text);line-height:1.6;}
+.penalty-text strong{color:var(--pink-ink);}
+
+/* ================= PRIZE PAGE 2.0 — powerful edition ================= */
+.prize-hero{
+  position:relative;overflow:hidden;border-radius:24px;padding:38px 34px;margin-bottom:26px;
+  background:linear-gradient(125deg, #1A0A2E 0%, var(--purple) 45%, #3A0A4A 75%, #1A0A2E 100%);
+  box-shadow:0 20px 50px rgba(55,0,60,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  text-align:center;
+}
+.prize-hero::before{
+  content:'';position:absolute;top:-90px;left:-60px;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,215,80,0.28), transparent 70%);pointer-events:none;
+  animation:prizeGlowA 7s ease-in-out infinite;
+}
+.prize-hero::after{
+  content:'';position:absolute;bottom:-100px;right:-60px;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle, rgba(0,255,135,0.22), transparent 70%);pointer-events:none;
+  animation:prizeGlowB 8s ease-in-out infinite;
+}
+@keyframes prizeGlowA{0%,100%{opacity:0.9;transform:scale(1);}50%{opacity:0.5;transform:scale(1.15);}}
+@keyframes prizeGlowB{0%,100%{opacity:0.7;transform:scale(1.05);}50%{opacity:1;transform:scale(0.9);}}
+.prize-hero-icon{font-size:44px;position:relative;z-index:1;filter:drop-shadow(0 6px 16px rgba(255,215,80,0.5));animation:trophyFloat 3s ease-in-out infinite;}
+@keyframes trophyFloat{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-8px) rotate(3deg);}}
+.prize-hero-title{position:relative;z-index:1;font-size:28px;font-weight:900;color:#fff;margin:12px 0 4px;letter-spacing:-0.01em;}
+.prize-hero-sub{position:relative;z-index:1;font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:22px;}
+.prize-total-strip{position:relative;z-index:1;display:inline-flex;align-items:baseline;gap:10px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,215,80,0.35);border-radius:14px;padding:14px 26px;}
+.prize-total-strip .lbl{font-family:var(--mono);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.6);}
+.prize-total-strip .amt{font-family:var(--mono);font-weight:900;font-size:30px;color:#FFD650;text-shadow:0 0 20px rgba(255,214,80,0.5);}
+
+.vs-card{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:18px;
+  border-radius:18px;padding:24px 26px;margin-bottom:26px;position:relative;overflow:hidden;
+  background:linear-gradient(120deg, rgba(233,0,82,0.06) 0%, var(--card) 45%, rgba(0,168,89,0.07) 100%);
+  border:1px solid var(--line);box-shadow:0 8px 24px rgba(55,0,60,0.06);
+}
+.vs-side{text-align:center;}
+.vs-side .vs-icon{font-size:32px;margin-bottom:8px;}
+.vs-side .vs-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.vs-side.lose .vs-lbl{color:var(--pink-ink);}
+.vs-side.win .vs-lbl{color:var(--green-ink);}
+.vs-side .vs-desc{font-size:12.5px;color:var(--text-2);line-height:1.5;}
+.vs-badge{
+  font-family:var(--mono);font-weight:900;font-size:15px;color:var(--purple);
+  background:var(--purple-tint);border:1px solid var(--purple-line);border-radius:50%;
+  width:52px;height:52px;display:flex;align-items:center;justify-content:center;
+}
+
+.section-heading{position:relative;}
+.section-heading .icon-badge{transition:transform .2s ease;}
+.section-heading:hover .icon-badge{transform:scale(1.1) rotate(-6deg);}
+
+.podium-wrap{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:14px;align-items:end;margin-bottom:28px;}
+.podium-card{
+  position:relative;overflow:hidden;border-radius:18px;padding:24px 18px 22px;text-align:center;
+  box-shadow:0 10px 28px rgba(55,0,60,0.08);transition:transform .25s cubic-bezier(.22,1,.36,1);
+}
+.podium-card:hover{transform:translateY(-6px);}
+.podium-card .rank-crown{font-size:22px;margin-bottom:6px;}
+.podium-card .tier-lbl{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;opacity:0.85;}
+.podium-card .tier-name{font-size:13.5px;font-weight:700;margin-bottom:14px;line-height:1.35;}
+.podium-card .tier-amount{font-family:var(--mono);font-weight:900;font-variant-numeric:tabular-nums;}
+.podium-card.rank2{background:linear-gradient(165deg, rgba(139,92,246,0.14), var(--card) 60%);border:1px solid var(--purple-line);padding-top:20px;}
+.podium-card.rank2 .tier-lbl{color:var(--purple);}
+.podium-card.rank2 .tier-amount{font-size:26px;color:var(--purple);}
+.podium-card.rank1{
+  background:linear-gradient(165deg, rgba(255,215,80,0.22), var(--card) 62%);
+  border:2px solid #F0D27A;padding-top:30px;padding-bottom:30px;
+  box-shadow:0 16px 36px rgba(184,144,30,0.22), 0 0 0 6px rgba(240,210,122,0.10);
+}
+.podium-card.rank1::before{
+  content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,215,80,0.35), transparent 70%);pointer-events:none;
+}
+.podium-card.rank1 .tier-lbl{color:#B8901E;position:relative;}
+.podium-card.rank1 .tier-amount{font-size:32px;color:#B8901E;position:relative;text-shadow:0 0 18px rgba(184,144,30,0.35);}
+.podium-card.rank1 .rank-crown{font-size:30px;position:relative;animation:crownPulse 2.4s ease-in-out infinite;}
+@keyframes crownPulse{0%,100%{transform:scale(1) rotate(0deg);}50%{transform:scale(1.14) rotate(-4deg);}}
+.podium-card.rank3{background:linear-gradient(165deg, rgba(0,168,89,0.10), var(--card) 60%);border:1px solid #BFEFD6;padding-top:20px;}
+.podium-card.rank3 .tier-lbl{color:var(--green-ink);}
+.podium-card.rank3 .tier-amount{font-size:26px;color:var(--green-ink);}
+.podium-base{
+  font-family:var(--mono);font-weight:800;font-size:11px;color:rgba(255,255,255,0.85);
+  background:var(--purple);border-radius:8px;padding:4px 0;margin-top:14px;letter-spacing:.05em;
+}
+.podium-card.rank1 .podium-base{background:linear-gradient(90deg,#B8901E,#F0D27A);color:#3D2F13;}
+.podium-card.rank3 .podium-base{background:linear-gradient(90deg,var(--green-ink),#3DBE7E);}
+
+.penalty-card-v2{
+  display:flex;align-items:center;gap:20px;border-radius:20px;padding:26px 28px;margin-top:24px;
+  position:relative;overflow:hidden;
+  background:linear-gradient(120deg, #2E0A0A 0%, #7A0038 60%, #3A0A1E 100%);
+  box-shadow:0 16px 40px rgba(122,0,56,0.28);
+}
+.penalty-card-v2::before{
+  content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,45,120,0.3), transparent 70%);pointer-events:none;
+  animation:prizeGlowA 6s ease-in-out infinite;
+}
+.penalty-icon-v2{
+  font-size:36px;flex:0 0 auto;width:66px;height:66px;border-radius:16px;position:relative;z-index:1;
+  background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;
+  animation:shakeIcon 2.6s ease-in-out infinite;
+}
+@keyframes shakeIcon{0%,90%,100%{transform:rotate(0deg);}92%{transform:rotate(-8deg);}94%{transform:rotate(8deg);}96%{transform:rotate(-6deg);}98%{transform:rotate(6deg);}}
+.penalty-text-v2{position:relative;z-index:1;font-size:14.5px;color:#fff;line-height:1.65;}
+.penalty-text-v2 strong{color:#FF9EB8;font-weight:800;}
+.penalty-badge{
+  display:inline-block;margin-top:10px;font-family:var(--mono);font-weight:800;font-size:11px;
+  background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.25);border-radius:20px;
+  padding:5px 14px;color:#fff;letter-spacing:.05em;
+}
+@media (max-width:640px){
+  .podium-wrap{grid-template-columns:1fr;gap:12px;}
+  .podium-card.rank1{order:-1;}
+  .prize-hero{padding:28px 22px;}
+  .prize-hero-title{font-size:22px;}
+  .vs-card{grid-template-columns:1fr;text-align:center;}
+  .vs-badge{margin:0 auto;}
+  .penalty-card-v2{flex-direction:column;text-align:center;padding:22px 20px;}
+  .rule-card{padding:16px;gap:12px;}
+  .rule-card h4{font-size:13.5px;}
+  .h2h-filter-row{flex-direction:column;align-items:stretch;}
+  .h2h-filter-row select{width:100%;}
+}
+
+
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:8px;}
+.spec-item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:12px;}
+.spec-item .spec-icon{font-size:20px;flex:0 0 auto;width:40px;height:40px;border-radius:10px;background:var(--purple-tint);display:flex;align-items:center;justify-content:center;}
+.spec-item .spec-lbl{font-size:10.5px;color:var(--text-mute);font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
+.spec-item .spec-val{font-family:var(--mono);font-weight:800;font-size:15px;color:var(--purple);margin-top:2px;}
+
+.chip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:8px;}
+.chip-item{background:linear-gradient(150deg, var(--purple-tint), var(--card) 65%);border:1px solid var(--purple-line);border-radius:14px;padding:18px;text-align:center;}
+.chip-item .chip-icon{font-size:24px;margin-bottom:8px;}
+.chip-item .chip-name{font-size:12.5px;font-weight:700;color:var(--purple);margin-bottom:4px;}
+.chip-item .chip-count{font-family:var(--mono);font-weight:800;font-size:18px;color:var(--text);}
+
+.match-cond-list{display:flex;flex-direction:column;gap:10px;margin-bottom:8px;}
+.match-cond-item{display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;}
+.match-cond-item .mc-icon{font-size:18px;flex:0 0 auto;margin-top:1px;}
+.match-cond-item .mc-title{font-size:13.5px;font-weight:700;color:var(--purple);}
+.match-cond-item .mc-desc{font-size:12.5px;color:var(--text-2);margin-top:2px;line-height:1.5;}
+
+.rule-card{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:12px;}
+.rule-num{flex:0 0 auto;width:36px;height:36px;border-radius:10px;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:800;font-size:14px;}
+.rule-card h4{margin:0 0 4px;font-size:14.5px;font-weight:800;color:var(--purple);display:flex;align-items:center;gap:8px;}
+.rule-card p{margin:0;font-size:13px;color:var(--text-2);line-height:1.6;}
+.rule-callout{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(120deg, rgba(233,0,82,0.07), var(--surface) 65%);border:1px solid #F4C6D6;border-radius:12px;padding:14px 18px;margin-top:10px;}
+.rule-callout .rc-icon{font-size:18px;flex:0 0 auto;}
+.rule-callout .rc-text{font-size:12.5px;color:var(--text-2);line-height:1.6;}
+.rule-callout .rc-text strong{color:var(--pink-ink);}
+
+/* ================= Coffee Debt Tracker ================= */
+.debt-summary-strip{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  background:linear-gradient(120deg, rgba(233,0,82,0.07), var(--surface) 60%);
+  border:1px solid #F4C6D6;border-radius:16px;padding:18px 22px;margin-bottom:20px;
+}
+.debt-summary-strip .ds-item{text-align:center;}
+.debt-summary-strip .ds-num{font-family:var(--mono);font-weight:900;font-size:26px;color:var(--pink-ink);}
+.debt-summary-strip .ds-num.ok{color:var(--green-ink);}
+.debt-summary-strip .ds-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mute);margin-top:2px;}
+.debt-list{display:flex;flex-direction:column;gap:10px;}
+.debt-row{
+  display:grid;grid-template-columns:56px 1fr auto 1fr auto;align-items:center;gap:12px;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;
+  transition:transform .15s ease;
+}
+.debt-row:hover{transform:translateX(2px);}
+.debt-row.unpaid{border-color:#F4C6D6;background:linear-gradient(90deg, rgba(233,0,82,0.04), var(--card) 30%);}
+.debt-row.paid{opacity:0.72;}
+.debt-gw{font-family:var(--mono);font-weight:800;font-size:13px;color:var(--purple);}
+.debt-side{display:flex;align-items:center;gap:8px;}
+.debt-side .lbl{font-size:9px;font-weight:700;text-transform:uppercase;color:var(--text-mute);display:block;}
+.debt-side .name{font-size:13px;font-weight:700;color:var(--purple);}
+.debt-arrow{font-size:16px;color:var(--text-mute);text-align:center;}
+.debt-status{
+  font-family:var(--mono);font-size:10.5px;font-weight:800;padding:6px 12px;border-radius:20px;text-align:center;
+  white-space:nowrap;
+}
+.debt-status.unpaid{background:rgba(233,0,82,0.12);color:var(--pink-ink);}
+.debt-status.paid{background:rgba(0,168,89,0.12);color:var(--green-ink);}
+.debt-toggle-btn{
+  font-family:var(--mono);font-size:10.5px;font-weight:800;padding:8px 14px;border-radius:10px;border:none;cursor:pointer;
+  transition:transform .12s ease;
+}
+.debt-toggle-btn:active{transform:scale(0.94);}
+.debt-toggle-btn.mark-paid{background:var(--green-ink);color:#fff;}
+.debt-toggle-btn.mark-unpaid{background:var(--surface);color:var(--pink-ink);border:1px solid #F4C6D6;}
+@media (max-width:640px){
+  .debt-row{grid-template-columns:1fr;text-align:center;gap:6px;}
+  .debt-side{flex-direction:column;gap:2px;}
+  .debt-arrow{display:none;}
+}
+
+/* ================= Audit Log ================= */
+.audit-timeline{position:relative;padding-left:8px;}
+.audit-item{position:relative;padding:14px 0 14px 30px;border-left:2px solid var(--line);}
+.audit-item:last-child{border-left-color:transparent;}
+.audit-item::before{
+  content:'';position:absolute;left:-7px;top:16px;width:12px;height:12px;border-radius:50%;
+  background:var(--green-ink);border:2px solid var(--bg);
+}
+.audit-item.warn::before{background:#D97706;}
+.audit-item.err::before{background:var(--pink-ink);}
+.audit-item .audit-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:3px;}
+.audit-item .audit-action{font-weight:800;font-size:13px;color:var(--purple);}
+.audit-item .audit-time{font-family:var(--mono);font-size:10.5px;color:var(--text-mute);}
+.audit-item .audit-detail{font-size:12.5px;color:var(--text-2);line-height:1.5;}
+.audit-badge{font-family:var(--mono);font-size:9px;font-weight:800;padding:2px 8px;border-radius:10px;text-transform:uppercase;}
+.audit-badge.ok{background:rgba(0,168,89,0.12);color:var(--green-ink);}
+.audit-badge.warn{background:rgba(217,119,6,0.14);color:#B45309;}
+.audit-badge.err{background:rgba(233,0,82,0.12);color:var(--pink-ink);}
+
+/* ================= Deadline notification button ================= */
+.notif-btn{
+  font-family:var(--mono);font-size:11px;font-weight:700;
+  background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);color:#fff;
+  border-radius:9px;padding:8px 14px;cursor:pointer;margin-top:12px;transition:background .15s ease;
+}
+.notif-btn:hover{background:rgba(255,255,255,0.2);}
+.notif-btn.active{background:rgba(0,255,135,0.2);border-color:rgba(0,255,135,0.4);}
+
+footer{text-align:center;padding:30px 20px 8px;font-family:var(--mono);font-size:11px;color:var(--text-mute);}
+
+.toast-stack{position:fixed;top:20px;right:20px;z-index:200;display:flex;flex-direction:column;gap:10px;max-width:360px;}
+.toast{
+  display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:12px;
+  background:var(--card);border:1px solid var(--line);box-shadow:0 12px 32px rgba(0,0,0,0.18);
+  animation:toastIn .25s ease;font-size:13px;color:var(--text);
+}
+.toast.ok{border-color:#BFEFD6;background:linear-gradient(120deg, rgba(0,168,89,0.10), var(--card) 60%);}
+.toast.err{border-color:#F4C6D6;background:linear-gradient(120deg, rgba(233,0,82,0.08), var(--card) 60%);}
+.toast .toast-icon{font-size:18px;flex:0 0 auto;}
+.toast .toast-text strong{display:block;font-size:13px;color:var(--purple);margin-bottom:2px;}
+.toast .toast-text span{font-size:12px;color:var(--text-2);line-height:1.5;}
+.toast .toast-close{margin-left:auto;background:none;border:none;color:var(--text-mute);cursor:pointer;font-size:15px;flex:0 0 auto;}
+@keyframes toastIn{from{opacity:0;transform:translateX(24px);}to{opacity:1;transform:translateX(0);}}
+@media (max-width:640px){.toast-stack{left:12px;right:12px;top:12px;max-width:none;}}
+
+@media (max-width:640px){
+  body{background-attachment:scroll;}
+  .wrap{padding:0 12px 60px;}
+  .topstripe{height:4px;}
+  .header{padding:18px 14px 0;}
+  .brand{gap:10px;}
+  .brand-art{width:50px;height:50px;}
+  h1{font-size:19px;}
+  .tagline{font-size:10.5px;}
+  .subtitle{font-size:12px;}
+  .header-row{gap:12px;}
+  .header-meta{gap:6px;width:100%;justify-content:flex-start;}
+  .meta-pill{padding:7px 10px;}
+  .meta-pill .k{font-size:9px;}
+  .meta-pill .v{font-size:11.5px;}
+  .admin-toggle-btn{padding:8px 11px;font-size:10.5px;}
+  .tabs{margin-top:16px;mask-image:linear-gradient(90deg, #000 92%, transparent 100%);}
+  .tab-btn{padding:12px 13px;font-size:12.5px;}
+
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .stat-card{padding:14px 15px;border-radius:14px;}
+  .stat-card .big, .stat-card .pts-big{font-size:24px;}
+  .stat-card .team-line{font-size:15px;}
+
+  .page-hero, .klasemen-hero{padding:20px 18px;border-radius:16px;gap:14px;}
+  .page-hero-icon, .klasemen-hero-icon{width:48px;height:48px;font-size:24px;border-radius:12px;}
+  .page-hero-title, .klasemen-hero-title{font-size:18px;}
+  .page-hero-sub, .klasemen-hero-sub{font-size:11.5px;}
+
+  .card-head{padding:14px 16px;flex-direction:column;align-items:flex-start;gap:10px;}
+  .card-head h2{font-size:15px;}
+  .search-box{width:100%;}
+  .gw-scope-picker{width:100%;flex-wrap:wrap;}
+  .gw-scope-picker select{flex:1;}
+
+  table thead{display:none;}
+  table, tbody, tr, td{display:block;width:100%;}
+  tbody tr{
+    border:1px solid var(--line);border-radius:14px;margin-bottom:10px;padding:12px 14px;
+    background:var(--surface);box-shadow:0 1px 2px rgba(55,0,60,0.03);transition:transform .12s ease;
+  }
+  tbody tr:active{transform:scale(0.985);}
+  tbody tr.top1{border-left:4px solid #D4A62A;background:linear-gradient(120deg, rgba(212,166,42,0.08), var(--surface) 55%);}
+  tbody tr.top2{border-left:4px solid #9C9CA8;}
+  tbody tr.top3{border-left:4px solid #B0723F;}
+  tbody tr td{border-bottom:none;padding:5px 0;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  tbody tr td.pts-cell, tbody tr td.num-cell, tbody tr td.deduct-cell{text-align:right;}
+  tbody tr td:first-child{padding-top:0;}
+  tbody tr td[data-label]::before{content:attr(data-label);font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-mute);}
+  .team-cell{gap:8px;}
+  .pts-cell{font-size:15px;}
+
+  .gw-picker{gap:5px;}
+  .gw-chip{padding:9px 14px;font-size:12px;min-height:40px;display:flex;align-items:center;}
+  .duel{grid-template-columns:1fr;gap:12px;}
+  .duel-card{padding:20px;}
+  .duel-pts{font-size:28px;}
+
+  .prize-grid, .spec-grid, .chip-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .prize-card{padding:18px 16px;}
+  .prize-card .tier-amount{font-size:20px;}
+
+  .chart-card{padding:16px;}
+  .chart-wrap{height:260px;}
+
+  .update-grid{grid-template-columns:1fr;}
+  .panel{padding:18px;}
+  .modal-box{max-height:90vh;}
+  .modal-head{padding:16px 18px;}
+  .modal-body{padding:16px 18px;}
+  .admin-toolbar{flex-direction:column;align-items:stretch;padding:14px 16px;}
+  .admin-tabs{gap:0;}
+  .admin-tab{padding:11px 12px;font-size:12px;}
+  #btn-exit-admin{margin-left:0 !important;width:100%;text-align:center;margin-top:6px;}
+
+  .deadline-banner{flex-direction:column;align-items:flex-start;padding:20px 18px;border-radius:16px;}
+  .deadline-event{font-size:20px;}
+  .deadline-countdown{width:100%;justify-content:space-between;gap:6px;}
+  .deadline-unit{min-width:0;flex:1;padding:10px 4px;}
+  .deadline-unit .num{font-size:22px;}
+  .deadline-cta{width:100%;justify-content:center;padding:12px 16px;}
+
+  .manager-picker-row{flex-direction:column;align-items:stretch;}
+  .manager-hero{padding:18px;flex-direction:column;text-align:center;align-items:center;}
+  .perf-bar-row{gap:4px;}
+  .perf-bar{width:22px;}
+
+  .h2h-match-row{display:flex;flex-direction:column;gap:10px;text-align:center;padding:16px;}
+  .h2h-side.right{align-items:center;text-align:center;}
+  .h2h-score{order:-1;}
+
+  .toast-stack{left:12px;right:12px;top:12px;max-width:none;}
+}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(26,10,46,0.55);z-index:100;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.show{display:flex;}
+.modal-box{background:var(--bg);border-radius:14px;max-width:640px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.modal-head{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px;position:sticky;top:0;background:var(--bg);}
+.modal-close{background:var(--surface);border:1px solid var(--line);border-radius:8px;width:32px;height:32px;cursor:pointer;color:var(--text-mute);font-size:16px;flex:0 0 auto;}
+.modal-close:hover{color:var(--purple);border-color:var(--purple);}
+.modal-body{padding:20px 24px;}
+.modal-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:18px;}
+.modal-stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+.modal-stat .k{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-mute);margin-bottom:4px;}
+.modal-stat .v{font-family:var(--mono);font-weight:800;font-size:18px;color:var(--purple);}
+
+.pos-chip-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;}
+.pos-chip{
+  font-family:var(--mono);font-size:11px;font-weight:800;color:var(--text);
+  background:var(--surface);border:1px solid var(--line-strong);border-radius:8px;
+  padding:6px 9px;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:38px;
+}
+.pos-chip span{font-size:8.5px;font-weight:600;color:var(--text-mute);text-transform:uppercase;}
+
+.manager-picker-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+.manager-hero{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 26px;margin-bottom:20px;box-shadow:0 1px 2px rgba(55,0,60,0.04), 0 8px 24px rgba(55,0,60,0.03);}
+.manager-hero .team-name-wrap .team-name{font-size:22px;}
+.manager-hero .team-name-wrap .team-manager{font-size:14px;}
+.perf-bar-row{display:flex;align-items:flex-end;gap:6px;height:120px;padding:10px 4px 0;overflow-x:auto;}
+.perf-bar{flex:0 0 auto;width:28px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.perf-bar .bar{width:100%;border-radius:6px 6px 0 0;background:linear-gradient(180deg, var(--purple-2), var(--purple));min-height:4px;}
+.perf-bar .val{font-family:var(--mono);font-size:9.5px;color:var(--text-2);font-weight:700;}
+.perf-bar .gwlbl{font-family:var(--mono);font-size:8.5px;color:var(--text-mute);}
+
+.h2h-subtabs{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px;}
+.h2h-subtab-btn{
+  font-family:var(--font);font-weight:700;font-size:13.5px;padding:9px 20px;border-radius:9px;
+  border:none;background:transparent;color:var(--text-mute);cursor:pointer;transition:all .15s ease;
+}
+.h2h-subtab-btn.active{background:var(--bg);color:var(--purple);box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.h2h-subview{display:none;}
+.h2h-subview.active{display:block;}
+
+.h2h-filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;}
+.h2h-filter-row select{width:auto;min-width:160px;margin:0;}
+
+.h2h-match-row{
+  display:grid;grid-template-columns:56px 1fr auto 1fr;align-items:center;gap:14px;
+  padding:18px 22px;border-bottom:1px solid var(--line);transition:background .15s ease;
+}
+.h2h-match-row:last-child{border-bottom:none;}
+.h2h-match-row:hover{background:linear-gradient(90deg, var(--purple-tint), transparent 70%);}
+.h2h-match-row.win-highlight{background:linear-gradient(90deg, var(--cyan), var(--purple));}
+.h2h-match-row.win-highlight .h2h-side-name, .h2h-match-row.win-highlight .h2h-side-team{color:#fff;}
+.h2h-gw-label{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text-mute);}
+.h2h-side{display:flex;flex-direction:column;}
+.h2h-side.right{align-items:flex-end;text-align:right;}
+.h2h-side-name{font-weight:800;font-size:15px;color:var(--purple);}
+.h2h-side-team{font-size:12px;color:var(--text-mute);margin-top:1px;}
+.h2h-side.winner .h2h-side-name{color:var(--green-ink);}
+.h2h-match-row.win-highlight .h2h-side.winner .h2h-side-name{color:#fff;}
+.h2h-score{
+  display:flex;align-items:center;background:var(--purple);border-radius:9px;overflow:hidden;
+  font-family:var(--mono);font-weight:800;font-size:18px;color:#fff;
+}
+.h2h-score span{padding:9px 16px;}
+.h2h-score .divider{padding:0;color:rgba(255,255,255,0.4);font-weight:400;}
+
+.cup-round{margin-bottom:22px;border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+.cup-round-head{background:var(--surface);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.cup-round-head h4{margin:0;font-size:14px;font-weight:700;color:var(--purple);}
+.cup-matches{padding:14px 16px;display:flex;flex-direction:column;gap:10px;}
+.cup-match{display:grid;grid-template-columns:1fr auto 1fr auto;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);}
+.cup-side{display:flex;align-items:center;gap:8px;}
+.cup-side.winner .cup-team-name{color:var(--green-ink);font-weight:800;}
+.cup-side.loser .cup-team-name{color:var(--text-mute);}
+.cup-team-name{font-size:13px;font-weight:700;color:var(--purple);}
+.cup-vs{font-family:var(--mono);font-size:11px;color:var(--text-mute);font-weight:700;}
+.cup-score-input{width:44px;text-align:center;margin:0;padding:6px 4px;font-family:var(--mono);}
+.cup-del{background:none;border:none;color:var(--text-mute);cursor:pointer;font-size:16px;padding:0 4px;}
+.cup-del:hover{color:var(--pink-ink);}
+</style>
+</head>
+<body>
+
+<div class="toast-stack" id="toast-stack"></div>
+<div class="topstripe"></div>
+<div class="header">
+  <div class="header-inner">
+    <div class="header-row">
+      <div class="brand">
+        <div class="brand-art">
+          <img src="https://user28859.na.imgto.link/public/20260902/rules-of-the-game-fpl-jla.avif" alt="JLA Logo" style="width:100%;height:100%;object-fit:contain;">
+        </div>
+        <div>
+          <h1>Super League <em style="font-style:normal;color:var(--pink);">Divisi JLA</em></h1>
+          <p class="tagline">Ngopi. Main. Menang.</p>
+          <p class="subtitle">Fantasy Premier League 2026/27</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div class="meta-pill"><div class="k">Game week</div><div class="v" id="meta-gw">-</div></div>
+        <div class="meta-pill"><div class="k">Diperbarui</div><div class="v" id="meta-updated" style="font-size:11.5px;">-</div></div>
+        <button class="admin-toggle-btn" id="btn-theme-toggle" title="Ganti tema">&#9788;&#65039; Light</button>
+        <button class="admin-toggle-btn" id="btn-open-admin" title="Admin Mode">&#128274; Admin</button>
+      </div>
+    </div>
+    <div class="tabs" id="tabs">
+      <button class="tab-btn active" data-tab="beranda">Beranda</button>
+      <button class="tab-btn" data-tab="klasemen">Klasemen Game Week</button>
+      <button class="tab-btn" data-tab="mingguan">Game Week</button>
+      <button class="tab-btn" data-tab="grafik">Grafik</button>
+      <button class="tab-btn" data-tab="h2h">Head to Head</button>
+      <button class="tab-btn" data-tab="manager">Manager</button>
+      <button class="tab-btn" data-tab="prize">Prize</button>
+      <button class="tab-btn" data-tab="rules">Rule Book</button>
+    </div>
+    <div class="tabs admin-tabs" id="admin-tabs" style="display:none;">
+      <button class="tab-btn admin-tab active" data-admintab="api">Update API</button>
+      <button class="tab-btn admin-tab" data-admintab="json">Manual JSON</button>
+      <button class="tab-btn admin-tab" data-admintab="point">Manual Point</button>
+      <button class="tab-btn admin-tab" data-admintab="manager">Manager Mapping</button>
+      <button class="tab-btn admin-tab" data-admintab="validation">Data Validation</button>
+      <button class="tab-btn admin-tab" data-admintab="h2hadmin">Head to Head</button>
+      <button class="tab-btn admin-tab" data-admintab="coffeedebt">Utang Kopi</button>
+      <button class="tab-btn admin-tab" data-admintab="auditlog">Audit Log</button>
+      <button class="tab-btn" id="btn-exit-admin" style="margin-left:auto;color:var(--pink);">&#8592; Mode Publik</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="view active" id="view-beranda">
+    <div class="deadline-banner" id="deadline-banner" style="display:none;"></div>
+    <div class="stat-grid" id="hero-stats"></div>
+    <div class="klasemen-hero">
+      <div class="klasemen-hero-icon">&#127942;</div>
+      <div>
+        <h2 class="klasemen-hero-title">Papan Klasemen</h2>
+        <p class="klasemen-hero-sub">Peringkat resmi 15 klub JLA Super League Divisi JLA &mdash; musim 2026/27</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <h2>Top Klasemen</h2>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--text-mute);">detail lengkap di tab Klasemen</span>
+      </div>
+      <div class="table-scroll"><table id="home-table"></table></div>
+    </div>
+  </div>
+
+  <div class="view" id="view-klasemen">
+    <div class="klasemen-hero">
+      <div class="klasemen-hero-icon">&#128197;</div>
+      <div>
+        <h2 class="klasemen-hero-title">Klasemen Game Week</h2>
+        <p class="klasemen-hero-sub">Peringkat 15 klub JLA Super League Divisi JLA berdasarkan poin di Game Week terpilih &mdash; bukan akumulasi</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <h2>Peringkat Game Week</h2>
+        <div class="gw-scope-picker">
+          <span class="gw-scope-label">Game Week ke</span>
+          <select id="gw-scope-select"></select>
+          <input class="search-box" id="team-search" type="text" placeholder="Cari tim...">
+        </div>
+      </div>
+      <div class="table-scroll"><table id="full-table"></table></div>
+    </div>
+  </div>
+
+  <div class="view" id="view-mingguan">
+    <p class="section-label">Pilih game week</p>
+    <div class="gw-picker" id="gw-picker"></div>
+    <div id="duel-area"></div>
+    <div class="card">
+      <div class="card-head"><h2>Riwayat juara &amp; tim kalah per game week</h2></div>
+      <div class="table-scroll"><table id="history-table"></table></div>
+    </div>
+  </div>
+
+  <div class="view" id="view-grafik">
+    <div class="chart-card">
+      <h3>Statistik Musim</h3>
+      <div class="stat-grid" id="season-stats"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Tren akumulasi poin</h3>
+      <div class="chart-controls" id="trend-toggles"></div>
+      <div class="chart-wrap"><canvas id="trendChart" role="img" aria-label="Grafik garis tren akumulasi poin tiap game week untuk tim terpilih">Grafik tren poin kumulatif per game week.</canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Grand total &mdash; semua klub</h3>
+      <div class="chart-wrap" style="height:560px;"><canvas id="standingsChart" role="img" aria-label="Grafik batang grand total poin seluruh 26 klub">Grafik batang total poin seluruh klub.</canvas></div>
+    </div>
+  </div>
+
+  <div class="view" id="view-h2h">
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-head">
+        <div>
+          <h2>Head to Head</h2>
+          <p style="margin:2px 0 0;font-size:11.5px;color:var(--text-mute);">Data dari liga H2H terpisah (roster &amp; manager sama) &mdash; <a class="link-inline" href="https://fantasy.premierleague.com/en/leagues/1657648/matches/h?page_matches=1&event=0" target="_blank" rel="noopener">lihat di FPL &#8599;</a></p>
+        </div>
+      </div>
+      <div style="padding:20px;">
+        <div class="h2h-subtabs" id="h2h-subtabs">
+          <button class="h2h-subtab-btn active" data-h2hsub="matches">Matches</button>
+          <button class="h2h-subtab-btn" data-h2hsub="standings">Standings</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="h2h-subview active" id="h2h-sub-matches">
+      <div class="h2h-filter-row">
+        <select id="h2h-filter-team">
+          <option value="">Semua Tim</option>
+        </select>
+        <select id="h2h-filter-gw">
+          <option value="">Semua Game Week</option>
+        </select>
+        <button class="btn btn-ghost" id="btn-h2h-reset">&#8635; Reset</button>
+      </div>
+      <div id="h2h-matches"></div>
+    </div>
+
+    <div class="h2h-subview" id="h2h-sub-standings">
+      <div class="card">
+        <div class="card-head">
+          <h2>Klasemen Head to Head</h2>
+          <input class="search-box" id="h2h-standings-search" type="text" placeholder="Cari tim atau manager...">
+        </div>
+        <div class="table-scroll"><table id="h2h-standings-table"></table></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view" id="view-manager">
+    <div class="manager-picker-row">
+      <p class="section-label" style="margin:0;">Pilih tim &amp; manager</p>
+      <select id="manager-page-select" style="max-width:280px;"></select>
+    </div>
+    <div id="manager-page-content"></div>
+  </div>
+
+  <div class="view" id="view-prize">
+    <div class="prize-hero">
+      <div class="prize-hero-icon">&#127942;</div>
+      <div class="prize-hero-title">Prize Pool &amp; Ketentuan Hadiah</div>
+      <div class="prize-hero-sub">JLA Super League &mdash; Musim 2026/27</div>
+      <div class="prize-total-strip">
+        <span class="lbl">Total Hadiah Musiman</span>
+        <span class="amt">Rp1.280.000</span>
+      </div>
+    </div>
+
+    <div class="vs-card">
+      <div class="vs-side lose">
+        <div class="vs-icon">&#128557;</div>
+        <div class="vs-lbl">Tim Kalah GW</div>
+        <div class="vs-desc">Wajib mentraktir kopi atau jus</div>
+      </div>
+      <div class="vs-badge">VS</div>
+      <div class="vs-side win">
+        <div class="vs-icon">&#127942;</div>
+        <div class="vs-lbl">Tim Juara GW</div>
+        <div class="vs-desc">Berhak ditraktir minggu itu</div>
+      </div>
+    </div>
+
+    <div class="section-heading">
+      <div class="icon-badge">&#128176;</div>
+      <div>
+        <h3>Bonus Juara Mingguan</h3>
+        <p>Berlaku untuk Game Week 1 sampai Game Week 8</p>
+      </div>
+    </div>
+    <div class="prize-grid" style="margin-bottom:30px;">
+      <div class="prize-card gold">
+        <div class="tier-icon">&#9917;</div>
+        <div class="tier-lbl">Juara GW1 &ndash; GW8</div>
+        <div class="tier-name">Tambahan hadiah tiap minggu</div>
+        <div class="tier-amount">Rp50.000</div>
+      </div>
+    </div>
+
+    <div class="section-heading">
+      <div class="icon-badge">&#127942;</div>
+      <div>
+        <h3>Hadiah Musiman</h3>
+        <p>Classic League &amp; Head to Head League</p>
+      </div>
+    </div>
+    <div class="podium-wrap">
+      <div class="podium-card rank2">
+        <div class="rank-crown">&#129352;</div>
+        <div class="tier-lbl">Paruh Musim</div>
+        <div class="tier-name">Classic League</div>
+        <div class="tier-amount">Rp250.000</div>
+        <div class="podium-base">JUARA TENGAH MUSIM</div>
+      </div>
+      <div class="podium-card rank1">
+        <div class="rank-crown">&#127942;</div>
+        <div class="tier-lbl">Akhir Musim</div>
+        <div class="tier-name">Classic League<br>Coffee &amp; JLA Super League</div>
+        <div class="tier-amount">Rp750.000</div>
+        <div class="podium-base">JUARA UTAMA MUSIM</div>
+      </div>
+      <div class="podium-card rank3">
+        <div class="rank-crown">&#9876;&#65039;</div>
+        <div class="tier-lbl">Akhir Musim</div>
+        <div class="tier-name">Head to Head League</div>
+        <div class="tier-amount">Rp280.000</div>
+        <div class="podium-base">JUARA H2H</div>
+      </div>
+    </div>
+
+    <div class="penalty-card-v2">
+      <div class="penalty-icon-v2">&#128170;</div>
+      <div class="penalty-text-v2">
+        <strong>Konsekuensi juru kunci:</strong> peringkat terakhir dan kedua terakhir di klasemen Head to Head League pada akhir musim wajib melakukan <strong>push up 30 kali</strong>, direkam video sebagai bukti.
+        <div class="penalty-badge">&#128064; Wajib Direkam</div>
+      </div>
+    </div>
+
+    <div class="section-heading">
+      <div class="icon-badge">&#9749;</div>
+      <div>
+        <h3>Tracker Utang Kopi</h3>
+        <p>Siapa masih berutang traktir ke siapa, tiap Game Week</p>
+      </div>
+    </div>
+    <div id="coffee-debt-summary"></div>
+    <div class="debt-list" id="coffee-debt-list"></div>
+  </div>
+
+  <div class="view" id="view-rules">
+    <div class="page-hero">
+      <div class="page-hero-icon">&#128214;</div>
+      <div>
+        <h2 class="page-hero-title">Rule Book</h2>
+        <p class="page-hero-sub">FPL Season 2026/2027 &middot; JLA Super League</p>
+      </div>
+    </div>
+
+    <div class="section-heading">
+      <div class="icon-badge">&#9881;&#65039;</div>
+      <div>
+        <h3>Format Kompetisi</h3>
+        <p>Ketentuan dasar sesuai aturan resmi Fantasy Premier League</p>
+      </div>
+    </div>
+    <div class="spec-grid" style="margin-bottom:26px;">
+      <div class="spec-item"><div class="spec-icon">&#128176;</div><div><div class="spec-lbl">Budget</div><div class="spec-val">&pound;100m</div></div></div>
+      <div class="spec-item"><div class="spec-icon">&#128101;</div><div><div class="spec-lbl">Squad</div><div class="spec-val">15 pemain</div></div></div>
+      <div class="spec-item"><div class="spec-icon">&#127967;&#65039;</div><div><div class="spec-lbl">Gameweek</div><div class="spec-val">38 GW</div></div></div>
+      <div class="spec-item"><div class="spec-icon">&#128110;</div><div><div class="spec-lbl">Maks. Pemain/Klub</div><div class="spec-val">3 pemain</div></div></div>
+      <div class="spec-item"><div class="spec-icon">&#9917;</div><div><div class="spec-lbl">Starting XI</div><div class="spec-val">11 pemain</div></div></div>
+      <div class="spec-item"><div class="spec-icon">&#129505;</div><div><div class="spec-lbl">Captain</div><div class="spec-val">&times;2 poin</div></div></div>
+      <div class="spec-item"><div class="spec-icon">&#128081;</div><div><div class="spec-lbl">Triple Captain</div><div class="spec-val">&times;3 poin</div></div></div>
+      <div class="spec-item"><div class="spec-icon">&#128260;</div><div><div class="spec-lbl">Free Transfer</div><div class="spec-val">1 FT/GW</div></div></div>
+      <div class="spec-item"><div class="spec-icon">&#128190;</div><div><div class="spec-lbl">Maks. FT Tersimpan</div><div class="spec-val">5 FT</div></div></div>
+      <div class="spec-item"><div class="spec-icon">&#128165;</div><div><div class="spec-lbl">Extra Transfer</div><div class="spec-val">-4 poin</div></div></div>
+    </div>
+
+    <div class="section-heading">
+      <div class="icon-badge">&#127183;</div>
+      <div>
+        <h3>Chips</h3>
+        <p>Jatah penggunaan chip sepanjang musim</p>
+      </div>
+    </div>
+    <div class="chip-grid" style="margin-bottom:26px;">
+      <div class="chip-item"><div class="chip-icon">&#127788;&#65039;</div><div class="chip-name">Wildcard</div><div class="chip-count">2&times;</div></div>
+      <div class="chip-item"><div class="chip-icon">&#128640;</div><div class="chip-name">Free Hit</div><div class="chip-count">2&times;</div></div>
+      <div class="chip-item"><div class="chip-icon">&#129681;</div><div class="chip-name">Bench Boost</div><div class="chip-count">2&times;</div></div>
+      <div class="chip-item"><div class="chip-icon">&#128081;</div><div class="chip-name">Triple Captain</div><div class="chip-count">2&times;</div></div>
+    </div>
+
+    <div class="section-heading">
+      <div class="icon-badge">&#9917;</div>
+      <div>
+        <h3>Ketentuan Pertandingan</h3>
+        <p>Hal-hal teknis yang perlu diperhatikan tiap Game Week</p>
+      </div>
+    </div>
+    <div class="match-cond-list" style="margin-bottom:26px;">
+      <div class="match-cond-item"><div class="mc-icon">&#128737;&#65039;</div><div><div class="mc-title">Defensive Contribution</div><div class="mc-desc">Tetap berlaku sesuai aturan resmi FPL musim ini.</div></div></div>
+      <div class="match-cond-item"><div class="mc-icon">&#128293;</div><div><div class="mc-title">DGW &mdash; Double Gameweek</div><div class="mc-desc">Pemain berpotensi bermain dua kali dalam satu Game Week.</div></div></div>
+      <div class="match-cond-item"><div class="mc-icon">&#128683;</div><div><div class="mc-title">BGW &mdash; Blank Gameweek</div><div class="mc-desc">Pemain tidak memiliki pertandingan pada Game Week tersebut.</div></div></div>
+      <div class="match-cond-item"><div class="mc-icon">&#127942;</div><div><div class="mc-title">Kompetisi</div><div class="mc-desc">Berjalan paralel: Classic League dan Head-to-Head League.</div></div></div>
+      <div class="match-cond-item"><div class="mc-icon">&#9203;</div><div><div class="mc-title">Deadline</div><div class="mc-desc">Wajib mengatur susunan tim sebelum Game Week dimulai.</div></div></div>
+    </div>
+
+    <div class="section-heading">
+      <div class="icon-badge">&#128203;</div>
+      <div>
+        <h3>Additional Rules</h3>
+        <p>Ketentuan tambahan khusus liga ini</p>
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">1</div>
+      <div>
+        <h4>&#128181; Biaya Pendaftaran</h4>
+        <p>Setiap peserta dikenakan biaya pendaftaran sebesar Rp10.000.</p>
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">2</div>
+      <div>
+        <h4>&#128100; Satu Peserta, Satu Tim</h4>
+        <p>Setiap peserta hanya diperbolehkan mendaftarkan satu tim FPL.</p>
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">3</div>
+      <div>
+        <h4>&#127942; Wajib Bergabung di League</h4>
+        <p>Setiap peserta wajib mengikuti Classic League (JLA Super League) dan Head-to-Head League.</p>
+        <div class="rule-callout">
+          <div class="rc-icon">&#9888;&#65039;</div>
+          <div class="rc-text"><strong>Catatan:</strong> Head-to-Head League saat ini sudah ditutup. Peserta baru yang belum bergabung tidak dapat masuk ke league tersebut.</div>
+        </div>
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">4</div>
+      <div>
+        <h4>&#128260; Penalti Transfer</h4>
+        <p>Setiap aktivitas transfer yang melebihi jumlah Free Transfer (FT) yang tersedia akan dikenakan penalti -4 poin per transfer, sesuai ketentuan resmi FPL.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="view" id="view-admin-api">
+    <div class="admin-toolbar">
+      <div class="admin-toolbar-left">&#128274; <strong>Admin Mode</strong> &mdash; perubahan di sini memengaruhi data yang dilihat semua manager</div>
+      <div class="admin-toolbar-right">
+        <input type="password" id="pin-set-input" placeholder="PIN baru (kosongkan = hapus)" style="max-width:200px;margin:0;">
+        <button class="btn btn-ghost" id="btn-save-pin" style="padding:9px 14px;">Simpan PIN</button>
+      </div>
+    </div>
+    <div class="status-msg" id="pin-set-status"></div>
+    <div class="panel">
+      <h3>Update data FPL</h3>
+      <p>Pilih game week yang mau di-update, lalu klik tombol di bawah. Aplikasi akan mengambil data terbaru dari <a class="link-inline" href="https://fantasy.premierleague.com/api/leagues-classic/1657648/standings/" target="_blank" rel="noopener">API resmi liga kamu</a> dan menyimpannya sebagai GW yang kamu pilih.</p>
+      <label class="field-label">Game week yang di-update</label>
+      <select id="gw-select-input"></select>
+      <div class="notice-strip" style="margin-top:0;margin-bottom:14px;">Untuk refresh skor GW yang sedang berjalan, biarkan pilihan default. Untuk <strong>maju ke game week baru</strong>, ubah dropdown ini ke nomor GW berikutnya sebelum klik tombol &mdash; ini keputusan manual, tidak akan pernah terjadi otomatis.</div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-autotry" style="font-size:14.5px;padding:13px 24px;">&#8635;&nbsp; Perbarui Data Sekarang</button>
+      </div>
+      <div class="status-msg" id="update-status"></div>
+      <label class="field-label" style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:18px;">
+        <input type="checkbox" id="chk-auto-refresh" style="width:auto;margin:0;">
+        Auto-refresh: ulangi otomatis tiap app dibuka &amp; tiap 15 menit selama tab terbuka
+      </label>
+      <div class="notice-strip" style="margin-top:0;">Auto-refresh <strong>hanya me-refresh GW yang sedang aktif</strong> (tidak pernah maju sendiri ke GW baru) dan hanya berjalan selagi tab/app ini terbuka di browser &mdash; bukan scheduler server 24 jam.</div>
+      <label class="field-label" style="margin-top:16px;display:block;">Relay pribadi (opsional, lebih andal dari proxy publik)</label>
+      <input type="text" id="custom-proxy-input" placeholder="https://worker-kamu.workers.dev/?url=" style="font-size:12px;">
+      <div class="btn-row">
+        <button class="btn btn-ghost" id="btn-save-proxy">Simpan Relay</button>
+      </div>
+      <div class="notice-strip">Masukkan URL Cloudflare Worker kamu sendiri (kalau ada) diakhiri dengan <span style="font-family:var(--mono);">?url=</span> &mdash; relay ini akan dicoba PALING PERTAMA sebelum proxy publik. Minta Claude membuatkan kode Worker-nya kalau belum punya.</div>
+      <div class="status-msg" id="proxy-status"></div>
+    </div>
+  </div>
+
+  <div class="view" id="view-admin-json">
+    <div class="admin-toolbar">
+      <div class="admin-toolbar-left">&#128274; <strong>Admin Mode</strong> &mdash; fallback manual kalau update otomatis gagal</div>
+    </div>
+    <div class="panel">
+      <h3>Tempel JSON manual</h3>
+      <p>Dipakai kalau tombol update otomatis gagal (biasanya karena sandbox preview membatasi koneksi keluar).</p>
+      <label class="field-label">Game week yang diinput</label>
+      <select id="gw-select-json-input"></select>
+      <div class="btn-row">
+        <a class="btn btn-ghost" href="https://fantasy.premierleague.com/api/leagues-classic/1657648/standings/" target="_blank" rel="noopener">Buka JSON liga &#8599;</a>
+      </div>
+      <div class="notice-strip">Buka tautan di atas, salin semua teksnya (Ctrl+A, Ctrl+C), lalu tempel di kotak bawah ini.</div>
+      <label class="field-label" style="margin-top:12px;display:block;">Tempel JSON di sini</label>
+      <textarea id="json-input" placeholder='{"league":{...},"standings":{"results":[...]}}'></textarea>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-process">Proses &amp; simpan</button>
+        <button class="btn btn-ghost" id="btn-clear-json">Bersihkan</button>
+      </div>
+      <div class="status-msg" id="json-manual-status"></div>
+    </div>
+  </div>
+
+  <div class="view" id="view-admin-point">
+    <div class="admin-toolbar">
+      <div class="admin-toolbar-left">&#128274; <strong>Admin Mode</strong> &mdash; input poin per klub secara manual</div>
+    </div>
+    <div class="panel">
+      <h3>Input manual per klub</h3>
+      <p>Isi poin, pengurangan (hit transfer), poin Captain, dan poin Bench tiap klub untuk satu game week. Captain &amp; Bench dipakai sebagai tiebreaker kalau ada total poin yang sama.</p>
+      <label class="field-label">Game week</label>
+      <select id="gw-select-manual"></select>
+      <label class="field-label">Roster &amp; input poin</label>
+      <div class="roster-list" id="manual-roster"></div>
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn btn-primary" id="btn-save-manual">Simpan poin manual</button>
+      </div>
+      <div class="status-msg" id="manual-status"></div>
+    </div>
+  </div>
+
+  <div class="view" id="view-admin-manager">
+    <div class="admin-toolbar">
+      <div class="admin-toolbar-left">&#128274; <strong>Admin Mode</strong> &mdash; kelola nama manager tiap tim</div>
+    </div>
+    <div class="panel">
+      <h3>Nama manager per tim</h3>
+      <p>Satu kata nama manager untuk setiap tim, ditampilkan di bawah nama tim pada Klasemen. Diambil otomatis dari nama tim &mdash; ubah sesuai nama manager sebenarnya bila perlu.</p>
+      <div class="roster-list" id="manager-roster"></div>
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn btn-primary" id="btn-save-managers">Simpan nama manager</button>
+      </div>
+      <div class="status-msg" id="manager-status"></div>
+    </div>
+  </div>
+
+  <div class="view" id="view-admin-validation">
+    <div class="admin-toolbar">
+      <div class="admin-toolbar-left">&#128274; <strong>Admin Mode</strong> &mdash; cek kelengkapan &amp; konsistensi data</div>
+    </div>
+    <div class="panel">
+      <h3>Laporan Validasi Data</h3>
+      <p>Pengecekan otomatis untuk membantu memastikan data liga lengkap dan konsisten.</p>
+      <div id="validation-report"></div>
+    </div>
+    <div class="panel" style="margin-top:18px;">
+      <h3>&#128190; Backup &amp; Restore</h3>
+      <p>Data liga tersimpan di sistem penyimpanan bawaan Claude (bukan database yang bisa kamu akses langsung). Untuk jaga-jaga, unduh salinan datanya secara berkala sebagai file JSON.</p>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-backup-download">&#11015;&nbsp; Unduh Backup (JSON)</button>
+      </div>
+      <div class="notice-strip" style="margin-top:14px;">Untuk memulihkan data dari backup: tempel isi file JSON di kotak bawah ini, lalu klik "Pulihkan". <strong>Ini akan menimpa semua data yang ada saat ini</strong> &mdash; pastikan file backup-nya benar.</div>
+      <label class="field-label" style="margin-top:12px;display:block;">Tempel isi file backup di sini</label>
+      <textarea id="restore-input" placeholder="Tempel isi file backup JSON..."></textarea>
+      <div class="btn-row">
+        <button class="btn btn-ghost" id="btn-backup-restore" style="border-color:#F4C6D6;color:var(--pink-ink);">&#9888;&#65039; Pulihkan dari Backup</button>
+      </div>
+      <div class="status-msg" id="backup-status"></div>
+    </div>
+  </div>
+
+  <div class="view" id="view-admin-h2hadmin">
+    <div class="admin-toolbar">
+      <div class="admin-toolbar-left">&#128274; <strong>Admin Mode</strong> &mdash; kelola data Head to Head (liga 1657648)</div>
+    </div>
+    <div class="update-grid">
+      <div class="panel">
+        <h3>Update Matches</h3>
+        <p>Pilih game week yang mau di-update, lalu ambil data pertandingan H2H dari <a class="link-inline" href="https://fantasy.premierleague.com/en/leagues/1657648/matches/h?page_matches=1&event=0" target="_blank" rel="noopener">liga H2H</a>.</p>
+        <label class="field-label">Game week yang di-update</label>
+        <select id="gw-select-h2h-input"></select>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="btn-h2h-autotry" style="font-size:14.5px;padding:12px 22px;">&#8635;&nbsp; Perbarui Matches Sekarang</button>
+        </div>
+        <div class="status-msg" id="h2h-status"></div>
+        <details style="margin-top:14px;">
+          <summary style="cursor:pointer;font-size:12px;font-weight:700;color:var(--text-mute);text-transform:uppercase;letter-spacing:.05em;">Cara manual (kalau update otomatis gagal)</summary>
+          <div style="margin-top:12px;">
+            <div class="notice-strip">Buka <span style="font-family:var(--mono);">fantasy.premierleague.com/api/leagues-h2h-matches/league/1657648/?page=1&amp;event=GW</span> (ganti GW dengan nomor game week yang dipilih di atas), salin semua teksnya, lalu tempel di bawah.</div>
+            <label class="field-label" style="margin-top:12px;display:block;">Tempel JSON di sini</label>
+            <textarea id="h2h-json-input" placeholder='{"has_next":false,"page":1,"results":[...]}'></textarea>
+            <div class="btn-row">
+              <button class="btn btn-primary" id="btn-h2h-process">Proses &amp; simpan</button>
+              <button class="btn btn-ghost" id="btn-h2h-clear">Bersihkan</button>
+            </div>
+          </div>
+        </details>
+      </div>
+      <div class="panel">
+        <h3>Update Standings</h3>
+        <p>Ambil klasemen H2H dari <a class="link-inline" href="https://fantasy.premierleague.com/en/leagues/1657648/standings/h" target="_blank" rel="noopener">liga H2H</a>.</p>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="btn-h2h-standings-autotry" style="font-size:14.5px;padding:12px 22px;">&#8635;&nbsp; Perbarui Standings Sekarang</button>
+        </div>
+        <div class="status-msg" id="h2h-standings-status"></div>
+        <details style="margin-top:14px;">
+          <summary style="cursor:pointer;font-size:12px;font-weight:700;color:var(--text-mute);text-transform:uppercase;letter-spacing:.05em;">Cara manual (kalau update otomatis gagal)</summary>
+          <div style="margin-top:12px;">
+            <div class="notice-strip">Buka <span style="font-family:var(--mono);">fantasy.premierleague.com/api/leagues-h2h/1657648/standings/</span>, salin semua teksnya, lalu tempel di bawah.</div>
+            <label class="field-label" style="margin-top:12px;display:block;">Tempel JSON di sini</label>
+            <textarea id="h2h-standings-json-input" placeholder='{"standings":{"results":[...]}}'></textarea>
+            <div class="btn-row">
+              <button class="btn btn-primary" id="btn-h2h-standings-process">Proses &amp; simpan</button>
+              <button class="btn btn-ghost" id="btn-h2h-standings-clear">Bersihkan</button>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <div class="view" id="view-admin-coffeedebt">
+    <div class="admin-toolbar">
+      <div class="admin-toolbar-left">&#128274; <strong>Admin Mode</strong> &mdash; tandai siapa sudah/belum bayar traktir kopi</div>
+    </div>
+    <div class="panel">
+      <h3>&#9749; Kelola Utang Kopi</h3>
+      <p>Tim yang kalah tiap Game Week wajib mentraktir tim juara. Tandai di sini kalau traktirannya sudah lunas.</p>
+      <div id="admin-debt-list"></div>
+    </div>
+  </div>
+
+  <div class="view" id="view-admin-auditlog">
+    <div class="admin-toolbar">
+      <div class="admin-toolbar-left">&#128274; <strong>Admin Mode</strong> &mdash; riwayat semua perubahan data</div>
+    </div>
+    <div class="panel">
+      <h3>&#128220; Audit Log</h3>
+      <p>Catatan otomatis setiap kali data diperbarui &mdash; siapa aksinya, kapan, dan hasilnya. Menyimpan 150 aktivitas terakhir.</p>
+      <div class="btn-row" style="margin-bottom:16px;">
+        <button class="btn btn-ghost" id="btn-clear-audit">Bersihkan Log</button>
+      </div>
+      <div class="audit-timeline" id="audit-log-list"></div>
+    </div>
+  </div>
+
+  <div class="view" id="view-h2hplaceholder" style="display:none;"></div>
+
+</div>
+
+<footer>JLA Super League &middot; data tersimpan otomatis &middot; sumber resmi: fantasy.premierleague.com/leagues/1657648</footer>
+
+<div class="modal-overlay" id="admin-pin-overlay" onclick="if(event.target===this) closeAdminPinModal()">
+  <div class="modal-box" style="max-width:380px;">
+    <div class="modal-head">
+      <div style="display:flex;align-items:center;gap:10px;"><strong>&#128274; Masuk Admin Mode</strong></div>
+      <button class="modal-close" onclick="closeAdminPinModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12.5px;color:var(--text-2);margin:0 0 14px;">Masukkan PIN admin untuk mengubah data liga.</p>
+      <input type="password" id="admin-pin-input" placeholder="Masukkan PIN" style="text-align:center;font-size:16px;letter-spacing:.2em;">
+      <div class="btn-row" style="justify-content:center;margin-top:6px;">
+        <button class="btn btn-primary" id="btn-admin-unlock">Masuk</button>
+      </div>
+      <div class="status-msg" id="admin-pin-status"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="team-modal-overlay" onclick="if(event.target===this) closeTeamDetail()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div style="display:flex;align-items:center;gap:12px;" id="team-modal-headinfo"></div>
+      <button class="modal-close" onclick="closeTeamDetail()">&times;</button>
+    </div>
+    <div class="modal-body" id="team-modal-body"></div>
+  </div>
+</div>
+
+<script>
+const LEAGUE_ID = "1657648";
+const N_GW = 38;
+const STORAGE_KEY = "liga-kopi-2026-27-v2";
+const BADGE_COLORS = ["#37003C","#00707A","#A3003B","#5A3E85","#0B5F3A","#8A4B00","#3D3D8F","#7A1F3D"];
+
+const DEFAULT_TEAMS = ["PSGR","faishal's Team","Tianlala","Kamileung FC","Sedotan Aqua","jowwwtim","kokorobet FC","helmoni fc","ARFantasy","CIMSEL UNITED","Alunos 2.0","Grindboys","JosJis FC","Gurandilepce","komodomodol FC","Olahlah Fc","Katapang_Pride","Kontol FC","Maung FC","Bubble Gummy","DOBHAN FC","Brancos FC","Blink 182","theluckyone","PROJECT ALMANAC","Backlight FC","Welldone","SSB Fak Fak","Tarkam Fried Chicken"];
+
+const GW1_POINTS = {"PSGR":74,"Tianlala":64,"JosJis FC":64,"faishal's Team":62,"Kamileung FC":58,"Sedotan Aqua":58,"jowwwtim":57,"helmoni fc":57,"kokorobet FC":57,"Alunos 2.0":54,"CIMSEL UNITED":54,"Kontol FC":54,"ARFantasy":54,"Olahlah Fc":53,"Grindboys":50,"Maung FC":48,"komodomodol FC":47,"Gurandilepce":47,"Katapang_Pride":46,"Bubble Gummy":45,"DOBHAN FC":42,"theluckyone":41,"Brancos FC":39,"Blink 182":37,"Backlight FC":35,"PROJECT ALMANAC":35};
+const CLUB_BADGES = {
+  "PSGR":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/4473842/2f0c8738-abfe-4f50-8ba3-acf96524e206.png",
+  "JosJis FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7769856/84600082-051c-40d8-ae54-0bf23841a52b.png",
+  "CIMSEL UNITED":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/3840511/42fcba34-296e-41ff-a30b-86e602a6c0be.png",
+  "Kontol FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/6962029/e019337f-5f69-4162-801e-72ecbaa761c4.png",
+  "Grindboys":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/8414036/ec8c1d0e-f179-4860-a4f5-44f3b9329266.png",
+  "komodomodol FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/1691342/a75e60c1-290e-4928-bbf7-64f624291422.png",
+  "Bubble Gummy":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/3844902/0dcdd86e-3859-4ee3-ae71-a62426bf3a1b.png",
+  "DOBHAN FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/2772961/fdbdeaf5-644e-4e3a-92b5-9ef3bc405fda.png"
+};
+const DATA_VERSION = 17;
+const KNOWN_ENTRY_IDS = { "Sedotan Aqua": 8198726 }; // dulu "Pending Moderation" -> "Change Name" -> "Sedotan Aqua", manager: Baltasario Saga
+const DEFAULT_CUSTOM_PROXY = "https://ligakopi.ikokrumah.workers.dev/?url=";
+const DEFAULT_ADMIN_PIN = "252525";
+const WELLDONE_GW1_POINTS = 110; // poin Welldone di GW1 (masuk total musim, tapi tidak dihitung sbg juara/kalah GW1 di menu Game Week)
+// GW1_POINTS di atas adalah data ASLI/BENAR (tidak direvisi). GW2 di bawah = poin mentah GW2 (event_total resmi FPL).
+// Kalau ada tim yang total-nya belum pas dengan link resmi, itu karena ada pengurangan poin transfer di GW2
+// yang belum diinput -- masukkan manual lewat Admin Mode -> Manual Point -> kolom "Kurang" untuk GW2.
+// Diperbarui via relay pribadi (ligakopi.ikokrumah.workers.dev).
+const GW2_POINTS = {
+  "Welldone":30, "Grindboys":52, "JosJis FC":34, "CIMSEL UNITED":42, "PSGR":17, "Alunos 2.0":35,
+  "jowwwtim":32, "Tianlala":23, "faishal's Team":24, "Maung FC":37, "ARFantasy":31, "komodomodol FC":37,
+  "Kamileung FC":24, "Kontol FC":25, "helmoni fc":25, "Bubble Gummy":31, "Sedotan Aqua":17, "Gurandilepce":28,
+  "kokorobet FC":17, "theluckyone":32, "Olahlah Fc":19, "Backlight FC":32, "Katapang_Pride":17, "Brancos FC":21,
+  "DOBHAN FC":10, "SSB Fak Fak":52, "PROJECT ALMANAC":14, "Blink 182":14, "Tarkam Fried Chicken":24
+};
+
+const MANAGER_NAMES = {
+  "Alunos 2.0":"Gilang Gumilar", "ARFantasy":"Achmad Ramdani", "Backlight FC":"Malwan Fauzan", "Blink 182":"Ilyas Muntaha",
+  "Brancos FC":"Faisal Auliaghani", "Bubble Gummy":"Fahmi Mohamad", "CIMSEL UNITED":"Maulana Abdul", "DOBHAN FC":"Dani R",
+  "faishal's Team":"Faishal Abyan", "Grindboys":"Ruby Wndr", "Gurandilepce":"Ferryan Reynaldi", "helmoni fc":"Isom Mutaqin",
+  "JosJis FC":"Ignatius Aryo", "jowwwtim":"Anggi Suprayogi", "Kamileung FC":"Pipin Effendy", "Katapang_Pride":"Katapang Pride",
+  "kokorobet FC":"Firan Firhan", "komodomodol FC":"Hafid Siddiq", "Kontol FC":"Diar Malik", "Maung FC":"Wahyudin Wahyudin",
+  "Olahlah Fc":"Miftahul Reza", "Sedotan Aqua":"Baltasario Saga", "PROJECT ALMANAC":"Akbar Lazuardi",
+  "PSGR":"Rezi Hafiz", "theluckyone":"Lucky One", "Tianlala":"Agil Kusuma",
+  "Welldone":"Wildan Pratama", "SSB Fak Fak":"Ilham Satria", "Tarkam Fried Chicken":"Irham Ulya"
+};
+
+function deriveManager(teamName){
+  if(MANAGER_NAMES[teamName]) return MANAGER_NAMES[teamName];
+  const parts = String(teamName).trim().split(/\s+/).filter(Boolean);
+  if(!parts.length) return teamName;
+  return parts.slice(0,2).map(p=> p.replace(/[^a-zA-Z0-9'\-]/g,'') || p).join(' ');
+}
+
+const BACKUP_SNAPSHOT = {"teams":["PSGR","faishal's Team","Tianlala","Kamileung FC","Sedotan Aqua","jowwwtim","kokorobet FC","helmoni fc","ARFantasy","CIMSEL UNITED","Alunos 2.0","Grindboys","JosJis FC","Gurandilepce","komodomodol FC","Olahlah Fc","Katapang_Pride","Kontol FC","Maung FC","Bubble Gummy","DOBHAN FC","Brancos FC","Blink 182","theluckyone","PROJECT ALMANAC","Backlight FC","Welldone","SSB Fak Fak","Tarkam Fried Chicken"],"scores":{"PSGR":{"1":{"pts":74,"cost":0},"2":{"pts":75,"cost":0,"captain":0,"bench":0}},"faishal's Team":{"1":{"pts":62,"cost":0},"2":{"pts":41,"cost":0,"captain":0,"bench":0}},"Tianlala":{"1":{"pts":64,"cost":0},"2":{"pts":60,"cost":0,"captain":0,"bench":0}},"Kamileung FC":{"1":{"pts":58,"cost":0},"2":{"pts":90,"cost":0,"captain":0,"bench":0}},"Sedotan Aqua":{"1":{"pts":58,"cost":0},"2":{"pts":92,"cost":0,"captain":0,"bench":0}},"jowwwtim":{"1":{"pts":57,"cost":0},"2":{"pts":70,"cost":0,"captain":0,"bench":0}},"kokorobet FC":{"1":{"pts":57,"cost":0},"2":{"pts":83,"cost":0,"captain":0,"bench":0}},"helmoni fc":{"1":{"pts":57,"cost":0},"2":{"pts":81,"cost":0,"captain":0,"bench":0}},"ARFantasy":{"1":{"pts":54,"cost":0},"2":{"pts":82,"cost":0,"captain":0,"bench":0}},"CIMSEL UNITED":{"1":{"pts":54,"cost":0},"2":{"pts":51,"cost":0,"captain":0,"bench":0}},"Alunos 2.0":{"1":{"pts":54,"cost":0},"2":{"pts":55,"cost":0,"captain":0,"bench":0}},"Grindboys":{"1":{"pts":50,"cost":0},"2":{"pts":99,"cost":0,"captain":0,"bench":0}},"JosJis FC":{"1":{"pts":64,"cost":0},"2":{"pts":61,"cost":0,"captain":0,"bench":0}},"Gurandilepce":{"1":{"pts":47,"cost":0},"2":{"pts":92,"cost":0,"captain":0,"bench":0}},"komodomodol FC":{"1":{"pts":47,"cost":0},"2":{"pts":88,"cost":0,"captain":0,"bench":0}},"Olahlah Fc":{"1":{"pts":53,"cost":0},"2":{"pts":80,"cost":0,"captain":0,"bench":0}},"Katapang_Pride":{"1":{"pts":46,"cost":0},"2":{"pts":87,"cost":0,"captain":0,"bench":0}},"Kontol FC":{"1":{"pts":54,"cost":0},"2":{"pts":66,"cost":0,"captain":0,"bench":0}},"Maung FC":{"1":{"pts":48,"cost":0},"2":{"pts":63,"cost":0,"captain":0,"bench":0}},"Bubble Gummy":{"1":{"pts":45,"cost":0},"2":{"pts":75,"cost":0,"captain":0,"bench":0}},"DOBHAN FC":{"1":{"pts":42,"cost":0},"2":{"pts":39,"cost":0,"captain":0,"bench":0}},"Brancos FC":{"1":{"pts":39,"cost":0},"2":{"pts":60,"cost":0,"captain":0,"bench":0}},"Blink 182":{"1":{"pts":37,"cost":0},"2":{"pts":70,"cost":0,"captain":0,"bench":0}},"theluckyone":{"1":{"pts":41,"cost":0},"2":{"pts":61,"cost":0,"captain":0,"bench":0}},"PROJECT ALMANAC":{"1":{"pts":35,"cost":0},"2":{"pts":90,"cost":0,"captain":0,"bench":0}},"Backlight FC":{"1":{"pts":35,"cost":0},"2":{"pts":45,"cost":0,"captain":0,"bench":0}},"Welldone":{"1":{"pts":110,"cost":0,"captain":0,"bench":0},"2":{"pts":62,"cost":0,"captain":0,"bench":0}},"SSB Fak Fak":{"2":{"pts":75,"cost":0,"captain":0,"bench":0}},"Tarkam Fried Chicken":{"2":{"pts":51,"cost":0,"captain":0,"bench":0}}},"managers":{"PSGR":"Rezi Hafiz","faishal's Team":"Faishal Abyan","Tianlala":"Agil Kusuma","Kamileung FC":"Pipin Effendy","Sedotan Aqua":"Baltasario Saga","jowwwtim":"Anggi Suprayogi","kokorobet FC":"Firan Firhan","helmoni fc":"Isom Mutaqin","ARFantasy":"Achmad Ramdani","CIMSEL UNITED":"Maulana Abdul","Alunos 2.0":"Gilang Gumilar","Grindboys":"Ruby Wndr","JosJis FC":"Ignatius Aryo","Gurandilepce":"Ferryan Reynaldi","komodomodol FC":"Hafid Siddiq","Olahlah Fc":"Miftahul Reza","Katapang_Pride":"Katapang Pride","Kontol FC":"Diar Malik","Maung FC":"Wahyudin Wahyudin","Bubble Gummy":"Fahmi Mohamad","DOBHAN FC":"Dani R","Brancos FC":"Faisal Auliaghani","Blink 182":"Ilyas Muntaha","theluckyone":"Lucky One","PROJECT ALMANAC":"Akbar Lazuardi","Backlight FC":"Malwan Fauzan","Welldone":"Wildan Pratama","SSB Fak Fak":"Ilham Satria","Tarkam Fried Chicken":"Irham Ulya"},"clubBadges":{"PSGR":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/4473842/2f0c8738-abfe-4f50-8ba3-acf96524e206.png","JosJis FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7769856/84600082-051c-40d8-ae54-0bf23841a52b.png","CIMSEL UNITED":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/3840511/42fcba34-296e-41ff-a30b-86e602a6c0be.png","Kontol FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/6962029/e019337f-5f69-4162-801e-72ecbaa761c4.png","Grindboys":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/8414036/ec8c1d0e-f179-4860-a4f5-44f3b9329266.png","komodomodol FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/1691342/a75e60c1-290e-4928-bbf7-64f624291422.png","Bubble Gummy":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/3844902/0dcdd86e-3859-4ee3-ae71-a62426bf3a1b.png","DOBHAN FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/2772961/fdbdeaf5-644e-4e3a-92b5-9ef3bc405fda.png","kokorobet FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/6389042/f2331b90-ce4d-4158-b3b1-e2d92952207a.png"},"entryMap":{"2066139":"Welldone","2301043":"Katapang_Pride","2839268":"Bubble Gummy","3058269":"Kamileung FC","3840511":"CIMSEL UNITED","3937511":"theluckyone","4473842":"PSGR","5548027":"Tianlala","5673843":"Blink 182","5896591":"komodomodol FC","5929119":"Olahlah Fc","5950338":"Brancos FC","5956185":"Gurandilepce","6039817":"Kontol FC","6224589":"faishal's Team","6389042":"kokorobet FC","6596539":"PROJECT ALMANAC","6669682":"DOBHAN FC","6794979":"Grindboys","7522529":"helmoni fc","7550025":"Alunos 2.0","7624385":"Maung FC","7764470":"Backlight FC","7767821":"ARFantasy","7768172":"jowwwtim","7769856":"JosJis FC","8198726":"Sedotan Aqua","9697240":"SSB Fak Fak","9908242":"Tarkam Fried Chicken"},"h2h":{"1":[{"teamA":"theluckyone","teamB":"Blink 182","ptsA":41,"ptsB":37,"isBye":false},{"teamA":"ARFantasy","teamB":"Olahlah Fc","ptsA":54,"ptsB":53,"isBye":false},{"teamA":"komodomodol FC","teamB":"Sedotan Aqua","ptsA":47,"ptsB":58,"isBye":false},{"teamA":"Bubble Gummy","teamB":"PSGR","ptsA":45,"ptsB":74,"isBye":false},{"teamA":"Katapang_Pride","teamB":"PROJECT ALMANAC","ptsA":46,"ptsB":35,"isBye":false},{"teamA":"Kontol FC","teamB":"CIMSEL UNITED","ptsA":54,"ptsB":54,"isBye":false},{"teamA":"helmoni fc","teamB":"Maung FC","ptsA":57,"ptsB":48,"isBye":false},{"teamA":"Alunos 2.0","teamB":"Grindboys","ptsA":54,"ptsB":50,"isBye":false},{"teamA":"Kamileung FC","teamB":"jowwwtim","ptsA":58,"ptsB":57,"isBye":false},{"teamA":"JosJis FC","teamB":"Gurandilepce","ptsA":64,"ptsB":47,"isBye":false},{"teamA":"Tianlala","teamB":"kokorobet FC","ptsA":64,"ptsB":57,"isBye":false},{"teamA":"DOBHAN FC","teamB":"faishal's Team","ptsA":44,"ptsB":62,"isBye":false},{"teamA":"Backlight FC","teamB":"Brancos FC","ptsA":35,"ptsB":39,"isBye":false}],"2":[{"teamA":"Blink 182","teamB":"Backlight FC","ptsA":63,"ptsB":45,"isBye":false},{"teamA":"Brancos FC","teamB":"DOBHAN FC","ptsA":60,"ptsB":39,"isBye":false},{"teamA":"faishal's Team","teamB":"Tianlala","ptsA":41,"ptsB":59,"isBye":false},{"teamA":"kokorobet FC","teamB":"JosJis FC","ptsA":83,"ptsB":61,"isBye":false},{"teamA":"Gurandilepce","teamB":"Kamileung FC","ptsA":92,"ptsB":90,"isBye":false},{"teamA":"jowwwtim","teamB":"Alunos 2.0","ptsA":70,"ptsB":52,"isBye":false},{"teamA":"Grindboys","teamB":"helmoni fc","ptsA":99,"ptsB":77,"isBye":false},{"teamA":"Maung FC","teamB":"Kontol FC","ptsA":65,"ptsB":66,"isBye":false},{"teamA":"CIMSEL UNITED","teamB":"Katapang_Pride","ptsA":47,"ptsB":87,"isBye":false},{"teamA":"PROJECT ALMANAC","teamB":"Bubble Gummy","ptsA":85,"ptsB":75,"isBye":false},{"teamA":"PSGR","teamB":"komodomodol FC","ptsA":75,"ptsB":88,"isBye":false},{"teamA":"Sedotan Aqua","teamB":"ARFantasy","ptsA":92,"ptsB":82,"isBye":false},{"teamA":"Olahlah Fc","teamB":"theluckyone","ptsA":76,"ptsB":61,"isBye":false}]},"nextDeadline":{"id":3,"name":"Gameweek 3","deadline":"2026-09-04T17:30:00Z"},"customProxyBase":"https://ligakopi.ikokrumah.workers.dev/?url=","adminPin":"252525","autoRefresh":true,"h2hStandings":[{"team":"PSGR","manager":"Rezi Hafiz","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":74,"total":3,"rank":1},{"team":"Tianlala","manager":"agil kusuma","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":64,"total":3,"rank":2},{"team":"JosJis FC","manager":"Ignatius Aryo Bimo Danudoro","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":64,"total":3,"rank":2},{"team":"faishal's Team","manager":"faishal abyan murtadho","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":62,"total":3,"rank":4},{"team":"Kamileung FC","manager":"pipin effendy","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":58,"total":3,"rank":5},{"team":"Sedotan Aqua","manager":"baltasario saga","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":58,"total":3,"rank":5},{"team":"helmoni fc","manager":"Isom Mutaqin","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":57,"total":3,"rank":7},{"team":"Alunos 2.0","manager":"Gilang Gumilar","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":54,"total":3,"rank":8},{"team":"ARFantasy","manager":"Achmad Ramdani","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":54,"total":3,"rank":8},{"team":"Katapang_Pride","manager":"Katapang Pride","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":46,"total":3,"rank":10},{"team":"theluckyone","manager":"lucky One","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":41,"total":3,"rank":11},{"team":"Brancos FC","manager":"faisal Auliaghani","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":39,"total":3,"rank":12},{"team":"CIMSEL UNITED","manager":"Maulana abdul Cholik","played":1,"won":0,"drawn":1,"lost":0,"pointsFor":54,"total":1,"rank":13},{"team":"Kontol FC","manager":"Diar Malik","played":1,"won":0,"drawn":1,"lost":0,"pointsFor":54,"total":1,"rank":13},{"team":"kokorobet FC","manager":"Firan Firhan Dani","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":57,"total":0,"rank":15},{"team":"jowwwtim","manager":"Anggi Suprayogi","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":57,"total":0,"rank":15},{"team":"Olahlah Fc","manager":"Miftahul Reza Alqadri","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":53,"total":0,"rank":17},{"team":"Grindboys","manager":"Ruby wndr","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":50,"total":0,"rank":18},{"team":"Maung FC","manager":"wahyudin wahyudin","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":48,"total":0,"rank":19},{"team":"komodomodol FC","manager":"Hafid Siddiq","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":47,"total":0,"rank":20},{"team":"Gurandilepce","manager":"Ferryan Reynaldi Akbar","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":47,"total":0,"rank":20},{"team":"Bubble Gummy","manager":"Fahmi Mohamad Iqbal","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":45,"total":0,"rank":22},{"team":"DOBHAN FC","manager":"dani r","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":44,"total":0,"rank":23},{"team":"Blink 182","manager":"ilyas muntaha aiba","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":37,"total":0,"rank":24},{"team":"PROJECT ALMANAC","manager":"Akbar Lazuardi","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":35,"total":0,"rank":25},{"team":"Backlight FC","manager":"Malwan Fauzan","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":35,"total":0,"rank":25}]};
+
+function buildDefaultState(){
+  // Data bawaan = snapshot backup terakhir (diupload admin), supaya instalasi baru
+  // (misalnya GitHub Pages) mulai dari kondisi liga yang sudah paling update.
+  const snap = JSON.parse(JSON.stringify(BACKUP_SNAPSHOT));
+  snap.lastUpdated = new Date().toISOString();
+  snap.dataVersion = DATA_VERSION;
+  return snap;
+}
+
+let state = null;
+let selectedWeeklyGW = 1;
+let trendSelection = new Set();
+let trendChartInstance = null;
+let standingsChartInstance = null;
+
+async function loadState(){
+  try{
+    const res = await window.storage.get(STORAGE_KEY, true);
+    if(res && res.value){
+      state = JSON.parse(res.value);
+      if(!state.managers) state.managers = {};
+      if(!state.clubBadges) state.clubBadges = {};
+      if(!state.h2h) state.h2h = {};
+      if(!state.entryMap) state.entryMap = {};
+      if(!state.dataVersion || state.dataVersion < DATA_VERSION){
+        const oldIdx = state.teams.indexOf('Pending Moderation');
+        if(oldIdx !== -1){
+          state.teams[oldIdx] = 'Change Name';
+          if(state.scores['Pending Moderation']){ state.scores['Change Name'] = state.scores['Pending Moderation']; delete state.scores['Pending Moderation']; }
+          if(state.managers['Pending Moderation']){ delete state.managers['Pending Moderation']; }
+          if(state.clubBadges['Pending Moderation']){ state.clubBadges['Change Name'] = state.clubBadges['Pending Moderation']; delete state.clubBadges['Pending Moderation']; }
+        }
+        ['Welldone','SSB Fak Fak','Tarkam Fried Chicken'].forEach(t=>{
+          if(!state.teams.includes(t)){ state.teams.push(t); }
+          if(!state.scores[t]) state.scores[t] = {};
+        });
+      }
+      state.teams.forEach(t=>{
+        if(MANAGER_NAMES[t]) state.managers[t] = MANAGER_NAMES[t];
+        else if(!state.managers[t]) state.managers[t] = deriveManager(t);
+      });
+      if(!state.dataVersion || state.dataVersion < DATA_VERSION){
+        Object.keys(GW1_POINTS).forEach(team=>{
+          if(!state.scores[team]) state.scores[team] = {};
+          const existing = state.scores[team][1];
+          state.scores[team][1] = { pts: GW1_POINTS[team], cost: existing ? existing.cost : 0 };
+        });
+        Object.keys(CLUB_BADGES).forEach(team=>{
+          if(!state.clubBadges[team]) state.clubBadges[team] = CLUB_BADGES[team];
+        });
+        if(!state.scores['Welldone']) state.scores['Welldone'] = {};
+        if(state.scores['Welldone'][2] && state.scores['Welldone'][2].pts===110 && !state.scores['Welldone'][1]){
+          delete state.scores['Welldone'][2];
+        }
+        if(!state.scores['Welldone'][1]){
+          state.scores['Welldone'][1] = { pts: WELLDONE_GW1_POINTS, cost: 0, captain: 0, bench: 0 };
+        }
+        Object.keys(GW2_POINTS).forEach(team=>{
+          if(!state.scores[team]) state.scores[team] = {};
+          const existingGw2 = state.scores[team][2];
+          state.scores[team][2] = {
+            pts: GW2_POINTS[team],
+            cost: existingGw2 ? existingGw2.cost : 0,
+            captain: existingGw2 ? existingGw2.captain : 0,
+            bench: existingGw2 ? existingGw2.bench : 0
+          };
+          if(!state.teams.includes(team)) state.teams.push(team);
+        });
+        if(!state.customProxyBase){
+          state.customProxyBase = DEFAULT_CUSTOM_PROXY;
+        }
+        if(!state.adminPin){
+          state.adminPin = DEFAULT_ADMIN_PIN;
+        }
+        if(state.autoRefresh === undefined || state.autoRefresh === null){
+          state.autoRefresh = true;
+        }
+        // Pembersihan sekali jalan: hapus data GW3 yang mungkin sempat tersimpan keliru
+        // akibat bug deteksi GW (auto-refresh sempat salah menandai data GW2 sebagai GW3
+        // karena GW3 belum benar-benar dimainkan). Hanya berjalan sekali di migrasi ini.
+        state.teams.forEach(team=>{
+          if(state.scores[team] && state.scores[team][3]){
+            delete state.scores[team][3];
+          }
+        });
+        // Gabungkan duplikat tim yang sempat terjadi akibat rename tanpa ID entry
+        // (Pending Moderation -> Change Name -> Sedotan Aqua, manager: Baltasario Saga).
+        if(!state.entryMap) state.entryMap = {};
+        const dupNames = ["Pending Moderation", "Change Name"];
+        dupNames.forEach(oldName=>{
+          if(state.teams.includes(oldName)){ renameTeam(oldName, "Sedotan Aqua"); }
+        });
+        Object.keys(KNOWN_ENTRY_IDS).forEach(team=>{
+          if(state.teams.includes(team)) state.entryMap[KNOWN_ENTRY_IDS[team]] = team;
+        });
+        state.dataVersion = DATA_VERSION;
+        await persist();
+      }
+      return;
+    }
+  }catch(e){}
+  state = buildDefaultState();
+  await persist();
+}
+
+async function persist(){
+  state.lastUpdated = new Date().toISOString();
+  try{ await window.storage.set(STORAGE_KEY, JSON.stringify(state), true); }catch(e){}
+}
+
+function logAudit(action, detail, level){
+  if(!state.auditLog) state.auditLog = [];
+  state.auditLog.unshift({ ts: new Date().toISOString(), action, detail, level: level||'ok' });
+  if(state.auditLog.length > 150) state.auditLog.length = 150;
+}
+
+function getEntry(team, gw){
+  const v = (state.scores[team]||{})[gw];
+  if(!v) return null;
+  if(typeof v === 'number') return { pts:v, cost:0, captain:0, bench:0 };
+  return { pts: v.pts||0, cost: v.cost||0, captain: v.captain||0, bench: v.bench||0 };
+}
+
+function getMaxFilledGW(){
+  let max = 0;
+  state.teams.forEach(t=>{
+    Object.keys(state.scores[t]||{}).map(Number).forEach(g=>{ if(g>max) max = g; });
+  });
+  return max;
+}
+
+function badgeColor(name){
+  let h = 0;
+  for(let i=0;i<name.length;i++) h = (h*31 + name.charCodeAt(i)) % BADGE_COLORS.length;
+  return BADGE_COLORS[h];
+}
+function initials(name){
+  const parts = String(name).replace(/[^a-zA-Z0-9 ]/g,' ').trim().split(/\s+/).filter(Boolean);
+  if(!parts.length) return '??';
+  if(parts.length===1) return parts[0].slice(0,2).toUpperCase();
+  return (parts[0][0] + parts[1][0]).toUpperCase();
+}
+
+function teamBadgeHtml(team, sizePx){
+  const url = state.clubBadges && state.clubBadges[team];
+  if(url){
+    return `<img src="${url}" alt="" style="width:${sizePx}px;height:${sizePx}px;border-radius:8px;object-fit:cover;flex:0 0 auto;box-shadow:0 1px 3px rgba(0,0,0,0.15);" onerror="this.style.display='none';this.nextSibling.style.display='flex';"><div class="team-badge" style="display:none;width:${sizePx}px;height:${sizePx}px;font-size:${Math.round(sizePx*0.34)}px;background:${badgeColor(team)};">${initials(team)}</div>`;
+  }
+  return `<div class="team-badge" style="width:${sizePx}px;height:${sizePx}px;font-size:${Math.round(sizePx*0.34)}px;background:${badgeColor(team)};">${initials(team)}</div>`;
+}
+
+function computeGwLeaderboard(gw){
+  const rows = state.teams.map(team=>{
+    const e = getEntry(team, gw);
+    if(!e) return null;
+    return { team, pts: e.pts, cost: e.cost, net: e.pts - e.cost, captain: e.captain, bench: e.bench };
+  }).filter(Boolean);
+  rows.sort((a,b)=>{
+    if(b.net !== a.net) return b.net - a.net;
+    if(b.captain !== a.captain) return b.captain - a.captain;
+    return b.bench - a.bench;
+  });
+  rows.forEach((r,i)=>{
+    r.rank = i+1;
+    r.tieBroken = (i>0 && rows[i-1].net===r.net) || (i<rows.length-1 && rows[i+1].net===r.net);
+  });
+  const prevRows = state.teams.map(team=>{
+    const e = getEntry(team, gw-1);
+    return e ? { team, net: e.pts - e.cost } : null;
+  }).filter(Boolean);
+  prevRows.sort((a,b)=>b.net-a.net);
+  const prevRankMap = {};
+  prevRows.forEach((r,i)=>{ prevRankMap[r.team] = i+1; });
+  rows.forEach(r=>{
+    const pr = prevRankMap[r.team];
+    r.rankDelta = (pr!==undefined) ? pr - r.rank : 0;
+  });
+  return rows;
+}
+
+function computeLeaderboard(asOfGW){
+  const maxGW = asOfGW !== undefined ? asOfGW : getMaxFilledGW();
+  const rows = state.teams.map(team=>{
+    const gwMap = state.scores[team] || {};
+    const gwNums = Object.keys(gwMap).map(Number).filter(g=>g<=maxGW).sort((a,b)=>a-b);
+    let grandTotal = 0, totalCost = 0, playedCount = 0, captainTotal = 0, benchTotal = 0;
+    gwNums.forEach(g=>{
+      const e = getEntry(team,g);
+      if(!e) return;
+      grandTotal += (e.pts - e.cost);
+      totalCost += e.cost;
+      captainTotal += e.captain;
+      benchTotal += e.bench;
+      playedCount++;
+    });
+    const latestGWEntry = getEntry(team, maxGW);
+    const latestPts = latestGWEntry ? (latestGWEntry.pts - latestGWEntry.cost) : 0;
+    let prevTotal = 0;
+    gwNums.filter(g=>g<maxGW).forEach(g=>{
+      const e = getEntry(team,g);
+      prevTotal += (e.pts - e.cost);
+    });
+    return { team, grandTotal, totalCost, latestPts, playedCount, prevTotal, captainTotal, benchTotal };
+  });
+  const tiebreakSort = (a,b)=>{
+    if(b.grandTotal !== a.grandTotal) return b.grandTotal - a.grandTotal;
+    if(b.captainTotal !== a.captainTotal) return b.captainTotal - a.captainTotal;
+    if(b.benchTotal !== a.benchTotal) return b.benchTotal - a.benchTotal;
+    return 0;
+  };
+  rows.sort(tiebreakSort);
+  rows.forEach((r,i)=> r.rank = i+1);
+  rows.forEach((r,i)=>{
+    r.tieBroken = (i>0 && rows[i-1].grandTotal===r.grandTotal) || (i<rows.length-1 && rows[i+1].grandTotal===r.grandTotal);
+  });
+
+  const prevRows = rows.map(r=>({team:r.team, total:r.prevTotal, captainTotal:0, benchTotal:0}));
+  prevRows.sort((a,b)=>b.total-a.total);
+  const prevRankMap = {};
+  prevRows.forEach((r,i)=>{ prevRankMap[r.team] = i+1; });
+  rows.forEach(r=>{
+    const pr = prevRankMap[r.team];
+    r.rankDelta = (pr!==undefined) ? pr - r.rank : 0;
+  });
+  return rows;
+}
+
+function computeWeekly(gw){
+  const entries = state.teams.map(team=>{
+    const e = getEntry(team, gw);
+    return e ? { team, pts: e.pts - e.cost, captain: e.captain, bench: e.bench } : null;
+  }).filter(Boolean);
+  if(!entries.length) return null;
+  entries.sort((a,b)=>{
+    if(b.pts !== a.pts) return b.pts - a.pts;
+    if(b.captain !== a.captain) return b.captain - a.captain;
+    return b.bench - a.bench;
+  });
+  let winner = entries[0];
+  let lowest = entries[entries.length-1];
+  winner.tieBroken = entries.length>1 && entries[1].pts===winner.pts;
+  lowest.tieBroken = entries.length>1 && entries[entries.length-2].pts===lowest.pts;
+
+  // Kunci manual GW1: PSGR juara, Backlight FC kalah (tim yang belum join di GW1
+  // tidak boleh terhitung sebagai juara/kalah GW1 meski datanya ditambahkan belakangan).
+  if(gw === 1){
+    const lockedWinner = entries.find(e=>e.team==='PSGR');
+    const lockedLowest = entries.find(e=>e.team==='Backlight FC');
+    if(lockedWinner){ winner = lockedWinner; winner.tieBroken = false; }
+    if(lockedLowest){ lowest = lockedLowest; lowest.tieBroken = false; }
+  }
+
+  return { winner, lowest, count: entries.length };
+}
+
+function fmtDate(iso){
+  try{
+    const d = new Date(iso);
+    return d.toLocaleDateString('id-ID',{day:'2-digit',month:'short'}) + ' ' + d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  }catch(e){ return '-'; }
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderHero(){
+  const lb = computeLeaderboard();
+  const maxGW = getMaxFilledGW();
+  document.getElementById('meta-gw').textContent = maxGW ? ('GW ' + maxGW) : '-';
+  document.getElementById('meta-updated').textContent = fmtDate(state.lastUpdated);
+
+  const champ = lb[0];
+  const champManager = champ ? ((state.managers && state.managers[champ.team]) || deriveManager(champ.team)) : '';
+  const bottom = lb.length ? lb[lb.length-1] : null;
+  const bottomManager = bottom ? ((state.managers && state.managers[bottom.team]) || deriveManager(bottom.team)) : '';
+
+  const wk = computeWeekly(maxGW);
+  let weeklyBox = '';
+  if(wk){
+    const winManager = (state.managers && state.managers[wk.winner.team]) || deriveManager(wk.winner.team);
+    const lowManager = (state.managers && state.managers[wk.lowest.team]) || deriveManager(wk.lowest.team);
+    const winTie = wk.winner.tieBroken ? '<div class="tie-note">Poin sama dengan tim lain &mdash; ditentukan lewat Captain/Bench</div>' : '';
+    const lowTie = wk.lowest.tieBroken ? '<div class="tie-note">Poin sama dengan tim lain &mdash; ditentukan lewat Captain/Bench</div>' : '';
+    weeklyBox = `
+    <div class="stat-card win">
+      <div class="lbl">Juara GW ${maxGW}</div>
+      <div class="team-line">${escapeHtml(wk.winner.team)}</div>
+      <div class="manager-line">${escapeHtml(winManager)}</div>
+      <div class="pts-big">${wk.winner.pts}<span>poin</span></div>
+      ${winTie}
+    </div>
+    <div class="stat-card low">
+      <div class="lbl">Kalah GW ${maxGW}</div>
+      <div class="team-line">${escapeHtml(wk.lowest.team)}</div>
+      <div class="manager-line">${escapeHtml(lowManager)}</div>
+      <div class="pts-big">${wk.lowest.pts}<span>poin</span></div>
+      ${lowTie}
+    </div>`;
+  }
+
+  const winCounts = {}, weakCounts = {};
+  for(let g=1; g<=maxGW; g++){
+    const w = computeWeekly(g);
+    if(!w) continue;
+    winCounts[w.winner.team] = (winCounts[w.winner.team]||0)+1;
+    weakCounts[w.lowest.team] = (weakCounts[w.lowest.team]||0)+1;
+  }
+  let topWinner = null, topWinnerCount = 0;
+  Object.entries(winCounts).forEach(([team,c])=>{ if(c>topWinnerCount){ topWinnerCount=c; topWinner=team; } });
+  let topWeak = null, topWeakCount = 0;
+  Object.entries(weakCounts).forEach(([team,c])=>{ if(c>topWeakCount){ topWeakCount=c; topWeak=team; } });
+  const topWinnerManager = topWinner ? ((state.managers && state.managers[topWinner]) || deriveManager(topWinner)) : '';
+  const topWeakManager = topWeak ? ((state.managers && state.managers[topWeak]) || deriveManager(topWeak)) : '';
+
+  document.getElementById('hero-stats').innerHTML = `
+    <div class="stat-card champ">
+      <div class="lbl">Puncak klasemen</div>
+      <div class="team-line">${champ ? escapeHtml(champ.team) : '-'}</div>
+      <div class="manager-line">${champ ? escapeHtml(champManager) : ''}</div>
+      <div class="pts-big">${champ ? champ.grandTotal : '-'}<span>poin</span></div>
+    </div>
+    <div class="stat-card bottom">
+      <div class="lbl">Dasar klasemen</div>
+      <div class="team-line">${bottom ? escapeHtml(bottom.team) : '-'}</div>
+      <div class="manager-line">${bottom ? escapeHtml(bottomManager) : ''}</div>
+      <div class="pts-big">${bottom ? bottom.grandTotal : '-'}<span>poin</span></div>
+    </div>
+    ${weeklyBox}
+    <div class="stat-card win">
+      <div class="lbl">Juara terbanyak</div>
+      <div class="team-line">${topWinner ? escapeHtml(topWinner) : '-'}</div>
+      <div class="manager-line">${topWinner ? escapeHtml(topWinnerManager) : ''}</div>
+      <div class="pts-big">${topWinnerCount}<span>${topWinnerCount===1?'kali juara':'kali juara'}</span></div>
+    </div>
+    <div class="stat-card low">
+      <div class="lbl">Kalah terbanyak</div>
+      <div class="team-line">${topWeak ? escapeHtml(topWeak) : '-'}</div>
+      <div class="manager-line">${topWeak ? escapeHtml(topWeakManager) : ''}</div>
+      <div class="pts-big">${topWeakCount}<span>kali kalah</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="lbl">Game week tercatat</div>
+      <div class="big">${maxGW || 0}<span style="font-size:14px;color:var(--text-mute);"> / ${N_GW}</span></div>
+      <div class="sub">${state.teams.length} klub terdaftar</div>
+    </div>
+  `;
+  renderHomeTable(document.getElementById('home-table'), lb);
+}
+
+function trendHtml(delta){
+  if(!delta) return '<span class="trend-flat">&#9473; 0</span>';
+  if(delta>0) return `<span class="trend-up">&#9650; ${delta}</span>`;
+  return `<span class="trend-down">&#9660; ${Math.abs(delta)}</span>`;
+}
+
+function tieBadge(r){
+  if(!r.tieBroken) return '';
+  return `<span title="Total poin sama dengan tim lain — peringkat ditentukan dari poin Captain, lalu poin Bench" style="cursor:help;font-size:9px;font-weight:800;color:var(--purple);background:var(--purple-tint);border:1px solid var(--purple-line);border-radius:5px;padding:1px 4px;margin-left:5px;">C/B</span>`;
+}
+
+function renderTable(el, rows){
+  let head = `<thead><tr>
+    <th>Rank</th><th>Tim &amp; Manager</th><th class="right" style="text-align:right;">GW</th><th class="right" style="text-align:right;">Pengurangan</th><th class="right" style="text-align:right;">Grand Total</th>
+  </tr></thead>`;
+  let body = '<tbody>';
+  rows.forEach(r=>{
+    const col = badgeColor(r.team);
+    const rowCls = r.rank===1?'top1':r.rank===2?'top2':r.rank===3?'top3':'';
+    const manager = (state.managers && state.managers[r.team]) || deriveManager(r.team);
+    const rankHtml = r.rank<=3
+      ? `<span class="rank-badge-medal medal-${r.rank}">${r.rank}</span>`
+      : `<span class="rank-num">${r.rank}</span>`;
+    body += `<tr class="${rowCls}">
+      <td data-label="Rank"><div class="rank-cell">${rankHtml}${trendHtml(r.rankDelta)}</div></td>
+      <td><div class="team-cell" style="cursor:pointer;" onclick="openTeamDetail('${escapeHtml(r.team).replace(/'/g,"\\'")}')">${teamBadgeHtml(r.team,32)}<div class="team-name-wrap"><span class="team-name">${escapeHtml(r.team)}</span><span class="team-manager">${escapeHtml(manager)}</span></div></div></td>
+      <td class="num-cell" data-label="GW">${r.latestPts}</td>
+      <td class="deduct-cell" data-label="Pengurangan">${r.totalCost ? '-' + r.totalCost : '0'}</td>
+      <td class="pts-cell" data-label="Grand Total">${r.grandTotal}</td>
+    </tr>`;
+  });
+  body += '</tbody>';
+  el.innerHTML = head + body;
+}
+
+function renderHomeTable(el, rows){
+  let head = `<thead><tr>
+    <th>Rank</th><th>Tim &amp; Manager</th><th class="right" style="text-align:right;">GW</th><th class="right" style="text-align:right;">Total Poin</th>
+  </tr></thead>`;
+  let body = '<tbody>';
+  rows.forEach(r=>{
+    const col = badgeColor(r.team);
+    const rowCls = r.rank===1?'top1':r.rank===2?'top2':r.rank===3?'top3':'';
+    const manager = (state.managers && state.managers[r.team]) || deriveManager(r.team);
+    const rankHtml = r.rank<=3
+      ? `<span class="rank-badge-medal medal-${r.rank}">${r.rank}</span>`
+      : `<span class="rank-num">${r.rank}</span>`;
+    body += `<tr class="${rowCls}">
+      <td data-label="Rank"><div class="rank-cell">${rankHtml}${trendHtml(r.rankDelta)}</div></td>
+      <td><div class="team-cell" style="cursor:pointer;" onclick="openTeamDetail('${escapeHtml(r.team).replace(/'/g,"\\'")}')">${teamBadgeHtml(r.team,32)}<div class="team-name-wrap"><span class="team-name">${escapeHtml(r.team)}</span><span class="team-manager">${escapeHtml(manager)}</span></div></div></td>
+      <td class="num-cell" data-label="GW">${r.latestPts}</td>
+      <td class="pts-cell" data-label="Total Poin">${r.grandTotal}</td>
+    </tr>`;
+  });
+  body += '</tbody>';
+  el.innerHTML = head + body;
+}
+
+function populateGwScopeSelect(){
+  const sel = document.getElementById('gw-scope-select');
+  const maxGW = Math.max(getMaxFilledGW(), 1);
+  const prevVal = sel.value;
+  sel.innerHTML = '';
+  for(let g=1; g<=maxGW; g++){
+    const opt = document.createElement('option');
+    opt.value = g; opt.textContent = 'GW ' + g;
+    sel.appendChild(opt);
+  }
+  sel.value = prevVal && Number(prevVal)<=maxGW ? prevVal : maxGW;
+}
+
+function renderGwTable(el, rows, gw){
+  const lbAll = computeLeaderboard(gw);
+  const grandTotalMap = {};
+  lbAll.forEach(r=> grandTotalMap[r.team] = r.grandTotal);
+  let head = `<thead><tr>
+    <th>Rank</th><th>Tim &amp; Manager</th><th class="right" style="text-align:right;">Poin</th><th class="right" style="text-align:right;">Kurang</th><th class="right" style="text-align:right;">Net GW${gw}</th><th class="right" style="text-align:right;">Grand Total</th>
+  </tr></thead>`;
+  let body = '<tbody>';
+  rows.forEach(r=>{
+    const col = badgeColor(r.team);
+    const rowCls = r.rank===1?'top1':r.rank===2?'top2':r.rank===3?'top3':'';
+    const manager = (state.managers && state.managers[r.team]) || deriveManager(r.team);
+    const rankHtml = r.rank<=3
+      ? `<span class="rank-badge-medal medal-${r.rank}">${r.rank}</span>`
+      : `<span class="rank-num">${r.rank}</span>`;
+    body += `<tr class="${rowCls}">
+      <td data-label="Rank"><div class="rank-cell">${rankHtml}</div></td>
+      <td><div class="team-cell" style="cursor:pointer;" onclick="openTeamDetail('${escapeHtml(r.team).replace(/'/g,"\\'")}')">${teamBadgeHtml(r.team,32)}<div class="team-name-wrap"><span class="team-name">${escapeHtml(r.team)}</span><span class="team-manager">${escapeHtml(manager)}</span></div></div></td>
+      <td class="num-cell" data-label="Poin">${r.pts}</td>
+      <td class="deduct-cell" data-label="Kurang">${r.cost ? '-' + r.cost : '0'}</td>
+      <td class="pts-cell" data-label="Net GW">${r.net}</td>
+      <td class="num-cell" data-label="Grand Total">${grandTotalMap[r.team] !== undefined ? grandTotalMap[r.team] : '-'}</td>
+    </tr>`;
+  });
+  body += '</tbody>';
+  el.innerHTML = head + body;
+}
+
+function renderKlasemen(){
+  populateGwScopeSelect();
+  const scopeGW = Number(document.getElementById('gw-scope-select').value);
+  const gwlb = computeGwLeaderboard(scopeGW);
+  let tableEl = document.getElementById('full-table');
+  if(!gwlb.length){
+    tableEl.outerHTML = `<div class="empty-state" id="full-table"><div class="glyph">&#128197;</div><p>Belum ada data untuk Game Week ${scopeGW}.</p></div>`;
+  } else {
+    if(tableEl.tagName === 'DIV'){ tableEl.outerHTML = '<table id="full-table"></table>'; tableEl = document.getElementById('full-table'); }
+    renderGwTable(tableEl, gwlb, scopeGW);
+  }
+  const searchInput = document.getElementById('team-search');
+  const applyFilter = ()=>{
+    const q = searchInput.value.trim().toLowerCase();
+    const currentGW = Number(document.getElementById('gw-scope-select').value);
+    const data = computeGwLeaderboard(currentGW);
+    const filtered = q ? data.filter(r=> r.team.toLowerCase().includes(q) || (state.managers[r.team]||'').toLowerCase().includes(q)) : data;
+    let el = document.getElementById('full-table');
+    if(!filtered.length){
+      el.outerHTML = `<div class="empty-state" id="full-table"><div class="glyph">&#128197;</div><p>Tidak ada tim yang cocok.</p></div>`;
+    } else {
+      if(el.tagName === 'DIV'){ el.outerHTML = '<table id="full-table"></table>'; el = document.getElementById('full-table'); }
+      renderGwTable(el, filtered, currentGW);
+    }
+  };
+  searchInput.oninput = applyFilter;
+  document.getElementById('gw-scope-select').onchange = applyFilter;
+}
+
+function renderGwPicker(){
+  const maxGW = Math.max(getMaxFilledGW(), 1);
+  const upper = Math.min(N_GW, maxGW + 1);
+  let html = '';
+  for(let g=1; g<=upper; g++){
+    const filled = state.teams.some(t=> getEntry(t,g) !== null);
+    const cls = ['gw-chip'];
+    if(filled) cls.push('filled');
+    if(g===selectedWeeklyGW) cls.push('active');
+    html += `<button class="${cls.join(' ')}" data-gw="${g}">GW${g}</button>`;
+  }
+  document.getElementById('gw-picker').innerHTML = html;
+  document.querySelectorAll('#gw-picker .gw-chip').forEach(btn=>{
+    btn.onclick = ()=>{ selectedWeeklyGW = Number(btn.dataset.gw); renderMingguan(); };
+  });
+}
+
+function populateManagerPageSelect(){
+  const sel = document.getElementById('manager-page-select');
+  const prevVal = sel.value;
+  const lb = computeLeaderboard();
+  sel.innerHTML = lb.map(r=>`<option value="${escapeHtml(r.team)}">#${r.rank} &middot; ${escapeHtml(r.team)}</option>`).join('');
+  if(prevVal && state.teams.includes(prevVal)) sel.value = prevVal;
+}
+
+function renderManagerPage(team){
+  if(!team || !state.teams.includes(team)) team = state.teams[0];
+  const maxGW = getMaxFilledGW();
+  const lb = computeLeaderboard(maxGW);
+  const row = lb.find(r=>r.team===team);
+  const manager = (state.managers && state.managers[team]) || deriveManager(team);
+  const box = document.getElementById('manager-page-content');
+  if(!row){ box.innerHTML = `<div class="empty-state"><p>Belum ada tim terdaftar.</p></div>`; return; }
+
+  let winnerCount = 0, weakCount = 0;
+  const perf = [];
+  for(let g=1; g<=maxGW; g++){
+    const e = getEntry(team, g);
+    if(e) perf.push({ gw:g, net: e.pts - e.cost });
+    const wk = computeWeekly(g);
+    if(wk){
+      if(wk.winner.team===team) winnerCount++;
+      if(wk.lowest.team===team) weakCount++;
+    }
+  }
+
+  const posHistory = [];
+  let prevRank = null;
+  for(let g=1; g<=maxGW; g++){
+    const lbg = computeLeaderboard(g);
+    const r = lbg.find(x=>x.team===team);
+    if(!r) continue;
+    const delta = prevRank!==null ? prevRank - r.rank : 0;
+    posHistory.push({ gw:g, rank:r.rank, delta });
+    prevRank = r.rank;
+  }
+
+  const avg = row.playedCount ? (perf.reduce((a,b)=>a+b.net,0) / row.playedCount) : 0;
+  const best = perf.length ? Math.max(...perf.map(p=>p.net)) : 0;
+  const worst = perf.length ? Math.min(...perf.map(p=>p.net)) : 0;
+  const maxBar = perf.length ? Math.max(...perf.map(p=>p.net), 1) : 1;
+
+  box.innerHTML = `
+    <div class="manager-hero">
+      ${teamBadgeHtml(team, 64)}
+      <div class="team-name-wrap">
+        <span class="team-name">${escapeHtml(team)}</span>
+        <span class="team-manager">${escapeHtml(manager)}</span>
+      </div>
+    </div>
+    <div class="modal-stat-grid" style="margin-bottom:20px;">
+      <div class="modal-stat"><div class="k">Current Rank</div><div class="v">#${row.rank}</div></div>
+      <div class="modal-stat"><div class="k">Total Point</div><div class="v">${row.grandTotal}</div></div>
+      <div class="modal-stat"><div class="k">GW Average</div><div class="v">${avg.toFixed(1)}</div></div>
+      <div class="modal-stat"><div class="k">Best GW</div><div class="v" style="color:var(--green-ink);">${best}</div></div>
+      <div class="modal-stat"><div class="k">Worst GW</div><div class="v" style="color:var(--pink-ink);">${worst}</div></div>
+      <div class="modal-stat"><div class="k">GW Winner</div><div class="v">&#127942; ${winnerCount}&times;</div></div>
+      <div class="modal-stat"><div class="k">Weak of the Week</div><div class="v" style="color:var(--pink-ink);">&#9888;&#65039; ${weakCount}&times;</div></div>
+    </div>
+    <div class="chart-card" style="margin-bottom:20px;">
+      <h3>Performance History</h3>
+      ${perf.length ? `<div class="perf-bar-row">${perf.map(p=>`<div class="perf-bar"><div class="val">${p.net}</div><div class="bar" style="height:${Math.max(6,(p.net/maxBar)*90)}px;"></div><div class="gwlbl">GW${p.gw}</div></div>`).join('')}</div>` : `<div class="empty-state"><p>Belum ada data.</p></div>`}
+    </div>
+    <div class="chart-card">
+      <h3>Position History</h3>
+      ${posHistory.length ? `<div class="pos-chip-row">${posHistory.map(p=>{
+        let trend;
+        if(p.delta>0) trend = `<span class="trend-up">&#9650;${p.delta}</span>`;
+        else if(p.delta<0) trend = `<span class="trend-down">&#9660;${Math.abs(p.delta)}</span>`;
+        else trend = `<span class="trend-flat">&#9473;</span>`;
+        return `<div class="pos-chip"><span>GW${p.gw}</span>#${p.rank} ${trend}</div>`;
+      }).join('')}</div>` : `<div class="empty-state"><p>Belum ada data.</p></div>`}
+    </div>
+  `;
+}
+
+function openTeamDetail(team){
+  const lb = computeLeaderboard();
+  const row = lb.find(r=>r.team===team);
+  if(!row) return;
+  const manager = (state.managers && state.managers[team]) || deriveManager(team);
+  document.getElementById('team-modal-headinfo').innerHTML = `${teamBadgeHtml(team,40)}<div class="team-name-wrap"><span class="team-name" style="font-size:16px;">${escapeHtml(team)}</span><span class="team-manager">${escapeHtml(manager)}</span></div>`;
+
+  const maxGW = getMaxFilledGW();
+  let rowsHtml = '';
+  let cumulative = 0;
+  let best = {gw:null, val:-Infinity};
+  let worst = {gw:null, val:Infinity};
+  let gwWinnerCount = 0, weakWeekCount = 0;
+  const positionHistory = [];
+
+  for(let g=1; g<=maxGW; g++){
+    const e = getEntry(team, g);
+    const lbAtG = computeLeaderboard(g);
+    const rowAtG = lbAtG.find(r=>r.team===team);
+    const wk = computeWeekly(g);
+    if(wk && wk.winner.team===team) gwWinnerCount++;
+    if(wk && wk.lowest.team===team) weakWeekCount++;
+    if(!e){
+      if(rowAtG) positionHistory.push({gw:g, rank:null});
+      continue;
+    }
+    const net = e.pts - e.cost;
+    cumulative += net;
+    if(net > best.val) best = {gw:g, val:net};
+    if(net < worst.val) worst = {gw:g, val:net};
+    if(rowAtG) positionHistory.push({gw:g, rank:rowAtG.rank});
+    rowsHtml += `<tr>
+      <td class="num-cell" style="text-align:left;font-weight:700;color:var(--purple);">GW${g}</td>
+      <td class="num-cell">#${rowAtG?rowAtG.rank:'-'}</td>
+      <td class="num-cell">${e.pts}</td>
+      <td class="deduct-cell">${e.cost ? '-'+e.cost : '0'}</td>
+      <td class="num-cell">${e.captain||0}</td>
+      <td class="num-cell">${e.bench||0}</td>
+      <td class="pts-cell">${net}</td>
+      <td class="pts-cell" style="color:var(--text-2);">${cumulative}</td>
+    </tr>`;
+  }
+  if(!rowsHtml){
+    rowsHtml = `<tr><td colspan="8" style="text-align:center;color:var(--text-mute);padding:20px;">Belum ada data GW untuk tim ini.</td></tr>`;
+  }
+  const avg = row.playedCount ? (row.grandTotal/row.playedCount) : 0;
+
+  const posChips = positionHistory.map(p=>`<div class="pos-chip">${p.rank? '#'+p.rank : '-'}<span>GW${p.gw}</span></div>`).join('');
+
+  document.getElementById('team-modal-body').innerHTML = `
+    <div class="modal-stat-grid">
+      <div class="modal-stat"><div class="k">Current Rank</div><div class="v">#${row.rank}</div></div>
+      <div class="modal-stat"><div class="k">Total Point</div><div class="v">${row.grandTotal}</div></div>
+      <div class="modal-stat"><div class="k">GW Average</div><div class="v">${avg.toFixed(1)}</div></div>
+      <div class="modal-stat"><div class="k">Best GW</div><div class="v" style="color:var(--green-ink);">${best.gw?best.val:'-'}</div><div class="k" style="margin-top:2px;">${best.gw?'GW'+best.gw:''}</div></div>
+      <div class="modal-stat"><div class="k">Worst GW</div><div class="v" style="color:var(--pink-ink);">${worst.gw?worst.val:'-'}</div><div class="k" style="margin-top:2px;">${worst.gw?'GW'+worst.gw:''}</div></div>
+      <div class="modal-stat"><div class="k">&#127942; GW Winner</div><div class="v">${gwWinnerCount}&times;</div></div>
+      <div class="modal-stat"><div class="k">Team of the Weak</div><div class="v">${weakWeekCount}&times;</div></div>
+      <div class="modal-stat"><div class="k">Total Captain</div><div class="v">${row.captainTotal}</div></div>
+      <div class="modal-stat"><div class="k">Total Bench</div><div class="v">${row.benchTotal}</div></div>
+    </div>
+    <div class="section-label" style="margin-top:4px;">Position History</div>
+    <div class="pos-chip-row">${posChips || '<span style="font-size:12px;color:var(--text-mute);">Belum ada data.</span>'}</div>
+    <div class="section-label" style="margin-top:16px;">Performance &amp; Riwayat per GW</div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>GW</th><th style="text-align:right;">Rank</th><th style="text-align:right;">Poin</th><th style="text-align:right;">Kurang</th><th style="text-align:right;">Captain</th><th style="text-align:right;">Bench</th><th style="text-align:right;">Net</th><th style="text-align:right;">Kumulatif</th></tr></thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+    </div>`;
+  document.getElementById('team-modal-overlay').classList.add('show');
+}
+
+function closeTeamDetail(){
+  document.getElementById('team-modal-overlay').classList.remove('show');
+}
+
+function renderMingguan(){
+  renderGwPicker();
+  const wk = computeWeekly(selectedWeeklyGW);
+  const area = document.getElementById('duel-area');
+  if(!wk){
+    area.innerHTML = `<div class="empty-state"><div class="glyph">&#9917;</div><p>Belum ada data untuk GW ${selectedWeeklyGW}. Masukkan skor lewat Admin Mode.</p></div>`;
+  } else {
+    const winManager = (state.managers && state.managers[wk.winner.team]) || deriveManager(wk.winner.team);
+    const lowManager = (state.managers && state.managers[wk.lowest.team]) || deriveManager(wk.lowest.team);
+    const winTieNote = wk.winner.tieBroken ? '<div class="duel-tie-note">Poin sama dengan tim lain &mdash; ditentukan lewat Captain/Bench GW ini</div>' : '';
+    const lowTieNote = wk.lowest.tieBroken ? '<div class="duel-tie-note">Poin sama dengan tim lain &mdash; ditentukan lewat Captain/Bench GW ini</div>' : '';
+    area.innerHTML = `
+    <div class="duel">
+      <div class="duel-card win">
+        <div class="duel-tag">Team of the Week</div>
+        <div class="duel-team">${escapeHtml(wk.winner.team)}</div>
+        <div class="duel-manager">${escapeHtml(winManager)}</div>
+        <div class="duel-pts">${wk.winner.pts}<span>poin</span></div>
+        ${winTieNote}
+      </div>
+      <div class="duel-card low">
+        <div class="duel-tag">Team of the Weak</div>
+        <div class="duel-team">${escapeHtml(wk.lowest.team)}</div>
+        <div class="duel-manager">${escapeHtml(lowManager)}</div>
+        <div class="duel-pts">${wk.lowest.pts}<span>poin</span></div>
+        ${lowTieNote}
+      </div>
+    </div>`;
+  }
+  const maxGW = getMaxFilledGW();
+  let head = `<thead><tr><th>GW</th><th>Team of the Week</th><th style="text-align:right;">Poin</th><th>Team of the Weak</th><th style="text-align:right;">Poin</th></tr></thead>`;
+  let body = '<tbody>';
+  for(let g=maxGW; g>=1; g--){
+    const w = computeWeekly(g);
+    if(!w) continue;
+    const winM = (state.managers && state.managers[w.winner.team]) || deriveManager(w.winner.team);
+    const lowM = (state.managers && state.managers[w.lowest.team]) || deriveManager(w.lowest.team);
+    const winTie = w.winner.tieBroken ? tieBadge({tieBroken:true}) : '';
+    const lowTie = w.lowest.tieBroken ? tieBadge({tieBroken:true}) : '';
+    body += `<tr>
+      <td class="num-cell" style="text-align:left;font-weight:700;color:var(--purple);">GW${g}</td>
+      <td><div class="team-cell" style="cursor:pointer;" onclick="openTeamDetail('${escapeHtml(w.winner.team).replace(/'/g,"\\'")}')">${teamBadgeHtml(w.winner.team,24)}<div class="team-name-wrap"><span class="team-name" style="font-size:13px;">${escapeHtml(w.winner.team)}${winTie}</span><span class="team-manager">${escapeHtml(winM)}</span></div></div></td>
+      <td class="pts-cell">${w.winner.pts}</td>
+      <td><div class="team-cell" style="cursor:pointer;" onclick="openTeamDetail('${escapeHtml(w.lowest.team).replace(/'/g,"\\'")}')">${teamBadgeHtml(w.lowest.team,24)}<div class="team-name-wrap"><span style="font-size:13px;color:var(--pink-ink);font-weight:700;">${escapeHtml(w.lowest.team)}${lowTie}</span><span class="team-manager">${escapeHtml(lowM)}</span></div></div></td>
+      <td class="deduct-cell">${w.lowest.pts}</td>
+    </tr>`;
+  }
+  body += '</tbody>';
+  document.getElementById('history-table').innerHTML = head + body;
+}
+
+function renderTrendToggles(){
+  const lb = computeLeaderboard();
+  if(trendSelection.size===0){ lb.slice(0,5).forEach(r=> trendSelection.add(r.team)); }
+  let html = '';
+  lb.forEach(r=>{
+    const on = trendSelection.has(r.team);
+    html += `<button class="chip-toggle ${on?'on':''}" data-team="${escapeHtml(r.team)}">${escapeHtml(r.team)}</button>`;
+  });
+  document.getElementById('trend-toggles').innerHTML = html;
+  document.querySelectorAll('#trend-toggles .chip-toggle').forEach(btn=>{
+    btn.onclick = ()=>{
+      const t = btn.dataset.team;
+      if(trendSelection.has(t)) trendSelection.delete(t); else trendSelection.add(t);
+      renderTrendChart(); renderTrendToggles();
+    };
+  });
+}
+
+function isDarkTheme(){ return document.body.classList.contains('theme-dark'); }
+function chartColors(){
+  const dark = isDarkTheme();
+  return {
+    grid: dark ? 'rgba(255,255,255,0.08)' : 'rgba(26,16,48,0.07)',
+    tick: dark ? '#8B87A6' : '#5D5775',
+    tickAlt: dark ? '#C7C3DE' : '#1A1030'
+  };
+}
+function chartPalette(){
+  return isDarkTheme()
+    ? ['#8B5CF6','#22D3EE','#FF2D78','#00FF87','#FF9F43','#5B8DEF','#F97CB0','#A78BFA']
+    : ['#37003C','#00707A','#A3003B','#5A3E85','#0B5F3A','#8A4B00','#3D3D8F','#7A1F3D'];
+}
+
+function renderTrendChart(){
+  const maxGW = Math.max(getMaxFilledGW(),1);
+  const labels = [];
+  for(let g=1; g<=maxGW; g++) labels.push('GW'+g);
+  const palette = chartPalette();
+  const cc = chartColors();
+  const teams = Array.from(trendSelection);
+  const datasets = teams.map((team, idx)=>{
+    let running = 0;
+    const data = [];
+    for(let g=1; g<=maxGW; g++){
+      const e = getEntry(team,g);
+      if(e){ running += (e.pts - e.cost); }
+      data.push(running);
+    }
+    return { label:team, data, borderColor:palette[idx%palette.length], backgroundColor:palette[idx%palette.length], borderWidth:2, pointRadius:3, tension:0.25, fill:false };
+  });
+  const ctx = document.getElementById('trendChart');
+  if(trendChartInstance) trendChartInstance.destroy();
+  trendChartInstance = new Chart(ctx, {
+    type:'line', data:{labels, datasets},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{mode:'index', intersect:false} },
+      interaction:{mode:'index', intersect:false},
+      scales:{
+        x:{ grid:{color:cc.grid}, ticks:{color:cc.tick, font:{family:'JetBrains Mono', size:10.5}} },
+        y:{ grid:{color:cc.grid}, ticks:{color:cc.tick, font:{family:'JetBrains Mono', size:10.5}} }
+      }
+    }
+  });
+}
+
+function renderStandingsChart(){
+  const lb = computeLeaderboard();
+  const labels = lb.map(r=>r.team);
+  const data = lb.map(r=>r.grandTotal);
+  const palette = chartPalette();
+  const cc = chartColors();
+  const colors = lb.map((r,i)=> i<3 ? palette[0] : palette[1]);
+  const ctx = document.getElementById('standingsChart');
+  if(standingsChartInstance) standingsChartInstance.destroy();
+  standingsChartInstance = new Chart(ctx, {
+    type:'bar', data:{labels, datasets:[{label:'Grand total', data, backgroundColor:colors, borderRadius:4, maxBarThickness:20}]},
+    options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false} },
+      scales:{
+        x:{ grid:{color:cc.grid}, ticks:{color:cc.tick, font:{family:'JetBrains Mono', size:10.5}} },
+        y:{ grid:{display:false}, ticks:{color:cc.tickAlt, font:{family:'Inter', size:11}} }
+      }
+    }
+  });
+}
+
+function renderSeasonStats(){
+  const maxGW = getMaxFilledGW();
+  const box = document.getElementById('season-stats');
+  if(!maxGW){ box.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><p>Belum ada data game week untuk dihitung statistiknya.</p></div>`; return; }
+
+  let totalPts=0, countPts=0;
+  let bestSingle = {team:null, gw:null, val:-Infinity};
+  let worstSingle = {team:null, gw:null, val:Infinity};
+  for(let g=1; g<=maxGW; g++){
+    state.teams.forEach(team=>{
+      const e = getEntry(team, g);
+      if(!e) return;
+      const net = e.pts - e.cost;
+      totalPts += net; countPts++;
+      if(net > bestSingle.val) bestSingle = {team, gw:g, val:net};
+      if(net < worstSingle.val) worstSingle = {team, gw:g, val:net};
+    });
+  }
+  const avgAll = countPts ? (totalPts/countPts) : 0;
+
+  const cards = [
+    { lbl:'Rata-rata Liga', big: avgAll.toFixed(1), sub:'poin / tim / GW' },
+    { lbl:'Skor Tertinggi Sepanjang Musim', big: bestSingle.team ? bestSingle.val : '-', sub: bestSingle.team ? `${escapeHtml(bestSingle.team)} &middot; GW${bestSingle.gw}` : '' },
+    { lbl:'Skor Terendah Sepanjang Musim', big: worstSingle.team ? worstSingle.val : '-', sub: worstSingle.team ? `${escapeHtml(worstSingle.team)} &middot; GW${worstSingle.gw}` : '' },
+  ];
+  box.innerHTML = cards.map(c=>`
+    <div class="stat-card">
+      <div class="lbl">${c.lbl}</div>
+      <div class="big">${c.big}</div>
+      <div class="sub">${c.sub}</div>
+    </div>`).join('');
+}
+
+const H2H_LEAGUE_ID = "1657648";
+let selectedH2HGW = 1;
+
+function applyH2HJSON(parsed, gw){
+  const results = parsed && parsed.results;
+  if(!Array.isArray(results)) return null;
+  if(!state.h2h) state.h2h = {};
+  state.h2h[gw] = results.map(r=>({
+    teamA: r.entry_1_name || '(bye)',
+    teamB: r.entry_2_name || '(bye)',
+    ptsA: r.entry_1_points!=null ? r.entry_1_points : 0,
+    ptsB: r.entry_2_points!=null ? r.entry_2_points : 0,
+    isBye: !r.entry_2_entry
+  }));
+  const expectedMatches = Math.ceil(state.teams.length/2);
+  const partial = results.length < expectedMatches;
+  return { count: results.length, expectedMatches, partial };
+}
+
+async function h2hTryAutoFetch(silent){
+  const statusEl = document.getElementById('h2h-status');
+  if(!silent) showStatus(statusEl,'info','Menghubungi FPL...');
+  // Baca GW target dari dropdown Admin (sumber kebenaran utama), bukan dari GW yang
+  // sedang dilihat di tab publik -- supaya admin bisa sengaja pilih GW yang mau di-update.
+  const gwSelInput = document.getElementById('gw-select-h2h-input');
+  let targetGW = gwSelInput ? Number(gwSelInput.value) : (selectedH2HGW || getMaxFilledGW() || 1);
+  const { data, attempts } = await fetchViaProxies(`https://fantasy.premierleague.com/api/leagues-h2h-matches/league/${H2H_LEAGUE_ID}/?page=1&event=${targetGW}`);
+  if(!data){
+    if(!silent) showStatus(statusEl,'err','Gagal lewat semua jalur otomatis (' + attempts.join(' · ') + '). Coba buka file HTML di luar Claude, atau pakai cara manual di bawah.');
+    logAudit('H2H Matches', `GW ${targetGW}: gagal menghubungi FPL`, 'err');
+    return false;
+  }
+  const result = applyH2HJSON(data, targetGW);
+  if(!result){
+    if(!silent) showStatus(statusEl,'err','Data berhasil diambil tapi format tidak dikenali.');
+    logAudit('H2H Matches', `GW ${targetGW}: format tidak dikenali`, 'err');
+    return false;
+  }
+  await persist();
+  selectedH2HGW = targetGW;
+  if(result.partial){
+    const warnMsg = `GW ${targetGW}: cuma ${result.count} dari sekitar ${result.expectedMatches} pertandingan ter-update.`;
+    if(!silent) showStatus(statusEl,'err', '⚠️ ' + warnMsg);
+    if(!silent) showToast('Update sebagian (perlu dicek)', warnMsg, 'err');
+    logAudit('H2H Matches', warnMsg, 'warn');
+  } else {
+    if(!silent) showStatus(statusEl,'ok', `Berhasil! GW ${targetGW}: ${result.count} pertandingan tersimpan.`);
+    if(!silent) showToast('Matches H2H diperbarui', `GW ${targetGW}: ${result.count} pertandingan.`, 'ok');
+    logAudit('H2H Matches', `GW ${targetGW}: ${result.count} pertandingan tersimpan`, 'ok');
+  }
+  await persist();
+  const gwInputSel = document.getElementById('gw-select-h2h-input');
+  if(gwInputSel) gwInputSel.value = targetGW;
+  renderH2H();
+  return true;
+}
+
+async function h2hProcessJsonPaste(){
+  const statusEl = document.getElementById('h2h-status');
+  const raw = document.getElementById('h2h-json-input').value.trim();
+  const gw = Number(document.getElementById('gw-select-h2h-input').value);
+  if(!raw){ showStatus(statusEl,'err','Tempel dulu data JSON H2H.'); return; }
+  let parsed;
+  try{ parsed = JSON.parse(raw); }
+  catch(e){ showStatus(statusEl,'err','Format JSON tidak valid.'); return; }
+  const result = applyH2HJSON(parsed, gw);
+  if(!result){ showStatus(statusEl,'err','Struktur JSON tidak dikenali.'); return; }
+  await persist();
+  selectedH2HGW = gw;
+  const msg = `GW ${gw}: ${result.count} pertandingan tersimpan.`;
+  if(result.partial){
+    showStatus(statusEl,'err', '⚠️ ' + msg + ` (diperkirakan ada ${result.expectedMatches})`);
+    showToast('Update sebagian (perlu dicek)', msg, 'err');
+    logAudit('H2H Matches (manual)', msg + ' — SEBAGIAN', 'warn');
+  } else {
+    showStatus(statusEl,'ok', msg);
+    showToast('Data Head to Head disimpan', msg, 'ok');
+    logAudit('H2H Matches (manual)', msg, 'ok');
+  }
+  await persist();
+  document.getElementById('h2h-json-input').value = '';
+  renderH2H();
+}
+
+function populateH2HFilters(){
+  const teamSel = document.getElementById('h2h-filter-team');
+  const gwSel = document.getElementById('h2h-filter-gw');
+  const prevTeam = teamSel.value, prevGw = gwSel.value;
+  teamSel.innerHTML = '<option value="">Semua Tim</option>' + state.teams.map(t=>`<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
+  const gws = state.h2h ? Object.keys(state.h2h).map(Number).sort((a,b)=>a-b) : [];
+  gwSel.innerHTML = '<option value="">Semua Game Week</option>' + gws.map(g=>`<option value="${g}">GW${g}</option>`).join('');
+  teamSel.value = prevTeam || '';
+  gwSel.value = prevGw || '';
+}
+
+function renderH2H(){
+  populateH2HFilters();
+  const box = document.getElementById('h2h-matches');
+  const teamFilter = document.getElementById('h2h-filter-team').value;
+  const gwFilter = document.getElementById('h2h-filter-gw').value;
+  const gws = state.h2h ? Object.keys(state.h2h).map(Number).sort((a,b)=> gwFilter? 0 : b-a) : [];
+  const targetGws = gwFilter ? [Number(gwFilter)] : gws;
+
+  let rows = [];
+  targetGws.forEach(g=>{
+    const matches = (state.h2h && state.h2h[g]) || [];
+    matches.forEach(m=>{
+      if(teamFilter && m.teamA!==teamFilter && m.teamB!==teamFilter) return;
+      rows.push({gw:g, ...m});
+    });
+  });
+
+  if(!rows.length){
+    box.innerHTML = `<div class="empty-state"><div class="glyph">&#9917;</div><p>Belum ada data Head to Head yang cocok. Minta admin liga untuk update lewat &#128274; Admin Mode &rarr; tab "Head to Head".</p></div>`;
+    return;
+  }
+
+  let closestIdx = -1, closestMargin = Infinity;
+  rows.forEach((m,i)=>{
+    if(m.isBye) return;
+    const margin = Math.abs(m.ptsA - m.ptsB);
+    if(margin < closestMargin){ closestMargin = margin; closestIdx = i; }
+  });
+
+  box.innerHTML = `<div class="card">` + rows.map((m,i)=>{
+    const managerA = (state.managers && state.managers[m.teamA]) || deriveManager(m.teamA);
+    const managerB = m.isBye ? '' : ((state.managers && state.managers[m.teamB]) || deriveManager(m.teamB));
+    const aWin = !m.isBye && m.ptsA > m.ptsB;
+    const bWin = !m.isBye && m.ptsB > m.ptsA;
+    const isClosest = i===closestIdx && rows.length>1;
+    return `<div class="h2h-match-row ${isClosest?'win-highlight':''}">
+      <div class="h2h-gw-label">GW${m.gw}${isClosest?'<br><span style="font-size:9px;">&#9889; SENGIT</span>':''}</div>
+      <div class="h2h-side ${aWin?'winner':''}">
+        <span class="h2h-side-name">${escapeHtml(m.teamA)}</span>
+        <span class="h2h-side-team">${escapeHtml(managerA)}</span>
+      </div>
+      <div class="h2h-score"><span>${m.ptsA}</span><span class="divider">|</span><span>${m.isBye?'-':m.ptsB}</span></div>
+      <div class="h2h-side right ${bWin?'winner':''}">
+        <span class="h2h-side-name">${m.isBye ? 'BYE' : escapeHtml(m.teamB)}</span>
+        <span class="h2h-side-team">${m.isBye ? '' : escapeHtml(managerB)}</span>
+      </div>
+    </div>`;
+  }).join('') + `</div>`;
+}
+
+const H2H_STANDINGS_URL = `https://fantasy.premierleague.com/api/leagues-h2h/${'1657648'}/standings/`;
+
+function applyH2HStandingsJSON(parsed){
+  const results = parsed && parsed.standings && parsed.standings.results;
+  if(!Array.isArray(results)) return null;
+  state.h2hStandings = results.map(r=>({
+    team: r.entry_name,
+    manager: r.player_name,
+    played: r.matches_played||0,
+    won: r.matches_won||0,
+    drawn: r.matches_drawn||0,
+    lost: r.matches_lost||0,
+    pointsFor: r.points_for||0,
+    total: r.total||0,
+    rank: r.rank
+  }));
+  const expectedCount = state.teams.length;
+  const partial = results.length < expectedCount;
+  return { count: results.length, expectedCount, partial };
+}
+
+async function h2hStandingsTryAutoFetch(silent){
+  const statusEl = document.getElementById('h2h-standings-status');
+  if(!silent) showStatus(statusEl,'info','Menghubungi FPL...');
+  const { data, attempts } = await fetchViaProxies(H2H_STANDINGS_URL);
+  if(!data){
+    if(!silent) showStatus(statusEl,'err','Gagal lewat semua jalur otomatis (' + attempts.join(' · ') + '). Coba buka file HTML di luar Claude, atau pakai cara manual di bawah.');
+    logAudit('H2H Standings', 'Gagal menghubungi FPL', 'err');
+    return false;
+  }
+  const result = applyH2HStandingsJSON(data);
+  if(!result){
+    if(!silent) showStatus(statusEl,'err','Data berhasil diambil tapi format tidak dikenali.');
+    logAudit('H2H Standings', 'Format tidak dikenali', 'err');
+    return false;
+  }
+  await persist();
+  if(result.partial){
+    const warnMsg = `Cuma ${result.count} dari ${result.expectedCount} tim ter-update.`;
+    if(!silent) showStatus(statusEl,'err', '⚠️ ' + warnMsg);
+    if(!silent) showToast('Update sebagian (perlu dicek)', warnMsg, 'err');
+    logAudit('H2H Standings', warnMsg, 'warn');
+  } else {
+    if(!silent) showStatus(statusEl,'ok', `Berhasil! ${result.count} tim tersimpan.`);
+    if(!silent) showToast('Standings H2H diperbarui', `${result.count} tim tersimpan.`, 'ok');
+    logAudit('H2H Standings', `${result.count} tim tersimpan`, 'ok');
+  }
+  await persist();
+  renderH2HStandings();
+  return true;
+}
+
+async function h2hStandingsProcessJsonPaste(){
+  const statusEl = document.getElementById('h2h-standings-status');
+  const raw = document.getElementById('h2h-standings-json-input').value.trim();
+  if(!raw){ showStatus(statusEl,'err','Tempel dulu data JSON standings H2H.'); return; }
+  let parsed;
+  try{ parsed = JSON.parse(raw); }
+  catch(e){ showStatus(statusEl,'err','Format JSON tidak valid.'); return; }
+  const result = applyH2HStandingsJSON(parsed);
+  if(!result){ showStatus(statusEl,'err','Struktur JSON tidak dikenali.'); return; }
+  await persist();
+  const msg = `Tersimpan: ${result.count} tim.`;
+  if(result.partial){
+    showStatus(statusEl,'err', '⚠️ ' + msg + ` (seharusnya ${result.expectedCount})`);
+    showToast('Update sebagian (perlu dicek)', msg, 'err');
+    logAudit('H2H Standings (manual)', msg + ' — SEBAGIAN', 'warn');
+  } else {
+    showStatus(statusEl,'ok', msg);
+    showToast('Standings Head to Head disimpan', `${result.count} tim berhasil diperbarui.`, 'ok');
+    logAudit('H2H Standings (manual)', msg, 'ok');
+  }
+  await persist();
+  document.getElementById('h2h-standings-json-input').value = '';
+  renderH2HStandings();
+}
+
+function renderH2HStandings(){
+  const el = document.getElementById('h2h-standings-table');
+  const rows = state.h2hStandings || [];
+  if(!rows.length){
+    el.parentElement.innerHTML = `<div class="empty-state"><div class="glyph">&#127942;</div><p>Belum ada data Standings H2H. Minta admin liga untuk update lewat &#128274; Admin Mode &rarr; tab "Head to Head".</p></div>`;
+    return;
+  }
+  const searchInput = document.getElementById('h2h-standings-search');
+  const q = searchInput ? searchInput.value.trim().toLowerCase() : '';
+  const filtered = q ? rows.filter(r=> (r.team||'').toLowerCase().includes(q) || (r.manager||'').toLowerCase().includes(q)) : rows;
+  const sorted = filtered.slice().sort((a,b)=> a.rank - b.rank);
+  if(!sorted.length){
+    el.innerHTML = `<thead></thead><tbody><tr><td style="padding:24px;text-align:center;color:var(--text-mute);">Tidak ada tim yang cocok.</td></tr></tbody>`;
+    return;
+  }
+  let head = `<thead><tr><th>Rank</th><th>Tim &amp; Manager</th><th style="text-align:right;">Main</th><th style="text-align:right;">M</th><th style="text-align:right;">S</th><th style="text-align:right;">K</th><th style="text-align:right;">Poin FPL</th><th style="text-align:right;">Poin H2H</th></tr></thead>`;
+  let body = '<tbody>';
+  sorted.forEach(r=>{
+    const rowCls = r.rank===1?'top1':r.rank===2?'top2':r.rank===3?'top3':'';
+    const rankHtml = r.rank<=3 ? `<span class="rank-badge-medal medal-${r.rank}">${r.rank}</span>` : `<span class="rank-num">${r.rank}</span>`;
+    body += `<tr class="${rowCls}">
+      <td data-label="Rank"><div class="rank-cell">${rankHtml}</div></td>
+      <td><div class="team-cell">${teamBadgeHtml(r.team,32)}<div class="team-name-wrap"><span class="team-name">${escapeHtml(r.team)}</span><span class="team-manager">${escapeHtml(r.manager)}</span></div></div></td>
+      <td class="num-cell" data-label="Main">${r.played}</td>
+      <td class="num-cell" data-label="M">${r.won}</td>
+      <td class="num-cell" data-label="S">${r.drawn}</td>
+      <td class="num-cell" data-label="K">${r.lost}</td>
+      <td class="num-cell" data-label="Poin FPL">${r.pointsFor}</td>
+      <td class="pts-cell" data-label="Poin H2H">${r.total}</td>
+    </tr>`;
+  });
+  body += '</tbody>';
+  el.innerHTML = head + body;
+  if(searchInput) searchInput.oninput = renderH2HStandings;
+}
+
+function initH2HSubtabs(){
+  document.querySelectorAll('.h2h-subtab-btn').forEach(btn=>{
+    btn.onclick = ()=>{
+      document.querySelectorAll('.h2h-subtab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.h2h-subview').forEach(v=>v.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('h2h-sub-'+btn.dataset.h2hsub).classList.add('active');
+      if(btn.dataset.h2hsub==='standings'){ renderH2HStandings(); }
+    };
+  });
+}
+
+function populateGwSelects(){
+  const maxGW = getMaxFilledGW();
+  // Default ke GW yang SEDANG berjalan/terakhir ada datanya (bukan GW berikutnya yang belum main),
+  // supaya konsisten dengan aturan "tidak pernah auto-maju ke GW baru" di seluruh aplikasi.
+  const suggested = Math.max(maxGW, 1);
+  [document.getElementById('gw-select-input'), document.getElementById('gw-select-json-input'), document.getElementById('gw-select-manual'), document.getElementById('gw-select-h2h-input')].forEach(sel=>{
+    if(!sel) return;
+    sel.innerHTML = '';
+    for(let g=1; g<=N_GW; g++){
+      const opt = document.createElement('option');
+      opt.value = g; opt.textContent = 'Game Week ' + g;
+      if(g===suggested) opt.selected = true;
+      sel.appendChild(opt);
+    }
+  });
+  renderManualRoster();
+}
+
+function renderManualRoster(){
+  const gw = Number(document.getElementById('gw-select-manual').value);
+  const box = document.getElementById('manual-roster');
+  const headHtml = `<div class="roster-head"><span>Tim</span><span style="text-align:right;">Poin</span><span style="text-align:right;">Kurang</span><span style="text-align:right;">Captain</span><span style="text-align:right;">Bench</span></div>`;
+  const rowsHtml = state.teams.map(t=>{
+    const e = getEntry(t, gw);
+    return `<div class="roster-row">
+      <span class="rname">${escapeHtml(t)}</span>
+      <input type="number" min="0" max="200" data-team="${escapeHtml(t)}" data-field="pts" value="${e ? e.pts : ''}" style="text-align:right;">
+      <input type="number" min="0" max="40" data-team="${escapeHtml(t)}" data-field="cost" value="${e ? e.cost : 0}" style="text-align:right;">
+      <input type="number" min="0" max="60" data-team="${escapeHtml(t)}" data-field="captain" value="${e ? e.captain : ''}" style="text-align:right;">
+      <input type="number" min="0" max="60" data-team="${escapeHtml(t)}" data-field="bench" value="${e ? e.bench : ''}" style="text-align:right;">
+    </div>`;
+  }).join('');
+  box.innerHTML = headHtml + rowsHtml;
+}
+
+function renderManagerRoster(){
+  const box = document.getElementById('manager-roster');
+  if(!box) return;
+  const headHtml = `<div class="roster-head" style="grid-template-columns:1fr 1fr;"><span>Tim</span><span>Manager</span></div>`;
+  const rowsHtml = state.teams.map(t=>{
+    const m = (state.managers && state.managers[t]) || deriveManager(t);
+    return `<div class="roster-row" style="grid-template-columns:1fr 1fr;">
+      <span class="rname">${escapeHtml(t)}</span>
+      <input type="text" data-team="${escapeHtml(t)}" value="${escapeHtml(m)}">
+    </div>`;
+  }).join('');
+  box.innerHTML = headHtml + rowsHtml;
+}
+
+async function saveCustomProxy(){
+  const statusEl = document.getElementById('proxy-status');
+  const val = document.getElementById('custom-proxy-input').value.trim();
+  state.customProxyBase = val || null;
+  await persist();
+  showStatus(statusEl,'ok', val ? 'Relay pribadi disimpan dan akan dicoba lebih dulu.' : 'Relay pribadi dihapus, kembali pakai proxy publik.');
+  showToast('Pengaturan relay disimpan', val ? 'Relay pribadi aktif.' : 'Relay pribadi dinonaktifkan.', 'ok');
+}
+
+async function saveManagers(){
+  const statusEl = document.getElementById('manager-status');
+  const rows = document.querySelectorAll('#manager-roster .roster-row');
+  if(!state.managers) state.managers = {};
+  let count = 0;
+  rows.forEach(row=>{
+    const input = row.querySelector('input[type=text]');
+    const team = input.dataset.team;
+    const val = input.value.trim().split(/\s+/).slice(0,2).join(' ') || deriveManager(team);
+    state.managers[team] = val;
+    count++;
+  });
+  await persist();
+  showStatus(statusEl,'ok','Nama manager tersimpan.');
+  showToast('Nama manager disimpan', `${count} tim berhasil diperbarui.`, 'ok');
+  logAudit('Manager Mapping', `${count} nama manager diperbarui`, 'ok');
+  await persist();
+  renderAll();
+  renderManagerRoster();
+}
+
+function showToast(title, msg, type){
+  const stack = document.getElementById('toast-stack');
+  const icon = type==='ok' ? '&#9989;' : '&#9888;&#65039;';
+  const el = document.createElement('div');
+  el.className = 'toast ' + (type||'ok');
+  el.innerHTML = `<span class="toast-icon">${icon}</span><div class="toast-text"><strong>${title}</strong><span>${msg}</span></div><button class="toast-close" onclick="this.parentElement.remove()">&times;</button>`;
+  stack.appendChild(el);
+  setTimeout(()=>{ if(el.parentElement) el.remove(); }, 5000);
+}
+
+function showStatus(el, type, msg){
+  el.className = 'status-msg show ' + type;
+  el.textContent = msg;
+}
+
+function findTeamMatch(entryName){
+  const norm = s => String(s).trim().toLowerCase();
+  const target = norm(entryName);
+  return state.teams.find(t => norm(t) === target);
+}
+
+function renameTeam(oldName, newName){
+  if(oldName === newName || !oldName || !newName) return;
+  const idx = state.teams.indexOf(oldName);
+  const newAlreadyPresent = state.teams.includes(newName);
+  if(idx !== -1){
+    if(newAlreadyPresent){ state.teams.splice(idx, 1); }
+    else { state.teams[idx] = newName; }
+  }
+  if(state.scores[oldName]){
+    state.scores[newName] = Object.assign({}, state.scores[oldName], state.scores[newName]||{});
+    delete state.scores[oldName];
+  }
+  if(state.managers[oldName] !== undefined){
+    if(state.managers[newName] === undefined) state.managers[newName] = state.managers[oldName];
+    delete state.managers[oldName];
+  }
+  if(state.clubBadges && state.clubBadges[oldName]){
+    if(!state.clubBadges[newName]) state.clubBadges[newName] = state.clubBadges[oldName];
+    delete state.clubBadges[oldName];
+  }
+}
+
+function applyStandingsJSON(parsed, gw){
+  const results = parsed && parsed.standings && parsed.standings.results;
+  if(!Array.isArray(results) || !results.length) return null;
+  if(!state.entryMap) state.entryMap = {};
+  let matched = 0, added = 0, renamed = 0;
+  results.forEach(r=>{
+    const name = r.entry_name;
+    const pts = r.event_total;
+    const entryId = r.entry;
+    if(name===undefined || pts===undefined) return;
+    let team = null;
+    // Primary key: ID entry FPL (permanen, tidak berubah walau nama tim diganti-ganti).
+    if(entryId!==undefined && state.entryMap[entryId] && state.teams.includes(state.entryMap[entryId])){
+      team = state.entryMap[entryId];
+      if(team !== name){ renameTeam(team, name); team = name; renamed++; }
+    }
+    if(!team){
+      // Fallback untuk tim lama yang belum punya ID entry tercatat: cocokkan lewat nama.
+      team = findTeamMatch(name);
+    }
+    if(!team){ team = name; state.teams.push(team); state.scores[team] = {}; state.managers[team] = deriveManager(team); added++; }
+    else matched++;
+    if(entryId!==undefined) state.entryMap[entryId] = team;
+    if(r.club_badge_src){ if(!state.clubBadges) state.clubBadges = {}; state.clubBadges[team] = r.club_badge_src; }
+    const existing = getEntry(team, gw);
+    state.scores[team][gw] = {
+      pts: Number(pts),
+      cost: existing ? existing.cost : 0,
+      captain: existing ? existing.captain : 0,
+      bench: existing ? existing.bench : 0
+    };
+  });
+  const expectedCount = state.teams.length;
+  const receivedCount = matched + added;
+  const partial = receivedCount < expectedCount;
+  return { matched, added, renamed, receivedCount, expectedCount, partial };
+}
+
+function getActiveProxies(){
+  const list = [ url => url ];
+  if(state.customProxyBase){
+    const base = state.customProxyBase;
+    list.push(url => base.includes('{url}') ? base.replace('{url}', encodeURIComponent(url)) : base + encodeURIComponent(url));
+  }
+  return list.concat([
+    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+    url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+    url => `https://thingproxy.freeboard.io/fetch/${url}`,
+  ]);
+}
+
+async function fetchViaProxies(targetUrl, timeoutMs=12000){
+  const proxies = getActiveProxies();
+  const names = ['langsung', ...(state.customProxyBase ? ['relay pribadi'] : []), 'allorigins', 'codetabs', 'corsproxy.io', 'thingproxy'];
+  const attempts = [];
+  for(let i=0;i<proxies.length;i++){
+    const wrap = proxies[i];
+    const finalUrl = wrap(targetUrl);
+    try{
+      const controller = new AbortController();
+      const t = setTimeout(()=>controller.abort(), timeoutMs);
+      const res = await fetch(finalUrl, { signal: controller.signal, cache:'no-store' });
+      clearTimeout(t);
+      if(!res.ok){ attempts.push(`${names[i]}: HTTP ${res.status}`); continue; }
+      const text = await res.text();
+      let data;
+      try{ data = JSON.parse(text); }catch(e){ attempts.push(`${names[i]}: respons bukan JSON`); continue; }
+      if(data) return { data, attempts };
+    }catch(e){
+      attempts.push(`${names[i]}: ${e.name==='AbortError' ? 'timeout' : 'diblokir/network error'}`);
+    }
+  }
+  return { data:null, attempts };
+}
+
+async function detectCurrentGW(){
+  const { data } = await fetchViaProxies('https://fantasy.premierleague.com/api/bootstrap-static/');
+  if(!data || !Array.isArray(data.events)) return null;
+  // PENTING: jangan pernah pakai "is_next" (GW yang belum dimainkan) sebagai target.
+  // Data standings (event_total) selalu merujuk ke GW yang SEDANG berjalan atau yang
+  // TERAKHIR SELESAI dimainkan -- bukan GW berikutnya yang belum dimulai.
+  const cur = data.events.find(e=>e.is_current)
+    || data.events.slice().reverse().find(e=>e.finished);
+  return cur ? cur.id : null;
+}
+
+let deadlineTickTimer = null;
+
+async function fetchNextDeadline(){
+  const { data } = await fetchViaProxies('https://fantasy.premierleague.com/api/bootstrap-static/');
+  if(!data || !Array.isArray(data.events)) return false;
+  const next = data.events.find(e=>e.is_next) || data.events.find(e=>!e.finished);
+  if(!next) return false;
+  state.nextDeadline = { id: next.id, name: next.name, deadline: next.deadline_time };
+  await persist();
+  renderDeadlineBanner();
+  return true;
+}
+
+let notifiedThresholds = new Set();
+
+function notifPermissionState(){
+  if(typeof Notification === 'undefined') return 'unsupported';
+  return Notification.permission; // 'granted' | 'denied' | 'default'
+}
+
+async function toggleDeadlineNotif(){
+  if(typeof Notification === 'undefined'){
+    showToast('Tidak didukung', 'Browser ini tidak mendukung notifikasi.', 'err');
+    return;
+  }
+  if(Notification.permission === 'granted'){
+    state.notifEnabled = !state.notifEnabled;
+  } else {
+    const perm = await Notification.requestPermission();
+    state.notifEnabled = (perm === 'granted');
+    if(perm !== 'granted'){
+      showToast('Izin ditolak', 'Aktifkan izin notifikasi di pengaturan browser untuk memakai fitur ini.', 'err');
+    }
+  }
+  await persist();
+  updateNotifButton();
+  if(state.notifEnabled) showToast('Reminder aktif', 'Kamu akan diingatkan saat deadline mendekat (selagi tab ini terbuka).', 'ok');
+}
+
+function updateNotifButton(){
+  const btn = document.getElementById('btn-toggle-notif');
+  if(!btn) return;
+  const on = state.notifEnabled && notifPermissionState()==='granted';
+  btn.className = 'notif-btn' + (on ? ' active' : '');
+  btn.innerHTML = on ? '&#128276; Reminder Aktif' : '&#128276; Aktifkan Reminder Deadline';
+}
+
+function maybeNotifyDeadline(diffMs, eventName){
+  if(!state.notifEnabled || notifPermissionState()!=='granted') return;
+  const thresholds = [
+    {ms:24*3600000, key:'24h', label:'24 jam lagi'},
+    {ms:6*3600000, key:'6h', label:'6 jam lagi'},
+    {ms:1*3600000, key:'1h', label:'1 jam lagi'},
+    {ms:30*60000, key:'30m', label:'30 menit lagi'},
+  ];
+  thresholds.forEach(t=>{
+    if(diffMs <= t.ms && diffMs > 0 && !notifiedThresholds.has(t.key)){
+      notifiedThresholds.add(t.key);
+      try{
+        new Notification('⏳ Deadline ' + eventName, { body: `Tinggal ${t.label}! Buka Coffee & JLA Super League untuk atur tim.`, icon: undefined });
+      }catch(e){}
+    }
+  });
+}
+
+function renderDeadlineBanner(){
+  const box = document.getElementById('deadline-banner');
+  const info = state.nextDeadline;
+  if(!info || !info.deadline){ box.style.display='none'; if(deadlineTickTimer){clearInterval(deadlineTickTimer);deadlineTickTimer=null;} return; }
+  const deadlineDate = new Date(info.deadline);
+  notifiedThresholds = new Set(); // deadline baru -> reset penanda notifikasi
+  const dateStr = deadlineDate.toLocaleDateString('id-ID',{weekday:'long', day:'2-digit', month:'long'}) + ' &middot; ' + deadlineDate.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB';
+  box.style.display = 'flex';
+  box.innerHTML = `
+    <div class="deadline-left">
+      <div class="deadline-label"><span class="deadline-pulse-dot"></span>Deadline Berikutnya</div>
+      <div class="deadline-event">${escapeHtml(info.name)}</div>
+      <div class="deadline-date">${dateStr}</div>
+      <a class="deadline-cta" href="https://fantasy.premierleague.com/en/transfers" target="_blank" rel="noopener">&#9889; Atur Tim Sekarang</a>
+      <br><button class="notif-btn" id="btn-toggle-notif">&#128276; Aktifkan Reminder Deadline</button>
+    </div>
+    <div class="deadline-countdown" id="deadline-countdown-units"></div>
+  `;
+  document.getElementById('btn-toggle-notif').onclick = toggleDeadlineNotif;
+  updateNotifButton();
+  if(deadlineTickTimer) clearInterval(deadlineTickTimer);
+  const tick = ()=>{
+    const now = new Date();
+    let diff = deadlineDate - now;
+    maybeNotifyDeadline(diff, info.name);
+    const unitsBox = document.getElementById('deadline-countdown-units');
+    if(!unitsBox) { clearInterval(deadlineTickTimer); deadlineTickTimer=null; return; }
+    if(diff <= 0){
+      unitsBox.innerHTML = `<div class="deadline-unit"><div class="num" style="font-size:15px;">DEADLINE<br>LEWAT</div></div>`;
+      box.classList.add('urgent');
+      clearInterval(deadlineTickTimer); deadlineTickTimer=null;
+      return;
+    }
+    box.classList.toggle('urgent', diff < 24*3600000);
+    const d = Math.floor(diff/86400000); diff -= d*86400000;
+    const h = Math.floor(diff/3600000); diff -= h*3600000;
+    const m = Math.floor(diff/60000); diff -= m*60000;
+    const s = Math.floor(diff/1000);
+    unitsBox.innerHTML = [
+      {v:d,l:'Hari'}, {v:h,l:'Jam'}, {v:m,l:'Menit'}, {v:s,l:'Detik',cls:'seconds'}
+    ].map(u=>`<div class="deadline-unit ${u.cls||''}"><div class="num">${String(u.v).padStart(2,'0')}</div><div class="lbl">${u.l}</div></div>`).join('');
+  };
+  tick();
+  deadlineTickTimer = setInterval(tick, 1000);
+}
+
+async function processJsonPaste(){
+  const statusEl = document.getElementById('json-manual-status');
+  const raw = document.getElementById('json-input').value.trim();
+  const gw = Number(document.getElementById('gw-select-json-input').value);
+  if(!raw){ showStatus(statusEl,'err','Tempel dulu data JSON dari API resmi FPL.'); return; }
+  let parsed;
+  try{ parsed = JSON.parse(raw); }
+  catch(e){ showStatus(statusEl,'err','Format JSON tidak valid. Pastikan kamu menyalin seluruh isi halaman API.'); return; }
+  const result = applyStandingsJSON(parsed, gw);
+  if(!result){ showStatus(statusEl,'err','Struktur JSON tidak dikenali. Cek apakah link yang dibuka benar.'); return; }
+
+  await persist();
+  const msg = `GW ${gw}: ${result.matched} tim cocok${result.added? ', ' + result.added + ' tim baru ditambahkan' : ''}${result.renamed? ', ' + result.renamed + ' tim di-rename otomatis' : ''}.`;
+  if(result.partial){
+    const warnMsg = `Cuma ${result.receivedCount} dari ${result.expectedCount} tim ter-update di GW ${gw}. Sisanya mungkin belum ter-refresh.`;
+    showStatus(statusEl,'err', msg + ' ⚠️ ' + warnMsg);
+    showToast('Update sebagian (perlu dicek)', warnMsg, 'err');
+    logAudit('Manual JSON', `GW ${gw}: ${result.receivedCount}/${result.expectedCount} tim (SEBAGIAN)`, 'warn');
+  } else {
+    showStatus(statusEl,'ok', msg + ' Cek/sesuaikan pengurangan poin di panel manual jika perlu.');
+    showToast('Data berhasil disimpan', msg, 'ok');
+    logAudit('Manual JSON', `GW ${gw}: ${result.matched} cocok, ${result.added} baru, ${result.renamed} rename`, 'ok');
+  }
+  await persist();
+  document.getElementById('json-input').value = '';
+  renderAll(); populateGwSelects();
+}
+
+async function tryAutoFetch(silent){
+  const statusEl = document.getElementById('update-status');
+  if(!silent) showStatus(statusEl,'info','Menghubungi FPL...');
+  const { data, attempts } = await fetchViaProxies(`https://fantasy.premierleague.com/api/leagues-classic/${LEAGUE_ID}/standings/`);
+  if(!data){
+    if(!silent) showStatus(statusEl,'err','Gagal lewat semua jalur otomatis (' + attempts.join(' · ') + '). Ini kemungkinan karena environment preview di Claude membatasi koneksi keluar ke domain luar. Coba buka file HTML yang sudah kamu unduh langsung di browser (Chrome/Edge) di luar Claude, atau pakai "Cara manual" di bawah.');
+    logAudit('Update API', 'Gagal menghubungi FPL (' + attempts.join(', ') + ')', 'err');
+    return false;
+  }
+  // Auto-refresh diam-diam (silent) HANYA memperbarui GW yang sudah ada datanya (tidak pernah maju sendiri).
+  // Klik manual oleh admin BOLEH memakai GW yang dipilih di dropdown -- itu keputusan sadar admin.
+  const gwInputSel = document.getElementById('gw-select-input');
+  let targetGW;
+  if(silent){
+    targetGW = getMaxFilledGW() || 1;
+  } else {
+    targetGW = gwInputSel ? Number(gwInputSel.value) : (getMaxFilledGW() || 1);
+  }
+  if(gwInputSel) gwInputSel.value = targetGW;
+  const result = applyStandingsJSON(data, targetGW);
+  if(!result){
+    if(!silent) showStatus(statusEl,'err','Data berhasil diambil tapi format tidak dikenali.');
+    logAudit('Update API', `GW ${targetGW}: format tidak dikenali`, 'err');
+    return false;
+  }
+  await persist();
+  if(result.partial){
+    const warnMsg = `GW ${targetGW}: cuma ${result.receivedCount} dari ${result.expectedCount} tim ter-update. Sisanya belum ter-refresh -- coba lagi beberapa saat lagi.`;
+    if(!silent) showStatus(statusEl,'err', '⚠️ ' + warnMsg);
+    if(!silent) showToast('Update sebagian (perlu dicek)', warnMsg, 'err');
+    logAudit('Update API', warnMsg, 'warn');
+  } else {
+    if(!silent) showStatus(statusEl,'ok', `Berhasil! GW ${targetGW} diperbarui: ${result.matched} tim cocok${result.added? ', ' + result.added + ' baru' : ''}${result.renamed? ', ' + result.renamed + ' di-rename' : ''}.`);
+    if(!silent) showToast('Update API berhasil', `GW ${targetGW}: ${result.receivedCount}/${result.expectedCount} tim ter-update.`, 'ok');
+    logAudit('Update API', `GW ${targetGW}: ${result.matched} cocok, ${result.added} baru${silent?' (auto-refresh)':''}`, 'ok');
+  }
+  await persist();
+  renderAll(); populateGwSelects();
+  return true;
+}
+
+let autoRefreshTimer = null;
+function applyAutoRefreshSetting(){
+  const enabled = !!state.autoRefresh;
+  const chk = document.getElementById('chk-auto-refresh');
+  if(chk) chk.checked = enabled;
+  if(autoRefreshTimer){ clearInterval(autoRefreshTimer); autoRefreshTimer = null; }
+  if(enabled){
+    tryAutoFetch(true);
+    autoRefreshTimer = setInterval(()=> tryAutoFetch(true), 15*60*1000);
+  }
+}
+
+async function toggleAutoRefresh(){
+  const chk = document.getElementById('chk-auto-refresh');
+  state.autoRefresh = chk.checked;
+  await persist();
+  applyAutoRefreshSetting();
+  const statusEl = document.getElementById('update-status');
+  showStatus(statusEl,'info', state.autoRefresh ? 'Auto-refresh diaktifkan: akan dicoba tiap kali app dibuka & tiap 15 menit selama tab ini terbuka.' : 'Auto-refresh dimatikan.');
+}
+
+async function saveManualScores(){
+  const statusEl = document.getElementById('manual-status');
+  const gw = Number(document.getElementById('gw-select-manual').value);
+  const rows = document.querySelectorAll('#manual-roster .roster-row');
+  let count = 0;
+  rows.forEach(row=>{
+    const ptsInput = row.querySelector('[data-field=pts]');
+    const costInput = row.querySelector('[data-field=cost]');
+    const captainInput = row.querySelector('[data-field=captain]');
+    const benchInput = row.querySelector('[data-field=bench]');
+    const team = ptsInput.dataset.team;
+    const ptsVal = ptsInput.value.trim();
+    const costVal = costInput.value.trim();
+    const captainVal = captainInput.value.trim();
+    const benchVal = benchInput.value.trim();
+    if(ptsVal!==''){
+      if(!state.scores[team]) state.scores[team] = {};
+      state.scores[team][gw] = {
+        pts:Number(ptsVal),
+        cost: costVal!=='' ? Number(costVal) : 0,
+        captain: captainVal!=='' ? Number(captainVal) : 0,
+        bench: benchVal!=='' ? Number(benchVal) : 0
+      };
+      count++;
+    }
+  });
+  await persist();
+  showStatus(statusEl,'ok', `Poin GW ${gw} tersimpan untuk ${count} tim.`);
+  showToast('Poin manual disimpan', `GW ${gw}: ${count} tim berhasil diperbarui.`, 'ok');
+  logAudit('Manual Point', `GW ${gw}: ${count} tim diinput manual`, 'ok');
+  await persist();
+  document.querySelectorAll('#manual-roster input[type=number]').forEach(inp=>{ inp.value=''; });
+  renderAll();
+}
+
+let unlockedThisSession = false;
+let adminModeActive = false;
+
+function openAdminPinModal(){
+  document.getElementById('admin-pin-input').value = '';
+  document.getElementById('admin-pin-status').className = 'status-msg';
+  document.getElementById('admin-pin-overlay').classList.add('show');
+  setTimeout(()=>{ const el=document.getElementById('admin-pin-input'); if(el) el.focus(); }, 50);
+}
+function closeAdminPinModal(){
+  document.getElementById('admin-pin-overlay').classList.remove('show');
+}
+
+function enterAdminMode(){
+  adminModeActive = true;
+  document.getElementById('tabs').style.display = 'none';
+  document.getElementById('admin-tabs').style.display = 'flex';
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-admin-api').classList.add('active');
+  document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.admin-tab[data-admintab="api"]').classList.add('active');
+  const pinSetInput = document.getElementById('pin-set-input');
+  if(pinSetInput) pinSetInput.value = state.adminPin || '';
+  const proxyInput = document.getElementById('custom-proxy-input');
+  if(proxyInput) proxyInput.value = state.customProxyBase || '';
+}
+
+function exitAdminMode(){
+  adminModeActive = false;
+  document.getElementById('admin-tabs').style.display = 'none';
+  document.getElementById('tabs').style.display = 'flex';
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab-btn[data-tab]').forEach(b=>b.classList.remove('active'));
+  document.getElementById('view-beranda').classList.add('active');
+  document.querySelector('.tab-btn[data-tab="beranda"]').classList.add('active');
+  renderValidationReport.lastRun = false;
+}
+
+function tryAdminUnlock(){
+  const statusEl = document.getElementById('admin-pin-status');
+  const val = document.getElementById('admin-pin-input').value;
+  if(!state.adminPin || val === state.adminPin){
+    unlockedThisSession = true;
+    closeAdminPinModal();
+    enterAdminMode();
+  } else {
+    showStatus(statusEl,'err','PIN salah, coba lagi.');
+  }
+}
+
+async function savePin(){
+  const statusEl = document.getElementById('pin-set-status');
+  const val = document.getElementById('pin-set-input').value.trim();
+  state.adminPin = val || null;
+  logAudit('Keamanan', val ? 'PIN admin diubah' : 'PIN admin dihapus', 'ok');
+  await persist();
+  showStatus(statusEl,'ok', val ? 'PIN disimpan. Admin Mode akan minta PIN ini mulai sesi berikutnya.' : 'PIN dihapus. Admin Mode bisa dibuka tanpa PIN.');
+}
+
+function downloadBackup(){
+  const statusEl = document.getElementById('backup-status');
+  try{
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const dateStr = new Date().toISOString().slice(0,10);
+    a.href = url;
+    a.download = `coffee-jla-super-league-backup-${dateStr}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showStatus(statusEl,'ok','Backup berhasil diunduh.');
+    showToast('Backup diunduh', `File coffee-jla-super-league-backup-${dateStr}.json tersimpan di folder Downloads.`, 'ok');
+  }catch(e){
+    showStatus(statusEl,'err','Gagal membuat file backup: ' + e.message);
+  }
+}
+
+async function restoreBackup(){
+  const statusEl = document.getElementById('backup-status');
+  const raw = document.getElementById('restore-input').value.trim();
+  if(!raw){ showStatus(statusEl,'err','Tempel dulu isi file backup JSON.'); return; }
+  let parsed;
+  try{ parsed = JSON.parse(raw); }
+  catch(e){ showStatus(statusEl,'err','Format JSON tidak valid.'); return; }
+  if(!parsed.teams || !parsed.scores){ showStatus(statusEl,'err','File ini tidak terlihat seperti backup Coffee & JLA Super League yang valid.'); return; }
+  if(!confirm('Ini akan MENIMPA semua data saat ini dengan isi backup. Yakin lanjutkan?')) return;
+  state = parsed;
+  state.dataVersion = DATA_VERSION;
+  logAudit('Backup & Restore', 'Data dipulihkan dari file backup JSON', 'warn');
+  await persist();
+  showStatus(statusEl,'ok','Data berhasil dipulihkan dari backup.');
+  showToast('Data dipulihkan', 'Semua data berhasil dikembalikan dari file backup.', 'ok');
+  document.getElementById('restore-input').value = '';
+  renderAll();
+  renderValidationReport();
+}
+
+function renderValidationReport(){
+  const box = document.getElementById('validation-report');
+  const maxGW = getMaxFilledGW();
+  const lb = computeLeaderboard(maxGW);
+  const issues = [];
+
+  const tiedGroups = {};
+  lb.forEach(r=>{ (tiedGroups[r.grandTotal] = tiedGroups[r.grandTotal]||[]).push(r.team); });
+  Object.entries(tiedGroups).forEach(([total, teams])=>{
+    if(teams.length>1){
+      const noTiebreak = lb.filter(r=>teams.includes(r.team) && r.captainTotal===0 && r.benchTotal===0);
+      if(noTiebreak.length>1){
+        issues.push({ type:'warn', text: `${teams.length} tim seri di ${total} poin (${teams.join(', ')}) tapi data Captain/Bench masih 0 &mdash; tiebreaker belum efektif.` });
+      }
+    }
+  });
+
+  state.teams.forEach(team=>{
+    const e = getEntry(team, maxGW);
+    if(maxGW && (!e || (e.captain===0 && e.bench===0))){
+      issues.push({ type:'info', text: `${escapeHtml(team)} belum ada data Captain/Bench untuk GW${maxGW}.` });
+    }
+  });
+
+  const nameCount = {};
+  state.teams.forEach(t=>{ nameCount[t.toLowerCase()] = (nameCount[t.toLowerCase()]||0)+1; });
+  Object.entries(nameCount).forEach(([name,count])=>{
+    if(count>1) issues.push({ type:'err', text: `Nama tim duplikat terdeteksi: "${escapeHtml(name)}" muncul ${count} kali.` });
+  });
+
+  for(let g=1; g<=maxGW; g++){
+    const missing = state.teams.filter(t=>!getEntry(t,g));
+    if(missing.length && missing.length < state.teams.length){
+      issues.push({ type:'warn', text: `GW${g}: ${missing.length} tim belum punya data (${missing.slice(0,5).join(', ')}${missing.length>5?', ...':''}).` });
+    }
+  }
+
+  if(!state.adminPin){
+    issues.push({ type:'warn', text: `Belum ada PIN admin diset &mdash; siapapun bisa membuka Admin Mode. Atur PIN di tab "Update API".` });
+  }
+
+  if(!issues.length){
+    box.innerHTML = `<div class="notice-strip" style="border-color:var(--green);color:var(--green-ink);">&#9989; Tidak ada masalah terdeteksi. Data terlihat lengkap dan konsisten.</div>`;
+    return;
+  }
+  const iconMap = {err:'&#10060;', warn:'&#9888;&#65039;', info:'&#8505;&#65039;'};
+  box.innerHTML = issues.map(it=>`<div class="notice-strip" style="margin-top:10px;display:flex;gap:10px;align-items:flex-start;">
+    <span>${iconMap[it.type]}</span><span>${it.text}</span>
+  </div>`).join('');
+}
+
+const THEME_STORAGE_KEY = 'liga-kopi-theme-pref';
+
+async function toggleTheme(){
+  const dark = document.body.classList.toggle('theme-dark');
+  const btn = document.getElementById('btn-theme-toggle');
+  btn.innerHTML = dark ? '&#127769; Dark' : '&#9788;&#65039; Light';
+  const grafikActive = document.getElementById('view-grafik').classList.contains('active');
+  if(grafikActive){ renderTrendChart(); renderStandingsChart(); }
+  // Preferensi tema disimpan personal (bukan shared) -- jadi tiap orang punya pilihannya sendiri,
+  // tidak memaksa tema yang sama ke semua pengunjung.
+  try{ await window.storage.set(THEME_STORAGE_KEY, dark ? 'dark' : 'light', false); }catch(e){}
+}
+
+async function loadThemePref(){
+  try{
+    const res = await window.storage.get(THEME_STORAGE_KEY, false);
+    if(res && res.value === 'dark'){
+      document.body.classList.add('theme-dark');
+      const btn = document.getElementById('btn-theme-toggle');
+      if(btn) btn.innerHTML = '&#127769; Dark';
+    }
+  }catch(e){}
+}
+
+function initTabs(){
+  document.querySelectorAll('.tab-btn[data-tab]').forEach(btn=>{
+    btn.onclick = ()=>{
+      document.querySelectorAll('.tab-btn[data-tab]').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('view-'+btn.dataset.tab).classList.add('active');
+      if(btn.dataset.tab==='grafik'){ renderTrendChart(); renderStandingsChart(); renderSeasonStats(); }
+      if(btn.dataset.tab==='h2h'){ renderH2H(); }
+      if(btn.dataset.tab==='manager'){ populateManagerPageSelect(); renderManagerPage(document.getElementById('manager-page-select').value); }
+    };
+  });
+  document.querySelectorAll('.admin-tab').forEach(btn=>{
+    btn.onclick = ()=>{
+      document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('view-admin-'+btn.dataset.admintab).classList.add('active');
+      if(btn.dataset.admintab==='validation'){ renderValidationReport(); }
+      if(btn.dataset.admintab==='coffeedebt'){ renderAdminDebtList(); }
+      if(btn.dataset.admintab==='auditlog'){ renderAuditLog(); }
+    };
+  });
+  document.getElementById('btn-open-admin').onclick = ()=>{
+    if(state.adminPin && !unlockedThisSession){ openAdminPinModal(); }
+    else { enterAdminMode(); }
+  };
+  document.getElementById('btn-theme-toggle').onclick = toggleTheme;
+  document.getElementById('manager-page-select').onchange = (e)=> renderManagerPage(e.target.value);
+  document.getElementById('btn-admin-unlock').onclick = tryAdminUnlock;
+  document.getElementById('admin-pin-input').addEventListener('keydown', e=>{ if(e.key==='Enter') tryAdminUnlock(); });
+  document.getElementById('btn-exit-admin').onclick = exitAdminMode;
+}
+
+function computeCoffeeDebts(){
+  const maxGW = getMaxFilledGW();
+  const debts = [];
+  for(let g=1; g<=maxGW; g++){
+    const wk = computeWeekly(g);
+    if(!wk) continue;
+    debts.push({
+      gw: g,
+      winner: wk.winner.team,
+      loser: wk.lowest.team,
+      paid: !!(state.coffeeDebtsPaid && state.coffeeDebtsPaid[g])
+    });
+  }
+  return debts.reverse(); // terbaru dulu
+}
+
+function renderCoffeeDebtSummary(){
+  const box = document.getElementById('coffee-debt-summary');
+  if(!box) return;
+  const debts = computeCoffeeDebts();
+  const unpaid = debts.filter(d=>!d.paid).length;
+  const paid = debts.length - unpaid;
+  box.innerHTML = `
+    <div class="debt-summary-strip">
+      <div class="ds-item"><div class="ds-num">${debts.length}</div><div class="ds-lbl">Total Traktiran</div></div>
+      <div class="ds-item"><div class="ds-num">${unpaid}</div><div class="ds-lbl">Belum Lunas</div></div>
+      <div class="ds-item"><div class="ds-num ok">${paid}</div><div class="ds-lbl">Sudah Lunas</div></div>
+    </div>`;
+}
+
+function renderCoffeeDebtList(){
+  const box = document.getElementById('coffee-debt-list');
+  if(!box) return;
+  const debts = computeCoffeeDebts();
+  if(!debts.length){
+    box.innerHTML = `<div class="empty-state"><div class="glyph">&#9749;</div><p>Belum ada Game Week yang tercatat.</p></div>`;
+    return;
+  }
+  box.innerHTML = debts.map(d=>{
+    const loserMgr = (state.managers && state.managers[d.loser]) || deriveManager(d.loser);
+    const winnerMgr = (state.managers && state.managers[d.winner]) || deriveManager(d.winner);
+    return `<div class="debt-row ${d.paid?'paid':'unpaid'}">
+      <div class="debt-gw">GW${d.gw}</div>
+      <div class="debt-side"><div><span class="lbl">Bayar</span><span class="name" style="color:var(--pink-ink);">${escapeHtml(d.loser)}</span></div></div>
+      <div class="debt-arrow">&#8594;</div>
+      <div class="debt-side"><div><span class="lbl">Ke</span><span class="name" style="color:var(--green-ink);">${escapeHtml(d.winner)}</span></div></div>
+      <div class="debt-status ${d.paid?'paid':'unpaid'}">${d.paid ? '&#9989; Lunas' : '&#9203; Belum Lunas'}</div>
+    </div>`;
+  }).join('');
+}
+
+async function toggleCoffeeDebt(gw){
+  if(!state.coffeeDebtsPaid) state.coffeeDebtsPaid = {};
+  const nowPaid = !state.coffeeDebtsPaid[gw];
+  state.coffeeDebtsPaid[gw] = nowPaid;
+  logAudit('Utang Kopi', `GW ${gw} ditandai ${nowPaid ? 'LUNAS' : 'belum lunas'}`, 'ok');
+  await persist();
+  renderAdminDebtList();
+  renderCoffeeDebtSummary();
+  renderCoffeeDebtList();
+  showToast('Status diperbarui', `GW ${gw} ditandai ${nowPaid?'lunas':'belum lunas'}.`, 'ok');
+}
+
+function renderAdminDebtList(){
+  const box = document.getElementById('admin-debt-list');
+  if(!box) return;
+  const debts = computeCoffeeDebts();
+  if(!debts.length){
+    box.innerHTML = `<div class="empty-state"><div class="glyph">&#9749;</div><p>Belum ada Game Week yang tercatat.</p></div>`;
+    return;
+  }
+  box.innerHTML = `<div class="debt-list">` + debts.map(d=>{
+    return `<div class="debt-row ${d.paid?'paid':'unpaid'}">
+      <div class="debt-gw">GW${d.gw}</div>
+      <div class="debt-side"><div><span class="lbl">Bayar</span><span class="name" style="color:var(--pink-ink);">${escapeHtml(d.loser)}</span></div></div>
+      <div class="debt-arrow">&#8594;</div>
+      <div class="debt-side"><div><span class="lbl">Ke</span><span class="name" style="color:var(--green-ink);">${escapeHtml(d.winner)}</span></div></div>
+      <button class="debt-toggle-btn ${d.paid?'mark-unpaid':'mark-paid'}" onclick="toggleCoffeeDebt(${d.gw})">${d.paid ? 'Batalkan Lunas' : 'Tandai Lunas'}</button>
+    </div>`;
+  }).join('') + `</div>`;
+}
+
+function renderAuditLog(){
+  const box = document.getElementById('audit-log-list');
+  if(!box) return;
+  const log = state.auditLog || [];
+  if(!log.length){
+    box.innerHTML = `<div class="empty-state"><div class="glyph">&#128220;</div><p>Belum ada aktivitas tercatat.</p></div>`;
+    return;
+  }
+  box.innerHTML = log.map(item=>{
+    const d = new Date(item.ts);
+    const timeStr = d.toLocaleDateString('id-ID',{day:'2-digit',month:'short'}) + ' ' + d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+    return `<div class="audit-item ${item.level}">
+      <div class="audit-head">
+        <span class="audit-action">${escapeHtml(item.action)}</span>
+        <span class="audit-badge ${item.level}">${item.level==='ok'?'Berhasil':item.level==='warn'?'Peringatan':'Gagal'}</span>
+        <span class="audit-time">${timeStr}</span>
+      </div>
+      <div class="audit-detail">${escapeHtml(item.detail)}</div>
+    </div>`;
+  }).join('');
+}
+
+async function clearAuditLog(){
+  if(!confirm('Hapus semua riwayat audit log? Ini tidak bisa dibatalkan.')) return;
+  state.auditLog = [];
+  await persist();
+  renderAuditLog();
+  showToast('Audit log dibersihkan', 'Semua riwayat lama telah dihapus.', 'ok');
+}
+
+function renderAll(){ renderHero(); renderKlasemen(); renderMingguan(); renderManagerRoster(); renderCoffeeDebtSummary(); renderCoffeeDebtList(); }
+
+async function init(){
+  await loadState();
+  await loadThemePref();
+  selectedWeeklyGW = getMaxFilledGW() || 1;
+  initTabs();
+  initH2HSubtabs();
+  renderAll();
+  renderTrendToggles();
+  populateGwSelects();
+  renderDeadlineBanner();
+  fetchNextDeadline();
+
+  document.getElementById('btn-process').onclick = processJsonPaste;
+  document.getElementById('btn-autotry').onclick = ()=> tryAutoFetch(false);
+  document.getElementById('btn-clear-json').onclick = ()=>{ document.getElementById('json-input').value=''; };
+  document.getElementById('btn-save-manual').onclick = saveManualScores;
+  document.getElementById('gw-select-manual').onchange = renderManualRoster;
+  document.getElementById('btn-save-managers').onclick = saveManagers;
+  document.getElementById('chk-auto-refresh').onchange = toggleAutoRefresh;
+  document.getElementById('btn-save-pin').onclick = savePin;
+  document.getElementById('btn-save-proxy').onclick = saveCustomProxy;
+  document.getElementById('btn-clear-audit').onclick = clearAuditLog;
+  document.getElementById('btn-backup-download').onclick = downloadBackup;
+  document.getElementById('btn-backup-restore').onclick = restoreBackup;
+  document.getElementById('btn-h2h-autotry').onclick = ()=> h2hTryAutoFetch(false);
+  document.getElementById('btn-h2h-process').onclick = h2hProcessJsonPaste;
+  document.getElementById('btn-h2h-clear').onclick = ()=>{ document.getElementById('h2h-json-input').value=''; };
+  document.getElementById('h2h-filter-team').onchange = renderH2H;
+  document.getElementById('h2h-filter-gw').onchange = renderH2H;
+  document.getElementById('btn-h2h-reset').onclick = ()=>{
+    document.getElementById('h2h-filter-team').value = '';
+    document.getElementById('h2h-filter-gw').value = '';
+    renderH2H();
+  };
+  document.getElementById('btn-h2h-standings-autotry').onclick = ()=> h2hStandingsTryAutoFetch(false);
+  document.getElementById('btn-h2h-standings-process').onclick = h2hStandingsProcessJsonPaste;
+  document.getElementById('btn-h2h-standings-clear').onclick = ()=>{ document.getElementById('h2h-standings-json-input').value=''; };
+  applyAutoRefreshSetting();
+}
+
+init();
+</script>
+</body>
+</html>
