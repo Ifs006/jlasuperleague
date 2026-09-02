@@ -1400,19 +1400,19 @@ const N_GW = 38;
 const STORAGE_KEY = "liga-kopi-2026-27-v2";
 const BADGE_COLORS = ["#37003C","#00707A","#A3003B","#5A3E85","#0B5F3A","#8A4B00","#3D3D8F","#7A1F3D"];
 
-const DEFAULT_TEAMS = ["PSGR","faishal's Team","Tianlala","Kamileung FC","Sedotan Aqua","jowwwtim","kokorobet FC","helmoni fc","ARFantasy","CIMSEL UNITED","Alunos 2.0","Grindboys","JosJis FC","Gurandilepce","komodomodol FC","Olahlah Fc","Katapang_Pride","Kontol FC","Maung FC","Bubble Gummy","DOBHAN FC","Brancos FC","Blink 182","theluckyone","PROJECT ALMANAC","Backlight FC","Welldone","SSB Fak Fak","Tarkam Fried Chicken"];
+const DEFAULT_TEAMS = ["Catalunya Blue Pride","Sobat Damur Utd","Aman Jaya FC","Cikoneng FC","Hala Madrid !","kujang bujang","kim.bdg","Muceckyl FC","The Blues","warga sipil FC","Pabz FC","sikasep FC","ga habis fikir fc","Dennis Rionaldo","Gurandilepce"];
 
-const GW1_POINTS = {"PSGR":74,"Tianlala":64,"JosJis FC":64,"faishal's Team":62,"Kamileung FC":58,"Sedotan Aqua":58,"jowwwtim":57,"helmoni fc":57,"kokorobet FC":57,"Alunos 2.0":54,"CIMSEL UNITED":54,"Kontol FC":54,"ARFantasy":54,"Olahlah Fc":53,"Grindboys":50,"Maung FC":48,"komodomodol FC":47,"Gurandilepce":47,"Katapang_Pride":46,"Bubble Gummy":45,"DOBHAN FC":42,"theluckyone":41,"Brancos FC":39,"Blink 182":37,"Backlight FC":35,"PROJECT ALMANAC":35};
+const GW1_POINTS = {"Catalunya Blue Pride":47,"Sobat Damur Utd":48,"Aman Jaya FC":54,"Cikoneng FC":54,"Hala Madrid !":51,"kujang bujang":59,"kim.bdg":58,"Muceckyl FC":56,"The Blues":28,"warga sipil FC":60,"Pabz FC":52,"sikasep FC":40,"ga habis fikir fc":40,"Dennis Rionaldo":42,"Gurandilepce":47};
 const CLUB_BADGES = {
-  "PSGR":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/4473842/2f0c8738-abfe-4f50-8ba3-acf96524e206.png",
-  "JosJis FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7769856/84600082-051c-40d8-ae54-0bf23841a52b.png",
-  "CIMSEL UNITED":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/3840511/42fcba34-296e-41ff-a30b-86e602a6c0be.png",
-  "Kontol FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/6962029/e019337f-5f69-4162-801e-72ecbaa761c4.png",
-  "Grindboys":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/8414036/ec8c1d0e-f179-4860-a4f5-44f3b9329266.png",
-  "komodomodol FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/1691342/a75e60c1-290e-4928-bbf7-64f624291422.png",
-  "Bubble Gummy":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/3844902/0dcdd86e-3859-4ee3-ae71-a62426bf3a1b.png",
-  "DOBHAN FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/2772961/fdbdeaf5-644e-4e3a-92b5-9ef3bc405fda.png"
-};
+    "warga sipil FC": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7958631/47e00953-37cf-43b9-a2f9-88250bec86bc.png",
+    "Catalunya Blue Pride": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/376558/c7609f09-35cb-46ea-a9a8-8dd79b09862f.png",
+    "Aman Jaya FC": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/2788293/6dd16c79-60f5-487b-a6cd-6cb37b7f591d.png",
+    "Hala Madrid !": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7511448/0768ff59-93f3-4da3-86f9-878ee800cff0.png",
+    "kimbdg.fc": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7678731/fa0934c8-05b4-4f6c-9fe3-0756b8d47b6b.png",
+    "Muceckyl FC": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7721492/e9b2a2a6-5835-4749-a10e-6f67eef95cf2.png",
+    "Cikoneng FC": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7492729/4755a4e0-6733-4719-a935-90c12ad347b7.png",
+    "sikasep FC": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/8076674/116cd940-f7e4-4e85-a864-f26a5ddd5703.png"
+  },
 const DATA_VERSION = 17;
 const KNOWN_ENTRY_IDS = { "Sedotan Aqua": 8198726 }; // dulu "Pending Moderation" -> "Change Name" -> "Sedotan Aqua", manager: Baltasario Saga
 const DEFAULT_CUSTOM_PROXY = "https://ligakopi.ikokrumah.workers.dev/?url=";
@@ -1423,22 +1423,26 @@ const WELLDONE_GW1_POINTS = 110; // poin Welldone di GW1 (masuk total musim, tap
 // yang belum diinput -- masukkan manual lewat Admin Mode -> Manual Point -> kolom "Kurang" untuk GW2.
 // Diperbarui via relay pribadi (ligakopi.ikokrumah.workers.dev).
 const GW2_POINTS = {
-  "Welldone":30, "Grindboys":52, "JosJis FC":34, "CIMSEL UNITED":42, "PSGR":17, "Alunos 2.0":35,
-  "jowwwtim":32, "Tianlala":23, "faishal's Team":24, "Maung FC":37, "ARFantasy":31, "komodomodol FC":37,
-  "Kamileung FC":24, "Kontol FC":25, "helmoni fc":25, "Bubble Gummy":31, "Sedotan Aqua":17, "Gurandilepce":28,
-  "kokorobet FC":17, "theluckyone":32, "Olahlah Fc":19, "Backlight FC":32, "Katapang_Pride":17, "Brancos FC":21,
-  "DOBHAN FC":10, "SSB Fak Fak":52, "PROJECT ALMANAC":14, "Blink 182":14, "Tarkam Fried Chicken":24
-};
+  "Catalunya Blue Pride":104,"Sobat Damur Utd":113,"Aman Jaya FC":106,"Cikoneng FC":62,"Hala Madrid !":97,"kujang bujang":66,"kim.bdg":88,"Muceckyl FC":81,"The Blues":59,"warga sipil FC":119,"Pabz FC":85,"sikasep FC":80,"ga habis fikir fc":61,"Dennis Rionaldo":64,"Gurandilepce":103};
 
 const MANAGER_NAMES = {
-  "Alunos 2.0":"Gilang Gumilar", "ARFantasy":"Achmad Ramdani", "Backlight FC":"Malwan Fauzan", "Blink 182":"Ilyas Muntaha",
-  "Brancos FC":"Faisal Auliaghani", "Bubble Gummy":"Fahmi Mohamad", "CIMSEL UNITED":"Maulana Abdul", "DOBHAN FC":"Dani R",
-  "faishal's Team":"Faishal Abyan", "Grindboys":"Ruby Wndr", "Gurandilepce":"Ferryan Reynaldi", "helmoni fc":"Isom Mutaqin",
-  "JosJis FC":"Ignatius Aryo", "jowwwtim":"Anggi Suprayogi", "Kamileung FC":"Pipin Effendy", "Katapang_Pride":"Katapang Pride",
-  "kokorobet FC":"Firan Firhan", "komodomodol FC":"Hafid Siddiq", "Kontol FC":"Diar Malik", "Maung FC":"Wahyudin Wahyudin",
-  "Olahlah Fc":"Miftahul Reza", "Sedotan Aqua":"Baltasario Saga", "PROJECT ALMANAC":"Akbar Lazuardi",
-  "PSGR":"Rezi Hafiz", "theluckyone":"Lucky One", "Tianlala":"Agil Kusuma",
-  "Welldone":"Wildan Pratama", "SSB Fak Fak":"Ilham Satria", "Tarkam Fried Chicken":"Irham Ulya"
+    "Gurandilepce": "Ferryan Reynaldi",
+    "warga sipil FC": "Agung Cahyadi",
+    "Catalunya Blue Pride": "Gian Ginanjar Agustian",
+    "Sobat Damur Utd": "Ervan Prasetyo",
+    "Aman Jaya FC": "Fakhril Putra",
+    "Hala Madrid !": "Rendra Widjaya Kusumah",
+    "kimbdg.fc": "Algi Septian",
+    "Pabz FC": "Bayu Firdaus",
+    "Muceckyl FC": "Hendi Heryawan",
+    "kujang bujang": "Muchammad Fauzy",
+    "Cikoneng FC": "Roby Nugraha",
+    "sikasep FC": "Shodikin Kusno",
+    "Dennis Rionaldo": "Dennis Rionaldo",
+    "ga habis fikir fc": "Riki Irfanh",
+    "The Blues": "Ivan Fs",
+    "Paramuda FC": "Ginanjar Nugraha",
+    "sleek&seek": "Sandi Santoni"
 };
 
 function deriveManager(teamName){
@@ -1448,7 +1452,556 @@ function deriveManager(teamName){
   return parts.slice(0,2).map(p=> p.replace(/[^a-zA-Z0-9'\-]/g,'') || p).join(' ');
 }
 
-const BACKUP_SNAPSHOT = {"teams":["PSGR","faishal's Team","Tianlala","Kamileung FC","Sedotan Aqua","jowwwtim","kokorobet FC","helmoni fc","ARFantasy","CIMSEL UNITED","Alunos 2.0","Grindboys","JosJis FC","Gurandilepce","komodomodol FC","Olahlah Fc","Katapang_Pride","Kontol FC","Maung FC","Bubble Gummy","DOBHAN FC","Brancos FC","Blink 182","theluckyone","PROJECT ALMANAC","Backlight FC","Welldone","SSB Fak Fak","Tarkam Fried Chicken"],"scores":{"PSGR":{"1":{"pts":74,"cost":0},"2":{"pts":75,"cost":0,"captain":0,"bench":0}},"faishal's Team":{"1":{"pts":62,"cost":0},"2":{"pts":41,"cost":0,"captain":0,"bench":0}},"Tianlala":{"1":{"pts":64,"cost":0},"2":{"pts":60,"cost":0,"captain":0,"bench":0}},"Kamileung FC":{"1":{"pts":58,"cost":0},"2":{"pts":90,"cost":0,"captain":0,"bench":0}},"Sedotan Aqua":{"1":{"pts":58,"cost":0},"2":{"pts":92,"cost":0,"captain":0,"bench":0}},"jowwwtim":{"1":{"pts":57,"cost":0},"2":{"pts":70,"cost":0,"captain":0,"bench":0}},"kokorobet FC":{"1":{"pts":57,"cost":0},"2":{"pts":83,"cost":0,"captain":0,"bench":0}},"helmoni fc":{"1":{"pts":57,"cost":0},"2":{"pts":81,"cost":0,"captain":0,"bench":0}},"ARFantasy":{"1":{"pts":54,"cost":0},"2":{"pts":82,"cost":0,"captain":0,"bench":0}},"CIMSEL UNITED":{"1":{"pts":54,"cost":0},"2":{"pts":51,"cost":0,"captain":0,"bench":0}},"Alunos 2.0":{"1":{"pts":54,"cost":0},"2":{"pts":55,"cost":0,"captain":0,"bench":0}},"Grindboys":{"1":{"pts":50,"cost":0},"2":{"pts":99,"cost":0,"captain":0,"bench":0}},"JosJis FC":{"1":{"pts":64,"cost":0},"2":{"pts":61,"cost":0,"captain":0,"bench":0}},"Gurandilepce":{"1":{"pts":47,"cost":0},"2":{"pts":92,"cost":0,"captain":0,"bench":0}},"komodomodol FC":{"1":{"pts":47,"cost":0},"2":{"pts":88,"cost":0,"captain":0,"bench":0}},"Olahlah Fc":{"1":{"pts":53,"cost":0},"2":{"pts":80,"cost":0,"captain":0,"bench":0}},"Katapang_Pride":{"1":{"pts":46,"cost":0},"2":{"pts":87,"cost":0,"captain":0,"bench":0}},"Kontol FC":{"1":{"pts":54,"cost":0},"2":{"pts":66,"cost":0,"captain":0,"bench":0}},"Maung FC":{"1":{"pts":48,"cost":0},"2":{"pts":63,"cost":0,"captain":0,"bench":0}},"Bubble Gummy":{"1":{"pts":45,"cost":0},"2":{"pts":75,"cost":0,"captain":0,"bench":0}},"DOBHAN FC":{"1":{"pts":42,"cost":0},"2":{"pts":39,"cost":0,"captain":0,"bench":0}},"Brancos FC":{"1":{"pts":39,"cost":0},"2":{"pts":60,"cost":0,"captain":0,"bench":0}},"Blink 182":{"1":{"pts":37,"cost":0},"2":{"pts":70,"cost":0,"captain":0,"bench":0}},"theluckyone":{"1":{"pts":41,"cost":0},"2":{"pts":61,"cost":0,"captain":0,"bench":0}},"PROJECT ALMANAC":{"1":{"pts":35,"cost":0},"2":{"pts":90,"cost":0,"captain":0,"bench":0}},"Backlight FC":{"1":{"pts":35,"cost":0},"2":{"pts":45,"cost":0,"captain":0,"bench":0}},"Welldone":{"1":{"pts":110,"cost":0,"captain":0,"bench":0},"2":{"pts":62,"cost":0,"captain":0,"bench":0}},"SSB Fak Fak":{"2":{"pts":75,"cost":0,"captain":0,"bench":0}},"Tarkam Fried Chicken":{"2":{"pts":51,"cost":0,"captain":0,"bench":0}}},"managers":{"PSGR":"Rezi Hafiz","faishal's Team":"Faishal Abyan","Tianlala":"Agil Kusuma","Kamileung FC":"Pipin Effendy","Sedotan Aqua":"Baltasario Saga","jowwwtim":"Anggi Suprayogi","kokorobet FC":"Firan Firhan","helmoni fc":"Isom Mutaqin","ARFantasy":"Achmad Ramdani","CIMSEL UNITED":"Maulana Abdul","Alunos 2.0":"Gilang Gumilar","Grindboys":"Ruby Wndr","JosJis FC":"Ignatius Aryo","Gurandilepce":"Ferryan Reynaldi","komodomodol FC":"Hafid Siddiq","Olahlah Fc":"Miftahul Reza","Katapang_Pride":"Katapang Pride","Kontol FC":"Diar Malik","Maung FC":"Wahyudin Wahyudin","Bubble Gummy":"Fahmi Mohamad","DOBHAN FC":"Dani R","Brancos FC":"Faisal Auliaghani","Blink 182":"Ilyas Muntaha","theluckyone":"Lucky One","PROJECT ALMANAC":"Akbar Lazuardi","Backlight FC":"Malwan Fauzan","Welldone":"Wildan Pratama","SSB Fak Fak":"Ilham Satria","Tarkam Fried Chicken":"Irham Ulya"},"clubBadges":{"PSGR":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/4473842/2f0c8738-abfe-4f50-8ba3-acf96524e206.png","JosJis FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7769856/84600082-051c-40d8-ae54-0bf23841a52b.png","CIMSEL UNITED":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/3840511/42fcba34-296e-41ff-a30b-86e602a6c0be.png","Kontol FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/6962029/e019337f-5f69-4162-801e-72ecbaa761c4.png","Grindboys":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/8414036/ec8c1d0e-f179-4860-a4f5-44f3b9329266.png","komodomodol FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/1691342/a75e60c1-290e-4928-bbf7-64f624291422.png","Bubble Gummy":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/3844902/0dcdd86e-3859-4ee3-ae71-a62426bf3a1b.png","DOBHAN FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/2772961/fdbdeaf5-644e-4e3a-92b5-9ef3bc405fda.png","kokorobet FC":"https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/6389042/f2331b90-ce4d-4158-b3b1-e2d92952207a.png"},"entryMap":{"2066139":"Welldone","2301043":"Katapang_Pride","2839268":"Bubble Gummy","3058269":"Kamileung FC","3840511":"CIMSEL UNITED","3937511":"theluckyone","4473842":"PSGR","5548027":"Tianlala","5673843":"Blink 182","5896591":"komodomodol FC","5929119":"Olahlah Fc","5950338":"Brancos FC","5956185":"Gurandilepce","6039817":"Kontol FC","6224589":"faishal's Team","6389042":"kokorobet FC","6596539":"PROJECT ALMANAC","6669682":"DOBHAN FC","6794979":"Grindboys","7522529":"helmoni fc","7550025":"Alunos 2.0","7624385":"Maung FC","7764470":"Backlight FC","7767821":"ARFantasy","7768172":"jowwwtim","7769856":"JosJis FC","8198726":"Sedotan Aqua","9697240":"SSB Fak Fak","9908242":"Tarkam Fried Chicken"},"h2h":{"1":[{"teamA":"theluckyone","teamB":"Blink 182","ptsA":41,"ptsB":37,"isBye":false},{"teamA":"ARFantasy","teamB":"Olahlah Fc","ptsA":54,"ptsB":53,"isBye":false},{"teamA":"komodomodol FC","teamB":"Sedotan Aqua","ptsA":47,"ptsB":58,"isBye":false},{"teamA":"Bubble Gummy","teamB":"PSGR","ptsA":45,"ptsB":74,"isBye":false},{"teamA":"Katapang_Pride","teamB":"PROJECT ALMANAC","ptsA":46,"ptsB":35,"isBye":false},{"teamA":"Kontol FC","teamB":"CIMSEL UNITED","ptsA":54,"ptsB":54,"isBye":false},{"teamA":"helmoni fc","teamB":"Maung FC","ptsA":57,"ptsB":48,"isBye":false},{"teamA":"Alunos 2.0","teamB":"Grindboys","ptsA":54,"ptsB":50,"isBye":false},{"teamA":"Kamileung FC","teamB":"jowwwtim","ptsA":58,"ptsB":57,"isBye":false},{"teamA":"JosJis FC","teamB":"Gurandilepce","ptsA":64,"ptsB":47,"isBye":false},{"teamA":"Tianlala","teamB":"kokorobet FC","ptsA":64,"ptsB":57,"isBye":false},{"teamA":"DOBHAN FC","teamB":"faishal's Team","ptsA":44,"ptsB":62,"isBye":false},{"teamA":"Backlight FC","teamB":"Brancos FC","ptsA":35,"ptsB":39,"isBye":false}],"2":[{"teamA":"Blink 182","teamB":"Backlight FC","ptsA":63,"ptsB":45,"isBye":false},{"teamA":"Brancos FC","teamB":"DOBHAN FC","ptsA":60,"ptsB":39,"isBye":false},{"teamA":"faishal's Team","teamB":"Tianlala","ptsA":41,"ptsB":59,"isBye":false},{"teamA":"kokorobet FC","teamB":"JosJis FC","ptsA":83,"ptsB":61,"isBye":false},{"teamA":"Gurandilepce","teamB":"Kamileung FC","ptsA":92,"ptsB":90,"isBye":false},{"teamA":"jowwwtim","teamB":"Alunos 2.0","ptsA":70,"ptsB":52,"isBye":false},{"teamA":"Grindboys","teamB":"helmoni fc","ptsA":99,"ptsB":77,"isBye":false},{"teamA":"Maung FC","teamB":"Kontol FC","ptsA":65,"ptsB":66,"isBye":false},{"teamA":"CIMSEL UNITED","teamB":"Katapang_Pride","ptsA":47,"ptsB":87,"isBye":false},{"teamA":"PROJECT ALMANAC","teamB":"Bubble Gummy","ptsA":85,"ptsB":75,"isBye":false},{"teamA":"PSGR","teamB":"komodomodol FC","ptsA":75,"ptsB":88,"isBye":false},{"teamA":"Sedotan Aqua","teamB":"ARFantasy","ptsA":92,"ptsB":82,"isBye":false},{"teamA":"Olahlah Fc","teamB":"theluckyone","ptsA":76,"ptsB":61,"isBye":false}]},"nextDeadline":{"id":3,"name":"Gameweek 3","deadline":"2026-09-04T17:30:00Z"},"customProxyBase":"https://ligakopi.ikokrumah.workers.dev/?url=","adminPin":"252525","autoRefresh":true,"h2hStandings":[{"team":"PSGR","manager":"Rezi Hafiz","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":74,"total":3,"rank":1},{"team":"Tianlala","manager":"agil kusuma","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":64,"total":3,"rank":2},{"team":"JosJis FC","manager":"Ignatius Aryo Bimo Danudoro","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":64,"total":3,"rank":2},{"team":"faishal's Team","manager":"faishal abyan murtadho","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":62,"total":3,"rank":4},{"team":"Kamileung FC","manager":"pipin effendy","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":58,"total":3,"rank":5},{"team":"Sedotan Aqua","manager":"baltasario saga","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":58,"total":3,"rank":5},{"team":"helmoni fc","manager":"Isom Mutaqin","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":57,"total":3,"rank":7},{"team":"Alunos 2.0","manager":"Gilang Gumilar","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":54,"total":3,"rank":8},{"team":"ARFantasy","manager":"Achmad Ramdani","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":54,"total":3,"rank":8},{"team":"Katapang_Pride","manager":"Katapang Pride","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":46,"total":3,"rank":10},{"team":"theluckyone","manager":"lucky One","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":41,"total":3,"rank":11},{"team":"Brancos FC","manager":"faisal Auliaghani","played":1,"won":1,"drawn":0,"lost":0,"pointsFor":39,"total":3,"rank":12},{"team":"CIMSEL UNITED","manager":"Maulana abdul Cholik","played":1,"won":0,"drawn":1,"lost":0,"pointsFor":54,"total":1,"rank":13},{"team":"Kontol FC","manager":"Diar Malik","played":1,"won":0,"drawn":1,"lost":0,"pointsFor":54,"total":1,"rank":13},{"team":"kokorobet FC","manager":"Firan Firhan Dani","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":57,"total":0,"rank":15},{"team":"jowwwtim","manager":"Anggi Suprayogi","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":57,"total":0,"rank":15},{"team":"Olahlah Fc","manager":"Miftahul Reza Alqadri","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":53,"total":0,"rank":17},{"team":"Grindboys","manager":"Ruby wndr","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":50,"total":0,"rank":18},{"team":"Maung FC","manager":"wahyudin wahyudin","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":48,"total":0,"rank":19},{"team":"komodomodol FC","manager":"Hafid Siddiq","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":47,"total":0,"rank":20},{"team":"Gurandilepce","manager":"Ferryan Reynaldi Akbar","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":47,"total":0,"rank":20},{"team":"Bubble Gummy","manager":"Fahmi Mohamad Iqbal","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":45,"total":0,"rank":22},{"team":"DOBHAN FC","manager":"dani r","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":44,"total":0,"rank":23},{"team":"Blink 182","manager":"ilyas muntaha aiba","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":37,"total":0,"rank":24},{"team":"PROJECT ALMANAC","manager":"Akbar Lazuardi","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":35,"total":0,"rank":25},{"team":"Backlight FC","manager":"Malwan Fauzan","played":1,"won":0,"drawn":0,"lost":1,"pointsFor":35,"total":0,"rank":25}]};
+const BACKUP_SNAPSHOT = {  "teams": [
+    "warga sipil FC",
+    "Catalunya Blue Pride",
+    "Sobat Damur Utd",
+    "Aman Jaya FC",
+    "Gurandilepce",
+    "Hala Madrid !",
+    "kimbdg.fc",
+    "Pabz FC",
+    "Muceckyl FC",
+    "kujang bujang",
+    "Cikoneng FC",
+    "sikasep FC",
+    "Dennis Rionaldo",
+    "ga habis fikir fc",
+    "The Blues"
+  ],
+  "scores": {
+    "Gurandilepce": {
+      "1": {
+        "pts": 47,
+        "cost": 0
+      },
+      "2": {
+        "pts": 103,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "warga sipil FC": {
+            "1": {
+        "pts": 60,
+        "cost": 0
+      },
+      "2": {
+        "pts": 119,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "Catalunya Blue Pride": {
+      "1": {
+        "pts": 74,
+        "cost": 0
+      },
+      "2": {
+        "pts": 104,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "Sobat Damur Utd": {
+            "1": {
+        "pts": 48,
+        "cost": 0
+      },
+      "2": {
+        "pts": 113,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "Aman Jaya FC": {
+      "1": {
+        "pts": 54,
+        "cost": 0
+      },
+      "2": {
+        "pts": 106,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "Hala Madrid !": {
+            "1": {
+        "pts": 51,
+        "cost": 0
+      },
+      "2": {
+        "pts": 97,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "kimbdg.fc": {
+      "1": {
+        "pts": 58,
+        "cost": 0
+      },
+      "2": {
+        "pts": 88,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "Pabz FC": {
+      "1": {
+        "pts": 52,
+        "cost": 0
+      },
+      "2": {
+        "pts": 85,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "Muceckyl FC": {
+      "1": {
+        "pts": 56,
+        "cost": 0
+      },
+      "2": {
+        "pts": 81,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "kujang bujang": {
+            "1": {
+        "pts": 59,
+        "cost": 0
+      },
+      "2": {
+        "pts": 66,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "Cikoneng FC": {
+      "1": {
+        "pts": 54,
+        "cost": 0
+      },
+      "2": {
+        "pts": 62,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "sikasep FC": {
+      "1": {
+        "pts": 40,
+        "cost": 0
+      },
+      "2": {
+        "pts": 80,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "Dennis Rionaldo": {
+      "1": {
+        "pts": 42,
+        "cost": 0
+      },
+      "2": {
+        "pts": 64,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "ga habis fikir fc": {
+      "1": {
+        "pts": 40,
+        "cost": 0
+      },
+      "2": {
+        "pts": 61,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    },
+    "The Blues": {
+            "1": {
+        "pts": 28,
+        "cost": 0
+      },
+      "2": {
+        "pts": 59,
+        "cost": 0,
+        "captain": 0,
+        "bench": 0
+      }
+    }
+  },
+  "managers": {
+    "Gurandilepce": "Ferryan Reynaldi",
+    "warga sipil FC": "Agung Cahyadi",
+    "Catalunya Blue Pride": "Gian Ginanjar Agustian",
+    "Sobat Damur Utd": "Ervan Prasetyo",
+    "Aman Jaya FC": "Fakhril Putra",
+    "Hala Madrid !": "Rendra Widjaya Kusumah",
+    "kimbdg.fc": "Algi Septian",
+    "Pabz FC": "Bayu Firdaus",
+    "Muceckyl FC": "Hendi Heryawan",
+    "kujang bujang": "Muchammad Fauzy",
+    "Cikoneng FC": "Roby Nugraha",
+    "sikasep FC": "Shodikin Kusno",
+    "Dennis Rionaldo": "Dennis Rionaldo",
+    "ga habis fikir fc": "Riki Irfanh",
+    "The Blues": "Ivan Fs",
+    "Paramuda FC": "Ginanjar Nugraha",
+    "sleek&seek": "Sandi Santoni"
+  },
+  "clubBadges": {
+    "warga sipil FC": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7958631/47e00953-37cf-43b9-a2f9-88250bec86bc.png",
+    "Catalunya Blue Pride": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/376558/c7609f09-35cb-46ea-a9a8-8dd79b09862f.png",
+    "Aman Jaya FC": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/2788293/6dd16c79-60f5-487b-a6cd-6cb37b7f591d.png",
+    "Hala Madrid !": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7511448/0768ff59-93f3-4da3-86f9-878ee800cff0.png",
+    "kimbdg.fc": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7678731/fa0934c8-05b4-4f6c-9fe3-0756b8d47b6b.png",
+    "Muceckyl FC": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7721492/e9b2a2a6-5835-4749-a10e-6f67eef95cf2.png",
+    "Cikoneng FC": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/7492729/4755a4e0-6733-4719-a935-90c12ad347b7.png",
+    "sikasep FC": "https://fantasy.premierleague.com/gcs/plfpl-production-adobe-approved/plfpl-production/8076674/116cd940-f7e4-4e85-a864-f26a5ddd5703.png"
+  },
+  "entryMap": {
+    "211967": "Catalunya Blue Pride",
+    "1232817": "Sobat Damur Utd",
+    "2788293": "Aman Jaya FC",
+    "2839268": "Bubble Gummy",
+    "7492729": "Cikoneng FC",
+    "7511448": "Hala Madrid !",
+    "7656385": "kujang bujang",
+    "7678731": "kimbdg.fc",
+    "7721492": "Muceckyl FC",
+    "7834233": "The Blues",
+    "7958631": "warga sipil FC",
+    "8021235": "Pabz FC",
+    "8076674": "sikasep FC",
+    "8155528": "ga habis fikir fc",
+    "8486749": "Dennis Rionaldo",
+    "8521875": "Gurandilepce",
+    "3807321":"Paramuda FC",
+    "4528890":"sleek&seek"},
+  "h2h": {
+    "1": [
+      {
+        "teamA": "Sobat Damur Utd",
+        "teamB": "Catalunya Blue Pride",
+        "ptsA": 48,
+        "ptsB": 74,
+        "isBye": false
+      },
+      {
+        "teamA": "Gurandilepce",
+        "teamB": "Paramuda FC",
+        "ptsA": 47,
+        "ptsB": 36,
+        "isBye": false
+      },
+      {
+        "teamA": "Pabz FC",
+        "teamB": "Cikoneng FC",
+        "ptsA": 52,
+        "ptsB": 54,
+        "isBye": false
+      },
+      {
+        "teamA": "The Blues",
+        "teamB": "Sleek&Seek",
+        "ptsA": 28,
+        "ptsB": 63,
+        "isBye": false
+      },
+      {
+        "teamA": "Muceckyl FC",
+        "teamB": "Hala Madrid !",
+        "ptsA": 56,
+        "ptsB": 51,
+        "isBye": false
+      },
+      {
+        "teamA": "ga habis fikir fc",
+        "teamB": "Aman Jaya FC",
+        "ptsA": 40,
+        "ptsB": 54,
+        "isBye": false
+      },
+      {
+        "teamA": "kujang bujang",
+        "teamB": "Dennis Rionaldo",
+        "ptsA": 59,
+        "ptsB": 42,
+        "isBye": false
+      },
+      {
+        "teamA": "sikasep FC",
+        "teamB": "warga sipil FC",
+        "ptsA": 40,
+        "ptsB": 60,
+        "isBye": false
+      }
+    ],
+    "2": [
+      {
+        "teamA": "Catalunya Blue Pride",
+        "teamB": "sikasep FC",
+        "ptsA": 104,
+        "ptsB": 72,
+        "isBye": false
+      },
+      {
+        "teamA": "warga sipil FC",
+        "teamB": "kujang bujang",
+        "ptsA": 119,
+        "ptsB": 66,
+        "isBye": false
+      },
+      {
+        "teamA": "Dennis Rionaldo",
+        "teamB": "ga habis fikir fc",
+        "ptsA": 64, 
+        "ptsB": 61,
+        "isBye": false
+      },
+      {
+        "teamA": "Aman Jaya FC",
+        "teamB": "Muceckyl FC",
+        "ptsA": 106,
+        "ptsB": 81,
+        "isBye": false
+      },
+      {
+        "teamA": "Hala Madrid !",
+        "teamB": "The Blues",
+        "ptsA": 97,
+        "ptsB": 55,
+        "isBye": false
+      },
+      {
+        "teamA": "sleek&seek",
+        "teamB": "Pabz FC",
+        "ptsA": 92,
+        "ptsB": 85,
+        "isBye": false
+      },
+      {
+        "teamA": "Cikoneng FC",
+        "teamB": "Gurandilepce",
+        "ptsA": 62,
+        "ptsB": 103,
+        "isBye": false
+      },
+      {
+        "teamA": "Paramuda FC",
+        "teamB": "Sobat Damur Utd",
+        "ptsA": 73,
+        "ptsB": 113,
+        "isBye": false
+      }
+    ]
+  },
+  "nextDeadline": {
+    "id": 3,
+    "name": "Gameweek 3",
+    "deadline": "2026-09-04T17:30:00Z"
+  },
+  "customProxyBase": "https://ligakopi.ikokrumah.workers.dev/?url=",
+  "adminPin": "252525",
+  "autoRefresh": true,
+  "h2hStandings": [
+    {
+      "team": "warga sipil FC",
+      "manager": "Agung Cahyadi",
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "pointsFor": 179,
+      "total": 6,
+      "rank": 1
+    },
+    {
+      "team": "Catalunya Blue Pride",
+      "manager": "Gian Ginanjar Agustian",
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "pointsFor": 178,
+      "total": 6,
+      "rank": 2
+    },
+    {
+      "team": "Aman Jaya FC",
+      "manager": "Fakril Putra",
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "pointsFor": 160,
+      "total": 6,
+      "rank": 3
+    },
+    {
+      "team": "sleek&seek",
+      "manager": "Sandi Santoni",
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "pointsFor": 155,
+      "total": 6,
+      "rank": 4
+    },
+    {
+      "team": "Gulandilepce",
+      "manager": "Ferryan Reynaldi Akbar",
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "pointsFor": 150,
+      "total": 6,
+      "rank": 5
+    },
+    {
+      "team": "Sobat Damur Utd",
+      "manager": "Ervan Prasetyo",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "pointsFor": 161,
+      "total": 3,
+      "rank": 6
+    },
+    {
+      "team": "Hala Madrid !",
+      "manager": "Rendra Widjaya Kusumah",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "pointsFor": 148,
+      "total": 3,
+      "rank": 7
+    },
+    {
+      "team": "Muceckyl FC",
+      "manager": "Hendi Heryawan",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "pointsFor": 137,
+      "total": 3,
+      "rank": 8
+    },
+    {
+      "team": "Kujang Bujang",
+      "manager": "Muchammad Fauzy",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "pointsFor": 125,
+      "total": 3,
+      "rank": 9
+    },
+    {
+      "team": "Cikoneng FC",
+      "manager": "Robby Nugraha",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "pointsFor": 116,
+      "total": 3,
+      "rank": 10
+    },
+    {
+      "team": "Dennis Rionaldo",
+      "manager": "Dennis Rionaldo",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "pointsFor": 102,
+      "total": 3,
+      "rank": 11
+    },
+    {
+      "team": "Pabz FC",
+      "manager": "Bayu Firdaus",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "pointsFor": 137,
+      "total": 0,
+      "rank": 12
+    },
+    {
+      "team": "sikasep FC",
+      "manager": "Shodikin Kusno",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "pointsFor": 112,
+      "total": 0,
+      "rank": 13
+    },
+    {
+      "team": "Paramuda FC",
+      "manager": "Ginanjar Nugraha",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "pointsFor": 109,
+      "total": 0,
+      "rank": 14
+    },
+    {
+      "team": "ga habis fikir fc",
+      "manager": "Riki Irfanh",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "pointsFor": 101,
+      "total": 0,
+      "rank": 15
+    },
+    {
+      "team": "The Blues",
+      "manager": "Ivan Fs",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "pointsFor": 83,
+      "total": 0,
+      "rank": 16
+    }]};
 
 function buildDefaultState(){
   // Data bawaan = snapshot backup terakhir (diupload admin), supaya instalasi baru
