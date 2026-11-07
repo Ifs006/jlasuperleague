@@ -1,0 +1,16 @@
+name = "jla-superleague"
+main = "worker/index.js"
+compatibility_date = "2026-03-01"
+
+[workflows]
+binding = "MY_WORKFLOW"
+class_name = "MyWorkflow"
+
+[durable_objects]
+bindings = [
+  { name = "WORKFLOW_STATUS", class_name = "WorkflowStatusDO" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["MyWorkflow", "WorkflowStatusDO"]
